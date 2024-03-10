@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Uzivatel> SignInManager
+@inject UserManager<Uzivatel> UserManager
+@model BP_TPWA.Models.TP
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@{
+    // Získání aktuálně přihlášeného uživatele
+    var currentUser = await UserManager.GetUserAsync(User);
+
+    // Získání hodnoty Úroveň
+    var uroven = currentUser?.Úroveň;
+}
+
+<h1>Vytvořit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            @if (uroven == 1)
+            {
+                
+                <div class="form-group mb-4">
+                    <label asp-for="Délka" class="control-label">Délka plánu</label>
+                    <select asp-for="Délka" class="form-control">
+                        <option value="1">1 měsíc</option>
+                        <option value="3">3 měsíce</option>
+                    </select>
+                    <span asp-validation-for="Délka" class="text-danger"></span>
+                </div>
+            } else
+            {
+                <div class="form-group mb-4">
+                    <label asp-for="Délka" class="control-label">Délka plánu</label>
+                    <select asp-for="Délka" class="form-control">
+                        <option value="1">1 měsíc</option>
+                        <option value="3">3 měsíce</option>
+                        <option value="6">6 měsíců</option>
+                    </select>
+                    <span asp-validation-for="Délka" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group mb-4">
+                <label asp-for="DruhTP" class="control-label">Cíl plánu</label>
+                <select asp-for="DruhTP" class="form-control">
+                    <option value="RV">Redukce váhy</option>
+                    <option value="BSH">Budování svalové hmoty</option>
+                    <option value="SR">Silový rozvoj</option>
+                </select>
+                <span asp-validation-for="DruhTP" class="text-danger"></span>
+            </div>
+            @if (uroven == 1)
+            {
+                <div class="form-group mb-4 d-none">
+                    <label asp-for="StylTP" class="control-label"></label>
+                    <select asp-for="StylTP" class="form-control" asp-items="ViewBag.UzivatelID">
+                        <option value="KR">Kruhový trénink</option>
+                    </select>
+                </div>
+            } else
+            {
+                
+                <div class="form-group mb-4">
+                    <label asp-for="StylTP" class="control-label">Styl plánu</label>
+                    <select asp-for="StylTP" class="form-control">
+                        <option value="VM">Velká + malá partie</option>
+                        <option value="PPL">Push Pull Legs</option>
+                    </select>
+                    <span asp-validation-for="StylTP" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group mb-4">
+                <label asp-for="PocetTreninkuZaTyden" class="control-label">Počet tréninků za týden</label>
+                <select asp-for="PocetTreninkuZaTyden" class="form-control">
+                    <option value="3">3 tréninky</option>
+                    <option value="4">4 tréninky</option>
+                    <option value="5">5 tréninků</option>
+                    <option value="6">6 tréninků</option>
+                </select>
+                <span asp-validation-for="PocetTreninkuZaTyden" class="text-danger"></span>
+            </div>
+           
+            
+            <div class="form-group mb-4 d-none">
+                <label asp-for="UzivatelID" class="control-label"></label>
+                <select asp-for="UzivatelID" class ="form-control" asp-items="ViewBag.UzivatelID"></select>
+            </div>
+            
+            <div class="form-group mb-4">
+                <input type="submit" value="Vytvořit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Zpět</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

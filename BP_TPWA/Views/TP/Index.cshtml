@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BP_TPWA.Models.TP>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!-- Odkazy na FullCalendar -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css" media="print" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+<script src="./js/cs.js"></script>
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Délka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DruhTP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StylTP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Délka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DruhTP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StylTP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div id="calendar"></div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            locale: 'cs',
+            header: {
+                left: 'prev, next today',
+                center: 'title',
+                right: 'month, basicWeek, basicDay'
+            },
+            defaultView: 'month',
+            events: [
+                {
+                    title: 'Trenink1',
+                    start: '2024-03-08',
+                    allDay: true
+                }
+            ]
+        }
+        )
+    }
+    )
+</script>
+}
