@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BP_TPWA.Data;
+using System.Security.Claims;
 using BP_TPWA.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Identity;
 
 namespace BP_TPWA.Controllers
 {
@@ -20,6 +22,8 @@ namespace BP_TPWA.Controllers
         {
             _context = context;
         }
+
+       
 
         public void SetDenTréninku(string userId, DayOfWeek den, bool trénink)
         {
@@ -41,11 +45,133 @@ namespace BP_TPWA.Controllers
             }
         }
 
+        public class GeneratorTréninkovýchDat
+        {
+            public static List<DateTime> VytvářeníDatumůTréninku(int tréninkyZaTýden, int týdny, DayOfWeek[] dnyTréninku)
+            {
+                if (dnyTréninku.Length == 0 || tréninkyZaTýden <= 0 || týdny <= 0)
+                {
+                    throw new ArgumentException("Invalid input parameters");
+                }
+
+                List<DateTime> dataTréninků = new List<DateTime>();
+
+                DateTime startovacíDatum = DateTime.Now.Date; // Zde nastavte počáteční datum podle potřeby
+                DayOfWeek dnes = startovacíDatum.DayOfWeek;
+                int dnyDoPondeli = (7 + (int)DayOfWeek.Monday - (int)dnes) % 7;
+                startovacíDatum = startovacíDatum.AddDays(dnyDoPondeli);
+
+                for (int týden = 0; týden < týdny; týden++)
+                {
+                    foreach (var denTréninku in dnyTréninku)
+                    {
+                        if((int)denTréninku == 0)
+                        {
+                            DateTime datumTréninku = startovacíDatum.AddDays((týden * 7) + (int)denTréninku + 6);
+                            dataTréninků.Add(datumTréninku);
+                        }
+                        else
+                        {
+
+                            DateTime datumTréninku = startovacíDatum.AddDays((týden * 7) + (int)denTréninku -1);
+                            dataTréninků.Add(datumTréninku);
+                        }
+                    }
+                }
+
+                return dataTréninků;
+            }
+        }
+
+        private string GetTypTreninkuVM(int cislodne)
+        {
+            // Implementujte logiku pro získání typu tréninku podle dne
+            // Můžete například mít nějakou metodu nebo seznam, kde mapujete den na konkrétní typ tréninku
+            // A vrátit odpovídající hodnotu pro daný den
+            // Tato metoda by měla být upravena podle vaší konkrétní implementace
+            if(cislodne == 0)
+            {
+
+                return "Hrudník + triceps";
+            } 
+            else if (cislodne == 1)
+            {
+                return "Nohy";
+            }
+            else if (cislodne == 2)
+            {
+                return "Ramena + Biceps";
+            }
+            else if (cislodne == 3)
+            {
+                return "Záda";
+            }
+
+            return "Chyba";
+        }
+        private string GetTypTreninkuPPL(int cislodne)
+        {
+            // Implementujte logiku pro získání typu tréninku podle dne
+            // Můžete například mít nějakou metodu nebo seznam, kde mapujete den na konkrétní typ tréninku
+            // A vrátit odpovídající hodnotu pro daný den
+            // Tato metoda by měla být upravena podle vaší konkrétní implementace
+            if (cislodne == 0)
+            {
+
+                return "Push";
+            }
+            else if (cislodne == 1)
+            {
+                return "Pull";
+            }
+            else if (cislodne == 2)
+            {
+                return "Legs";
+            }
+
+            return "Chyba";
+        }
+
+        private string GetTypTreninkuKR(int cislodne)
+        {
+            // Implementujte logiku pro získání typu tréninku podle dne
+            // Můžete například mít nějakou metodu nebo seznam, kde mapujete den na konkrétní typ tréninku
+            // A vrátit odpovídající hodnotu pro daný den
+            // Tato metoda by měla být upravena podle vaší konkrétní implementace
+            if (cislodne == 0)
+            {
+
+                return "Kruhový trénink 1";
+            }
+            else if (cislodne == 1)
+            {
+                return "Kruhový trénink 2";
+            }
+            else if (cislodne == 2)
+            {
+                return "Kruhový trénink 3";
+            }
+            else if (cislodne == 3)
+            {
+                return "Kruhový trénink 4";
+            }
+
+            return "Chyba";
+        }
+
+
         // GET: TP
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.TP.Include(t => t.User);
             var tpRecords = await applicationDbContext.ToListAsync();
+
+            // Získání ID aktuálně přihlášeného uživatele
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Dotaz do databáze pro nalezení záznamů podle UživatelId
+            var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
+            
 
             foreach (var tpRecord in tpRecords)
             {
@@ -53,7 +179,10 @@ namespace BP_TPWA.Controllers
                 var ZkontrolovaneDny = tpRecord.ZkontrolovaneDny;
                 if (ZkontrolovaneDny == false)
                 {
-                    var denVTydnuRecords = await _context.DenVTydnu.ToListAsync();
+                    var denVTydnuRecords = await _context.TP
+                            .Where(tp => tp.Id == uzivatelIdZaznam.Id)
+                            .SelectMany(tp => tp.DnyVTydnu)
+                            .ToListAsync();
                     var i = 1;
                     foreach (var denVTydnuRecord in denVTydnuRecords)
                     {
@@ -74,8 +203,110 @@ namespace BP_TPWA.Controllers
                 
                 await _context.SaveChangesAsync();
             }
+
+            if(uzivatelIdZaznam != null)
+            {
+                var denVTydnuRecords = await _context.TP
+                            .Where(tp => tp.Id == uzivatelIdZaznam.Id)
+                            .SelectMany(tp => tp.DnyVTydnu)
+                            .ToListAsync();
+                //  var denVTydnuRecords = await _context.DenVTydnu.ToListAsync();
+                DayOfWeek[] dnyTréninku = new DayOfWeek[uzivatelIdZaznam.PocetTreninkuZaTyden];
+                int i = 0;
+                foreach (var denVTydnuRecord in denVTydnuRecords)
+                {
+                    if(denVTydnuRecord.DenTréninku == true)
+                    {
+                        dnyTréninku[i] = denVTydnuRecord.Den; 
+                        i++;
+                    }
+                }
+
+                
+
+                List<DateTime> dataTréninkovýchDnů = GeneratorTréninkovýchDat.VytvářeníDatumůTréninku(uzivatelIdZaznam.PocetTreninkuZaTyden, uzivatelIdZaznam.Délka * 4, dnyTréninku);
+                //Model.DataTreninkovychDnu = dataTréninkovýchDnů;
+                var typTreninku = "";
+                var typTreninkuCislo = 0;
+                if (uzivatelIdZaznam.UlozenaDataDnu == false)
+                {
+                    try
+                    {
+                        foreach (var datumTreninkovehoDne in dataTréninkovýchDnů)
+                        {
+                            if(uzivatelIdZaznam.StylTP == "VM")
+                            {
+                                if(typTreninkuCislo == 4)
+                                {
+                                    typTreninkuCislo = 0;
+                                }
+
+                                typTreninku = GetTypTreninkuVM(typTreninkuCislo);
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                _context.DenTreninku.Add(treninkoveDataEntita);
+                                typTreninkuCislo++;
+
+                            } else if (uzivatelIdZaznam.StylTP == "PPL")
+                            {
+                                if (typTreninkuCislo == 3)
+                                {
+                                    typTreninkuCislo = 0;
+                                }
+
+                                typTreninku = GetTypTreninkuPPL(typTreninkuCislo);
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                _context.DenTreninku.Add(treninkoveDataEntita);
+                                typTreninkuCislo++;
+
+                            }
+                            else
+                            {
+                                if (typTreninkuCislo == 4)
+                                {
+                                    typTreninkuCislo = 0;
+                                }
+                                typTreninku = GetTypTreninkuKR(typTreninkuCislo);
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = "Kruhový trénink" }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                _context.DenTreninku.Add(treninkoveDataEntita);
+                            }
+                            // Vytvořte nový záznam v databázi pro každé datum tréninku
+                        }
+
+                        // Uložte změny do databáze
+                        await _context.SaveChangesAsync();
+                        uzivatelIdZaznam.UlozenaDataDnu = true;
+                        await _context.SaveChangesAsync();
+
+                        Ok("Data úspěšně uložena.");
+
+                    }
+                    catch (Exception ex)
+                    {
+                         BadRequest($"Chyba při ukládání dat: {ex.Message}");
+                    }
+                }
+                //mám data tréninkových dnů v listu a teď si budu chctí ten list někam uložit do databáze a vytvořit z něj ty eventy
+                //var treninkoveData = _context.DenTreninku.ToList();
+                var treninkoveData = await _context.DenTreninku
+                                .Where(dt => dt.TPId == uzivatelIdZaznam.Id)
+                                .ToListAsync();
+
+                var tpInfo = await _context.TP
+                                .Where(dt => dt.Id == uzivatelIdZaznam.Id)
+                                .ToListAsync();
+
+               // var tpInfo = _context.TP.ToList();
+                ViewBag.DenTreninku = treninkoveData;
+                ViewBag.TP = tpInfo;
+            }
+
             return View(await applicationDbContext.ToListAsync());
         }
+
+       
 
         // GET: TP/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -108,7 +339,7 @@ namespace BP_TPWA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Délka,DruhTP,StylTP,PocetTreninkuZaTyden,DnyVTydnu,UzivatelID,ZkontorlovaneDny")] TP tP)
+        public async Task<IActionResult> Create([Bind("Id,Délka,DruhTP,StylTP,PocetTreninkuZaTyden,DnyVTydnu,UzivatelID,ZkontorlovaneDny,UlozenaDataDnu")] TP tP)
         {
             if (ModelState.ContainsKey("User"))
             {
@@ -121,6 +352,13 @@ namespace BP_TPWA.Controllers
 
                 _context.Add(tP);
                 await _context.SaveChangesAsync();
+
+                // Aktualizace záznamu v tabulce AspNetUsers
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Získání ID aktuálně přihlášeného uživatele
+                var currentUser = await _context.Users.FindAsync(userId); // Načtení aktuálního uživatele z databáze
+                currentUser.TPId = tP.Id; // Předpokládá se, že máte v modelu AspNetUsers vlastnost TPId
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
 

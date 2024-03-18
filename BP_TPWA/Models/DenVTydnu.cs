@@ -12,8 +12,6 @@ namespace BP_TPWA.Models
         [Required]
         public DayOfWeek Den { get; set; }
         public Boolean DenTréninku { get; set; }
-        public string? TypTreninku { get; set; }
-
 
 
     }

@@ -151,3 +151,14 @@ BTN
     line-height: 5 !important;
     
 }
+
+.fc-event:hover {
+    background-color: lightblue; /* Zmìòte na barvu podle vašeho výbìru */
+    cursor: pointer; /* Zmìna kurzoru na ukazatel, aby naznaèila možnost interakce */
+}
+
+.fc-title {
+    text-align: center;
+    display: block; /* zajistí, že se text bude vertikálnì zarovnávat */
+    margin: 0 auto; /* zajistí, že se element bude horizontálnì zarovnávat */
+}

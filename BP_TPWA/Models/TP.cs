@@ -29,7 +29,9 @@ namespace BP_TPWA.Models
 
         public bool ZkontrolovaneDny {  get; set; }
 
-        
+        public bool UlozenaDataDnu { get; set; }
+
+
 
         //public void SetDenTréninku(DayOfWeek den, bool trénink)
         //{
@@ -45,16 +47,16 @@ namespace BP_TPWA.Models
         //}
 
         public TP() {
-            DnyVTydnu = new List<DenVTydnu>
-            {
-                new DenVTydnu { Den = DayOfWeek.Monday, DenTréninku = false, TypTreninku = "Legday" },
-                new DenVTydnu { Den = DayOfWeek.Tuesday, DenTréninku = false },
-                new DenVTydnu { Den = DayOfWeek.Wednesday, DenTréninku = false },
-                new DenVTydnu { Den = DayOfWeek.Thursday, DenTréninku = false },
-                new DenVTydnu { Den = DayOfWeek.Friday, DenTréninku = false },
-                new DenVTydnu { Den = DayOfWeek.Saturday, DenTréninku = false },
-                new DenVTydnu { Den = DayOfWeek.Sunday, DenTréninku = false }
-            };
+            DnyVTydnu = new List<DenVTydnu>();
+            //{
+            //    new DenVTydnu { Den = DayOfWeek.Monday, DenTréninku = false, TypTreninku = "Legday" },
+            //    new DenVTydnu { Den = DayOfWeek.Tuesday, DenTréninku = false },
+            //    new DenVTydnu { Den = DayOfWeek.Wednesday, DenTréninku = false },
+            //    new DenVTydnu { Den = DayOfWeek.Thursday, DenTréninku = false },
+            //    new DenVTydnu { Den = DayOfWeek.Friday, DenTréninku = false },
+            //    new DenVTydnu { Den = DayOfWeek.Saturday, DenTréninku = false },
+            //    new DenVTydnu { Den = DayOfWeek.Sunday, DenTréninku = false }
+            //};
 
 
 

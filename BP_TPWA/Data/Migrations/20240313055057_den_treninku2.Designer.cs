@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,46 +12,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313055057_den_treninku2")]
+    partial class den_treninku2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BP_TPWA.Models.Cvik", b =>
-                {
-                    b.Property<int>("CvikId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CvikId"));
-
-                    b.Property<string>("Název")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PauzaMeziSériemi")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PopisCviku")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PočetOpakování")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PočetSérií")
-                        .HasColumnType("int");
-
-                    b.HasKey("CvikId");
-
-                    b.ToTable("Cvik");
-                });
 
             modelBuilder.Entity("BP_TPWA.Models.DenTreninku", b =>
                 {
@@ -65,10 +38,6 @@ namespace BP_TPWA.Data.Migrations
 
                     b.Property<int>("TPId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TypTreninku")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -93,6 +62,9 @@ namespace BP_TPWA.Data.Migrations
 
                     b.Property<int?>("TPId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TypTreninku")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -122,9 +94,6 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<string>("StylTP")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("UlozenaDataDnu")
-                        .HasColumnType("bit");
 
                     b.Property<string>("UzivatelID")
                         .IsRequired()
@@ -192,9 +161,6 @@ namespace BP_TPWA.Data.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TPId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");

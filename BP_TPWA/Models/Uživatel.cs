@@ -13,6 +13,7 @@ namespace BP_TPWA.Models
         public int Výška { get; set; }
         public int Váha { get; set; }
         public int Úroveň { get; set; }
+        public int? TPId { get; set; }
 
     }
 }

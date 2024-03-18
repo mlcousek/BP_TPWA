@@ -1,0 +1,48 @@
+﻿@model BP_TPWA.Models.Cvik
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cvik</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Název)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Název)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PočetOpakování)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PočetOpakování)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PočetSérií)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PočetSérií)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PauzaMeziSériemi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PauzaMeziSériemi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PopisCviku)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PopisCviku)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CvikId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

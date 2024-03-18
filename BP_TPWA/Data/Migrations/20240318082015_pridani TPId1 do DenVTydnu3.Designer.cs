@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318082015_pridani TPId1 do DenVTydnu3")]
+    partial class pridaniTPId1doDenVTydnu3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,6 +95,9 @@ namespace BP_TPWA.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("TPId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TPId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

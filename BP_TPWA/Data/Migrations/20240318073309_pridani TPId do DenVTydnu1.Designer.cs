@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318073309_pridani TPId do DenVTydnu1")]
+    partial class pridaniTPIddoDenVTydnu1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +94,7 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<bool>("DenTréninku")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TPId")
+                    b.Property<int>("TPId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -378,9 +381,13 @@ namespace BP_TPWA.Data.Migrations
 
             modelBuilder.Entity("BP_TPWA.Models.DenVTydnu", b =>
                 {
-                    b.HasOne("BP_TPWA.Models.TP", null)
+                    b.HasOne("BP_TPWA.Models.TP", "TP")
                         .WithMany("DnyVTydnu")
-                        .HasForeignKey("TPId");
+                        .HasForeignKey("TPId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TP");
                 });
 
             modelBuilder.Entity("BP_TPWA.Models.TP", b =>
