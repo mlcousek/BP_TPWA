@@ -3,9 +3,11 @@
 @inject UserManager<Uzivatel> UserManager
 @model BP_TPWA.Models.TP
 
+
 @{
     ViewData["Title"] = "Create";
 }
+
 
 @{
     // Získání aktuálně přihlášeného uživatele
@@ -86,6 +88,14 @@
                 <span asp-validation-for="PocetTreninkuZaTyden" class="text-danger"></span>
             </div>
            
+            @for (int i = 0; i < 7; i++)
+            {
+                DayOfWeek dayOfWeek = (DayOfWeek)((i + 1) % 7);
+                <div class="form-check">
+                    <input type="checkbox" asp-for="@Model.DnyVTydnu[i].DenTréninku" class="form-check-input" id="@($"flexCheck{i}")">
+                    <label class="form-check-label" for="@($"flexCheck{i}")">@PomocnikSDaty.ZjistitJmeno(dayOfWeek)</label>
+                </div>
+            }
             
             <div class="form-group mb-4 d-none">
                 <label asp-for="UzivatelID" class="control-label"></label>

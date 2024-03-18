@@ -12,6 +12,7 @@ namespace BP_TPWA.Data
         {
         }
         public DbSet<BP_TPWA.Models.TP> TP { get; set; } = default!;
-        
+        public DbSet<BP_TPWA.Models.DenVTydnu> DenVTydnu { get; set; }
+
     }
 }
