@@ -24,10 +24,25 @@ namespace BP_TPWA.Controllers
         public IActionResult PridejData()
         {
             // Vytvořte instance cviků
-          //  var cvik1 = new Cvik { Název = "Benchpress" }; musím pořešit ty serie a počet opáček
-
+            var cvik1 = new Cvik {Název = "Dřepy s vlastní vahou", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 30, PopisCviku = "Zahřátí + aktivace", TypTreninku = "BSHVMNohy" };
+            var cvik2 = new Cvik { Název = "Zadní dřepy", PočetSérií = 5, PočetOpakování = "x", PauzaMeziSériemi = 0, PopisCviku = "Silový cvik dřep", TypTreninku = "BSHVMNohy" };
+            var cvik3 = new Cvik { Název = "Legpress", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
+            var cvik4 = new Cvik { Název = "Zákopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis zákopy", TypTreninku = "BSHVMNohy" };
+            var cvik5 = new Cvik { Název = "Předkopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis předkopy", TypTreninku = "BSHVMNohy" };
+            var cvik6 = new Cvik { Název = "Bulharský dřep", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
+            var cvik7 = new Cvik { Název = "Rumunský dřep", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
+            var cvik8 = new Cvik { Název = "Hiptrusty", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
+            var cvik9 = new Cvik { Název = "Lýtka ve stoje", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
             // Přidejte cviky do databáze
-           // _context.Cvik.Add(cvik1);
+            _context.Cvik.Add(cvik1);
+            _context.Cvik.Add(cvik2);
+            _context.Cvik.Add(cvik3);
+            _context.Cvik.Add(cvik4);
+            _context.Cvik.Add(cvik5);
+            _context.Cvik.Add(cvik6);
+            _context.Cvik.Add(cvik7);
+            _context.Cvik.Add(cvik8);
+            _context.Cvik.Add(cvik9);
             _context.SaveChanges();
 
             return RedirectToAction("Index"); // Přesměrujte na stránku s výpisem cviků https://localhost:xxxxx/Cvik/PridejData

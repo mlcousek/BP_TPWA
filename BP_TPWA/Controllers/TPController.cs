@@ -172,36 +172,38 @@ namespace BP_TPWA.Controllers
             // Dotaz do databáze pro nalezení záznamů podle UživatelId
             var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
             
-
-            foreach (var tpRecord in tpRecords)
+            if(uzivatelIdZaznam != null)
             {
-                // Zde můžete pracovat s každým záznamem TP a přistupovat k jeho vlastnostem, včetně User.
-                var ZkontrolovaneDny = tpRecord.ZkontrolovaneDny;
-                if (ZkontrolovaneDny == false)
+                foreach (var tpRecord in tpRecords)
                 {
-                    var denVTydnuRecords = await _context.TP
-                            .Where(tp => tp.Id == uzivatelIdZaznam.Id)
-                            .SelectMany(tp => tp.DnyVTydnu)
-                            .ToListAsync();
-                    var i = 1;
-                    foreach (var denVTydnuRecord in denVTydnuRecords)
+                    // Zde můžete pracovat s každým záznamem TP a přistupovat k jeho vlastnostem, včetně User.
+                    var ZkontrolovaneDny = tpRecord.ZkontrolovaneDny;
+                    if (ZkontrolovaneDny == false)
                     {
-                        // Přistupujte k vlastnostem záznamu DenVTydnu podle potřeby.
-                        denVTydnuRecord.Den = (DayOfWeek)i;
-
-                        //var DenTreninkuVal = denVTydnuRecord.DenTréninku;
-                        //var usrId = tpRecord.User.Id;
-                        //SetDenTréninku(usrId, (DayOfWeek)i, DenTreninkuVal);
-                        i++;
-                        if (i == 7)
+                        var denVTydnuRecords = await _context.TP
+                                .Where(tp => tp.Id == uzivatelIdZaznam.Id)
+                                .SelectMany(tp => tp.DnyVTydnu)
+                                .ToListAsync();
+                        var i = 1;
+                        foreach (var denVTydnuRecord in denVTydnuRecords)
                         {
-                            i = 0;
+                            // Přistupujte k vlastnostem záznamu DenVTydnu podle potřeby.
+                            denVTydnuRecord.Den = (DayOfWeek)i;
+
+                            //var DenTreninkuVal = denVTydnuRecord.DenTréninku;
+                            //var usrId = tpRecord.User.Id;
+                            //SetDenTréninku(usrId, (DayOfWeek)i, DenTreninkuVal);
+                            i++;
+                            if (i == 7)
+                            {
+                                i = 0;
+                            }
                         }
+                        tpRecord.ZkontrolovaneDny = true;
                     }
-                    tpRecord.ZkontrolovaneDny = true;
-                }
                 
-                await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
+                }
             }
 
             if(uzivatelIdZaznam != null)

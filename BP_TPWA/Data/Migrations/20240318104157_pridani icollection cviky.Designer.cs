@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318104157_pridani icollection cviky")]
+    partial class pridaniicollectioncviky
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +33,9 @@ namespace BP_TPWA.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CvikId"));
 
+                    b.Property<int?>("DenTreninkuId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Název")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -38,6 +44,7 @@ namespace BP_TPWA.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PopisCviku")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PočetOpakování")
@@ -47,10 +54,9 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<int>("PočetSérií")
                         .HasColumnType("int");
 
-                    b.Property<string>("TypTreninku")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("CvikId");
+
+                    b.HasIndex("DenTreninkuId");
 
                     b.ToTable("Cvik");
                 });
@@ -368,6 +374,13 @@ namespace BP_TPWA.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BP_TPWA.Models.Cvik", b =>
+                {
+                    b.HasOne("BP_TPWA.Models.DenTreninku", null)
+                        .WithMany("Cviky")
+                        .HasForeignKey("DenTreninkuId");
+                });
+
             modelBuilder.Entity("BP_TPWA.Models.DenTreninku", b =>
                 {
                     b.HasOne("BP_TPWA.Models.TP", "TP")
@@ -446,6 +459,11 @@ namespace BP_TPWA.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BP_TPWA.Models.DenTreninku", b =>
+                {
+                    b.Navigation("Cviky");
                 });
 
             modelBuilder.Entity("BP_TPWA.Models.TP", b =>

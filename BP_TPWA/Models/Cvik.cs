@@ -9,9 +9,10 @@ namespace BP_TPWA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CvikId { get; set; }
         public string Název { get; set; }
-        public int PočetOpakování { get; set; }
+        public string PočetOpakování { get; set; }
         public int PočetSérií { get; set; }
         public int PauzaMeziSériemi { get; set; }
-        public string PopisCviku { get; set; }
+        public string? PopisCviku { get; set; }
+        public string? TypTreninku { get; set; }
     }
 }

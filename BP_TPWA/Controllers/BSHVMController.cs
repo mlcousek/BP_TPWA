@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BP_TPWA.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BP_TPWA.Controllers
 {
     public class BSHVMController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public BSHVMController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Nohy()
         {
+            var cviky = _context.Cvik
+                        .Where(tt => tt.TypTreninku == "BSHVMNohy")
+                        .ToList();
+            ViewBag.BSHVM = cviky;
             return View();
         }
 

@@ -22,5 +22,6 @@ namespace BP_TPWA.Models
         // Navigační vlastnost pro vztah s TP
         [ForeignKey("TPId")]
         public TP TP { get; set; }
+
     }
 }

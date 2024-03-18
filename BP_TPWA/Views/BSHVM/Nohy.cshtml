@@ -1,2 +1,96 @@
-﻿
-        <h1>Test legday</h1>
+﻿<h1>Test legday</h1>
+
+
+
+
+
+
+<div id="exercises-container"></div>
+
+<script>
+    // Předpokládejme, že mějme objekt s daty o tréninku
+    var workoutData = {
+        exercises: [
+            { name: "Dřep", repetitions: 12, sets: 3, rest: "1 minuta" },
+            { name: "Bench press", repetitions: 10, sets: 4, rest: "2 minuty" },
+            { name: "Mrtvý tah", repetitions: 8, sets: 3, rest: "90 sekund" }
+        ]
+    };
+
+    // Funkce pro vložení dat o tréninku do šablony
+    // function fillWorkoutTemplate() {
+    //     var exercisesContainer = document.getElementById("exercises-container");
+
+    //     workoutData.exercises.forEach(function (exercise) {
+    //         var exerciseElement = document.createElement("div");
+    //         exerciseElement.classList.add("exercise");
+    //         exerciseElement.innerHTML = `
+
+                    
+    //             <h3 class="exercise-name">${exercise.name}</h3>
+    //             <p><strong>Opakování:</strong> <span class="repetitions">${exercise.repetitions}</span></p>
+    //             <p><strong>Série:</strong> <span class="sets">${exercise.sets}</span></p>
+    //             <p><strong>Odpočinek:</strong> <span class="rest">${exercise.rest}</span></p>
+    //         `;
+    //         exercisesContainer.appendChild(exerciseElement);
+    //     });
+    // }
+
+    // // Volání funkce pro naplnění šablony
+    // fillWorkoutTemplate();
+
+
+    var BSHVM = @Html.Raw(Json.Serialize(ViewBag.BSHVM));
+    console.log(BSHVM);
+
+    function fillWorkoutTemplate() {
+        var exercisesContainer = document.getElementById("exercises-container");
+        var table = document.createElement("table");
+        table.classList.add("table", "table-hover");
+
+        // Vytvoření hlavičky tabulky
+        var thead = document.createElement("thead");
+        var headerRow = document.createElement("tr");
+        var headers = ["Název", "Opakování", "Série", "Odpočinek"];
+        headers.forEach(function (headerText) {
+            var header = document.createElement("th");
+            header.textContent = headerText;
+            header.scope = "col";
+            headerRow.appendChild(header);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Vytvoření těla tabulky
+        var tbody = document.createElement("tbody");
+        BSHVM.forEach(function (cvik) {
+            var row = document.createElement("tr");
+            row.classList.add("table-light"); // Můžete změnit na "table-dark" podle potřeby
+
+            var nameCell = document.createElement("td");
+            nameCell.textContent = cvik.název;
+            row.appendChild(nameCell);
+
+            var repetitionsCell = document.createElement("td");
+            repetitionsCell.textContent = cvik.početOpakování;
+            row.appendChild(repetitionsCell);
+
+            var setsCell = document.createElement("td");
+            setsCell.textContent = cvik.početSérií;
+            row.appendChild(setsCell);
+
+            var restCell = document.createElement("td");
+            restCell.textContent = cvik.pauzaMeziSériemi;
+            row.appendChild(restCell);
+
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        // Přidání tabulky do kontejneru cvičení
+        exercisesContainer.appendChild(table);
+    }
+
+    fillWorkoutTemplate();
+
+</script>
