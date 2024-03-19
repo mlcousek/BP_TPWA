@@ -6,60 +6,15 @@
 <div id="kontejner-cviku"></div>
 
 <p>Po odcvičení doporučuji alespoň lehce protáhnout cvičenou svalovou skupinu.</p>
-@* <script>
-    var BSHVM = @Html.Raw(Json.Serialize(ViewBag.BSHVM));
 
-    function naplnitCvicebniSablonu() {
-        var kontejnerCviku = document.getElementById("kontejner-cviku");
-        var table = document.createElement("table");
-        table.classList.add("table", "table-hover");
-
-        // Vytvoření hlavičky tabulky
-        var thead = document.createElement("thead");
-        var headerRow = document.createElement("tr");
-        var headers = ["Název", "Opakování", "Série", "Odpočinek"];
-        headers.forEach(function (headerText) {
-            var header = document.createElement("th");
-            header.textContent = headerText;
-            header.scope = "col";
-            headerRow.appendChild(header);
-        });
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        // Vytvoření těla tabulky
-        var tbody = document.createElement("tbody");
-        BSHVM.forEach(function (cvik) {
-            var row = document.createElement("tr");
-            row.classList.add("table-light");
-
-            var nameCell = document.createElement("td");
-            nameCell.textContent = cvik.název;
-            row.appendChild(nameCell);
-
-            var repetitionsCell = document.createElement("td");
-            repetitionsCell.textContent = cvik.početOpakování;
-            row.appendChild(repetitionsCell);
-
-            var setsCell = document.createElement("td");
-            setsCell.textContent = cvik.početSérií;
-            row.appendChild(setsCell);
-
-            var restCell = document.createElement("td");
-            restCell.textContent = cvik.pauzaMeziSériemi;
-            row.appendChild(restCell);
-
-            tbody.appendChild(row);
-        });
-        table.appendChild(tbody);
-
-        // Přidání tabulky do kontejneru cvičení
-        kontejnerCviku.appendChild(table);
-    }
-
-    naplnitCvicebniSablonu();
-
-</script> *@
+<!-- Modální okno -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalContent"></p>
+  </div>
+</div>
 
 <script>
     var BSHVM = @Html.Raw(Json.Serialize(ViewBag.BSHVM));
@@ -92,14 +47,9 @@
             nameCell.textContent = cvik.název;
             nameCell.classList.add("clickable"); // Přidání třídy pro klikatelnost
             nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
-                this.style.backgroundColor = "lightblue"; // Změna barvy pozadí po kliknutí
-            });
-            nameCell.addEventListener("mouseenter", function () { // Přidání event listeneru pro najetí myší
-                this.style.cursor = "pointer"; // Změna kurzoru na ukazatel po najetí myší
-                this.style.color = "blue"; // Změna barvy textu po najetí myší
-            });
-            nameCell.addEventListener("mouseleave", function () { // Přidání event listeneru pro opuštění myší
-                this.style.color = ""; // Vrácení původní barvy textu po opuštění myší
+                document.getElementById("modalTitle").textContent = cvik.název;
+                document.getElementById("modalContent").textContent = "Počet opakování: " + cvik.početOpakování + ", Série: " + cvik.početSérií + ", Odpočinek: " + cvik.pauzaMeziSériemi;
+                document.getElementById("myModal").style.display = "block"; // Zobrazení modálního okna
             });
             row.appendChild(nameCell);
 
@@ -125,4 +75,17 @@
 
     naplnitCvicebniSablonu();
 
+    // Zavření modálního okna po kliknutí na ikonu kříže
+    var closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.onclick = function() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    // Zavření modálního okna po kliknutí mimo něj
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>

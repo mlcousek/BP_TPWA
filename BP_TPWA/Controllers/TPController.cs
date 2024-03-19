@@ -25,25 +25,25 @@ namespace BP_TPWA.Controllers
 
        
 
-        public void SetDenTréninku(string userId, DayOfWeek den, bool trénink)
-        {
-            var tpRecord = _context.TP.FirstOrDefault(t => t.UzivatelID == userId);
+        //public void SetDenTréninku(string userId, DayOfWeek den, bool trénink)
+        //{
+        //    var tpRecord = _context.TP.FirstOrDefault(t => t.UzivatelID == userId);
 
-            if (tpRecord != null)
-            {
-                var konkrétníDen = tpRecord.DnyVTydnu.FirstOrDefault(d => d.Den == den);
-                if (konkrétníDen != null)
-                {
-                    konkrétníDen.DenTréninku = trénink;
-                    _context.SaveChanges(); // Uložení změn do databáze
-                }
-                else
-                {
-                    // Případ, kdy den není nalezen
-                    throw new Exception("Chyba, špatný den!");
-                }
-            }
-        }
+        //    if (tpRecord != null)
+        //    {
+        //        var konkrétníDen = tpRecord.DnyVTydnu.FirstOrDefault(d => d.Den == den);
+        //        if (konkrétníDen != null)
+        //        {
+        //            konkrétníDen.DenTréninku = trénink;
+        //            _context.SaveChanges(); // Uložení změn do databáze
+        //        }
+        //        else
+        //        {
+        //            // Případ, kdy den není nalezen
+        //            throw new Exception("Chyba, špatný den!");
+        //        }
+        //    }
+        //}
 
         public class GeneratorTréninkovýchDat
         {
@@ -347,7 +347,7 @@ namespace BP_TPWA.Controllers
             {
                 ModelState.Remove("User");
             }
-           
+
 
             if (ModelState.IsValid)
             {
@@ -359,6 +359,9 @@ namespace BP_TPWA.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Získání ID aktuálně přihlášeného uživatele
                 var currentUser = await _context.Users.FindAsync(userId); // Načtení aktuálního uživatele z databáze
                 currentUser.TPId = tP.Id; // Předpokládá se, že máte v modelu AspNetUsers vlastnost TPId
+
+                tP.User = currentUser;
+
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));

@@ -12,6 +12,7 @@ namespace BP_TPWA.Models
         public string PočetOpakování { get; set; }
         public int PočetSérií { get; set; }
         public int PauzaMeziSériemi { get; set; }
+        public string Partie {  get; set; }
         public string? PopisCviku { get; set; }
         public string? TypTreninku { get; set; }
     }

@@ -23,26 +23,70 @@ namespace BP_TPWA.Controllers
         // Akce pro přidání dat do databáze
         public IActionResult PridejData()
         {
-            // Vytvořte instance cviků
-            var cvik1 = new Cvik {Název = "Dřepy s vlastní vahou", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 30, PopisCviku = "Zahřátí + aktivace", TypTreninku = "BSHVMNohy" };
-            var cvik2 = new Cvik { Název = "Zadní dřepy", PočetSérií = 5, PočetOpakování = "x", PauzaMeziSériemi = 0, PopisCviku = "Silový cvik dřep", TypTreninku = "BSHVMNohy" };
-            var cvik3 = new Cvik { Název = "Legpress", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
-            var cvik4 = new Cvik { Název = "Zákopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis zákopy", TypTreninku = "BSHVMNohy" };
-            var cvik5 = new Cvik { Název = "Předkopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis předkopy", TypTreninku = "BSHVMNohy" };
-            var cvik6 = new Cvik { Název = "Bulharský dřep", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
-            var cvik7 = new Cvik { Název = "Rumunský dřep", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
-            var cvik8 = new Cvik { Název = "Hiptrusty", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
-            var cvik9 = new Cvik { Název = "Lýtka ve stoje", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", TypTreninku = "BSHVMNohy" };
-            // Přidejte cviky do databáze
-            _context.Cvik.Add(cvik1);
-            _context.Cvik.Add(cvik2);
-            _context.Cvik.Add(cvik3);
-            _context.Cvik.Add(cvik4);
-            _context.Cvik.Add(cvik5);
-            _context.Cvik.Add(cvik6);
-            _context.Cvik.Add(cvik7);
-            _context.Cvik.Add(cvik8);
-            _context.Cvik.Add(cvik9);
+            //VM
+
+            // Nohy
+
+            var cvik1 = new Cvik {Název = "Dřepy s vlastní vahou", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 30, PopisCviku = "Zahřátí + aktivace", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik2 = new Cvik { Název = "Zadní dřepy", PočetSérií = 5, PočetOpakování = "x", PauzaMeziSériemi = 0, PopisCviku = "Silový cvik dřep", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik3 = new Cvik { Název = "Legpress", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik4 = new Cvik { Název = "Zákopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis zákopy", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik5 = new Cvik { Název = "Předkopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis předkopy", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik6 = new Cvik { Název = "Bulharský dřep", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik7 = new Cvik { Název = "Rumunský dřep", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik8 = new Cvik { Název = "Hiptrusty", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik9 = new Cvik { Název = "Lýtka ve stoje", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+            var cvik10 = new Cvik { Název = "Rotoped", PočetSérií = 1, PočetOpakování = "10 - 20 minut", PauzaMeziSériemi = 0, PopisCviku = "Lehce vyjezdit nohy po tréninku noh", Partie = "Nohy", TypTreninku = "BSHVMNohy" };
+
+            //Ramena + ruce
+
+            var cvik11 = new Cvik { Název = "Tlaky na ramena - rozcvička", PočetSérií = 2, PočetOpakování = "10, 10", PauzaMeziSériemi = 20, PopisCviku = "Zahřátí + aktivace (velmi malá nebo žádná váha)", Partie = "Ramena", TypTreninku = "BSHVMRamBic" };
+            var cvik12 = new Cvik { Název = "Tlaky na ramena s jednoručnou činkou", PočetSérií = 5, PočetOpakování = "12, 12, 10, 8, 5", PauzaMeziSériemi = 60, PopisCviku = "Tlaky na ramena", Partie = "Ramena", TypTreninku = "BSHVMRamBic" };
+            var cvik13 = new Cvik { Název = "Upažování s jednoručnou činkou", PočetSérií = 4, PočetOpakování = "12, 12, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Upažování s jednoručkama na ramena", Partie = "Ramena", TypTreninku = "BSHVMRamBic" };
+            var cvik14 = new Cvik { Název = "Stroj na zadky ramen", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Stroj na zadky ramen", Partie = "Ramena", TypTreninku = "BSHVMRamBic" };
+            var cvik15 = new Cvik { Název = "Upažování na kladce", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 50, PopisCviku = "Upažování na kladce zespodu", Partie = "Ramena", TypTreninku = "BSHVMRamBic" };
+            var cvik16 = new Cvik { Název = "Tlaky na stroji", PočetSérií = 4, PočetOpakování = "12, 10, 8, 6", PauzaMeziSériemi = 60, PopisCviku = "Tlaky na stroji, dodělání ramen", Partie = "Ramena", TypTreninku = "BSHVMRamBic" };
+            var cvik17 = new Cvik { Název = "Bicepsové přítahy jednoruček", PočetSérií = 4, PočetOpakování = "12, 10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Přítahy jednoruček", Partie = "Biceps", TypTreninku = "BSHVMRamBic" };
+            var cvik18 = new Cvik { Název = "Bicepsové přítahy obouručky", PočetSérií = 3, PočetOpakování = "10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Přítahy obouručky", Partie = "Biceps", TypTreninku = "BSHVMRamBic" };
+            var cvik19 = new Cvik { Název = "Bicepsové přítahy na stroji", PočetSérií = 3, PočetOpakování = "10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Přítahy na stroji", Partie = "Biceps", TypTreninku = "BSHVMRamBic" };
+
+            //Hrudník + triceps
+
+            var cvik20 = new Cvik { Název = "Kliky", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 40, PopisCviku = "Klasické kliky - záhřátí aktivace", Partie = "Hrudník", TypTreninku = "BSHVMHrTric" };
+            var cvik21 = new Cvik { Název = "Benchpress", PočetSérií = 5, PočetOpakování = "15, 10, 5, 2, 1 ", PauzaMeziSériemi = 60, PopisCviku = "Komplexni cvik benchpress", Partie = "Hrudník", TypTreninku = "BSHVMHrTric" };
+            var cvik22 = new Cvik { Název = "Tlaky na hrudník na nakloněné lavici", PočetSérií = 4, PočetOpakování = "12, 12, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Tlaky na lavici na hrudník", Partie = "Hrudník", TypTreninku = "BSHVMHrTric" };
+            var cvik23 = new Cvik { Název = "Pec deck", PočetSérií = 4, PočetOpakování = "12, 12, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Tlaky na stoji", Partie = "Hrudník", TypTreninku = "BSHVMHrTric" };
+            var cvik24 = new Cvik { Název = "Stahování kladek na hrudník", PočetSérií = 3, PočetOpakování = "12, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Stahování kladek v předklonu na hrudník", Partie = "Hrudník", TypTreninku = "BSHVMHrTric" };
+            var cvik25 = new Cvik { Název = "Dipy na bradle", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Dipy na bradle s vlastní váhou nebo se závažim", Partie = "Trieps", TypTreninku = "BSHVMHrTric" };
+            var cvik26 = new Cvik { Název = "Tricepsové stahování kladky", PočetSérií = 4, PočetOpakování = "12, 10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Stahování kladky na triceps", Partie = "Trieps", TypTreninku = "BSHVMHrTric" };
+            var cvik27 = new Cvik { Název = "Tricepsové stahování kladky za hlavu", PočetSérií = 4, PočetOpakování = "12, 10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Stahování kladky na triceps za hlavu", Partie = "Trieps", TypTreninku = "BSHVMHrTric" };
+
+            //Záda
+
+            var cvik28 = new Cvik { Název = "Mrtvý tah bez závaží", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 40, PopisCviku = "Mrtvý tah bez závaží (zatínat svaly) - záhřátí aktivace", Partie = "Záda", TypTreninku = "BSHVMZada" };
+            var cvik29 = new Cvik { Název = "Mrtvý tah", PočetSérií = 5, PočetOpakování = "10, 5, 5, 3, 1", PauzaMeziSériemi = 90, PopisCviku = "Mrtvý tah - komplexni cvik", Partie = "Záda", TypTreninku = "BSHVMHrZada" };
+            var cvik30 = new Cvik { Název = "Shyby nadhmatem", PočetSérií = 4, PočetOpakování = "10, 8, 6, 4", PauzaMeziSériemi = 60, PopisCviku = "Shyby", Partie = "Záda", TypTreninku = "BSHVMHrZada" };
+            var cvik31 = new Cvik { Název = "Stahování tyče na stroji před hlavu - vertikálně", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Stahování na stoji", Partie = "Záda", TypTreninku = "BSHVMHrZada" };
+            var cvik32 = new Cvik { Název = "Přitahování tyče na stroji - horizontálně", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Stahování na stoji", Partie = "Záda", TypTreninku = "BSHVMHrZada" };
+            var cvik33 = new Cvik { Název = "Přitahování na stroji", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Přitahování na stoji", Partie = "Záda", TypTreninku = "BSHVMHrZada" };
+            var cvik34 = new Cvik { Název = "Přitahování tyče ve stoje", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Přitahování ve stoje", Partie = "Záda", TypTreninku = "BSHVMHrZada" };
+            var cvik35 = new Cvik { Název = "Plank", PočetSérií = 3, PočetOpakování = "1min, 1min, co nejdéle", PauzaMeziSériemi = 60, PopisCviku = "Plank", Partie = "Břicho", TypTreninku = "BSHVMHrZada" };
+            var cvik36 = new Cvik { Název = "Sklapovačky", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Sklapovačky", Partie = "Břicho", TypTreninku = "BSHVMHrZada" };
+            var cvik37 = new Cvik { Název = "Přitahování noh na bradlech", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Přitahování noh na bradlech", Partie = "Břicho", TypTreninku = "BSHVMHrZada" };
+
+
+            var cviky = new List<Cvik> {
+                    cvik1, cvik2, cvik3, cvik4, cvik5, cvik6, cvik7, cvik8, cvik9, cvik10,
+                    cvik11, cvik12, cvik13, cvik14, cvik15, cvik16, cvik17, cvik18, cvik19,
+                    cvik20, cvik21, cvik22, cvik23, cvik24, cvik25, cvik26, cvik27,
+                    cvik28, cvik29, cvik30, cvik31, cvik32, cvik33, cvik34, cvik35, cvik36, cvik37
+                };
+
+            foreach (var cvik in cviky)
+            {
+                _context.Cvik.Add(cvik);
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index"); // Přesměrujte na stránku s výpisem cviků https://localhost:xxxxx/Cvik/PridejData
