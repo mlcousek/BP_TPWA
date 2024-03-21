@@ -127,7 +127,8 @@ $(document).ready(function () {
         eventClick: function (event) {
             // Přesměrování na jinou stránku po kliknutí na událost
                     var viewName = event.title.replace(' + ', '_').replace(' ', '_')
-                    window.location.href = '/' + tpInfo[0].druhTP + tpInfo[0].stylTP + '/' + viewName // Změňte URL podle vašich potřeb
+                    var dateParam = moment(event.start).format("YYYY-MM-DD");
+                    window.location.href = '/' + tpInfo[0].druhTP + tpInfo[0].stylTP + '/' + viewName + '?date=' + dateParam; // Změňte URL podle vašich potřeb
         },
         eventMouseover: function (event, jsEvent, view) {
             // Změna barvy při najetí myši

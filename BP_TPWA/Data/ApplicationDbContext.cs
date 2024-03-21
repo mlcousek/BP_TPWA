@@ -15,6 +15,7 @@ namespace BP_TPWA.Data
         public DbSet<BP_TPWA.Models.DenVTydnu> DenVTydnu { get; set; }
         public DbSet<BP_TPWA.Models.DenTreninku> DenTreninku { get; set; }
         public DbSet<BP_TPWA.Models.Cvik> Cvik { get; set; } = default!;
+        public DbSet<BP_TPWA.Models.TreninkoveData> TreninkoveData { get; set; } = default!;
 
 
 

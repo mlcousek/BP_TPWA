@@ -34,8 +34,11 @@
 <button type="button" class="btn btn-dark float-right-custom" id="pridatCvikButton">Přidat cvik</button>
 <button type="button" class="btn btn-secondary" id="zpetNaPlanButton">Zpět na plán</button>
 
-<script>
 
+
+
+<script>
+    var cvikId;
     var pridatCvikButton = document.getElementById("pridatCvikButton");
 
     // Přidejte posluchače událostí pro kliknutí na tlačítko
@@ -83,6 +86,7 @@
             nameCell.classList.add("clickable"); // Přidání třídy pro klikatelnost
             nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
                // this.style.backgroundColor = "lightblue"; // Změna barvy pozadí po kliknutí
+                     cvikId = cvik.cvikId;
             });
             nameCell.addEventListener("mouseenter", function () { // Přidání event listeneru pro najetí myší
                 this.style.cursor = "pointer"; // Změna kurzoru na ukazatel po najetí myší
@@ -207,6 +211,42 @@ function submitFeedback() {
         });
     }
     console.log("Data sérií:", seriesData);
+
+    // Získání URL adresy aktuální stránky
+    var currentUrl = window.location.href;
+
+    // Vytvoření nové instance URLSearchParams s query parametry získanými z aktuální URL
+    var queryParams = new URLSearchParams(window.location.search);
+
+    // Získání hodnoty parametru 'date' z URL
+    var dateParam = queryParams.get('date');
+
+    // Vytvoření objektu typu Date ze získaného řetězce s datem
+    var dateFromUrl = new Date(dateParam);
+
+    console.log(dateFromUrl);
+    console.log(cvikId);
+
+    var postData = {
+        date: dateFromUrl,
+        cvikId: cvikId,
+        seriesData: seriesData
+
+    };
+
+    // Odeslání dat na server pomocí AJAXu
+    $.ajax({
+        url: '/TreninkoveDataController/SaveToDatabase', 
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(postData),
+        success: function (response) {
+            // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+        },
+        error: function (xhr, status, error) {
+            // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+        }
+    });
 
             var selectedRow = document.querySelector('.table-hover tr.table-light');
             console.log(selectedRow);
