@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Views\BSHPPL\" />
-    <Folder Include="Views\NováSložka\" />
   </ItemGroup>
 
 </Project>

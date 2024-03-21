@@ -1,5 +1,6 @@
 ﻿using BP_TPWA.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BP_TPWA.Controllers
 {
@@ -14,8 +15,10 @@ namespace BP_TPWA.Controllers
 
         public IActionResult Nohy()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cviky = _context.Cvik
                         .Where(tt => tt.TypTreninku == "BSHVMNohy")
+                        .Where(id => id.UzivatelId == userId)
                         .ToList();
             ViewBag.BSHVM = cviky;
             return View();
@@ -23,16 +26,34 @@ namespace BP_TPWA.Controllers
 
         public IActionResult Hrudník_triceps()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var cviky = _context.Cvik
+                        .Where(tt => tt.TypTreninku == "BSHVMHrTric")
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+            ViewBag.BSHVM = cviky;
             return View();
         }
 
         public IActionResult Ramena_biceps()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var cviky = _context.Cvik
+                        .Where(tt => tt.TypTreninku == "BSHVMRamBic")
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+            ViewBag.BSHVM = cviky;
             return View();
         }
 
         public IActionResult Záda()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var cviky = _context.Cvik
+                        .Where(tt => tt.TypTreninku == "BSHVMZada")
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+            ViewBag.BSHVM = cviky;
             return View();
         }
     }

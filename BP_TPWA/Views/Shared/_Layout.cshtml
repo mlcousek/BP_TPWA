@@ -124,6 +124,11 @@
                     @RenderBody()
                 </main>
             </div>
+            <footer class="border-top footer text-muted bg-dark">
+                <div class="container">
+                    <span class="text-white">© 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></span>
+                </div>
+            </footer>
         }
         else
         {
@@ -133,6 +138,11 @@
                     @RenderBody()
                 </main>
             </div>
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
         }
     }
     else
@@ -143,14 +153,13 @@
                 @RenderBody()
             </main>
         </div>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
     }
 
-    
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     
     @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@

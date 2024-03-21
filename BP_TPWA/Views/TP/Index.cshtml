@@ -76,19 +76,45 @@
         var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
         var delkaTD = treninkoveData.length;
         var eventy = [];
-        console.log(tpInfo[0].druhTP);
-        console.log(tpInfo[0]);
 
         // Přidání dat do pole events
         for (var i = 0; i < delkaTD; i++) {
+
+            var barva;
+            switch (treninkoveData[i].typTreninku) {
+                case "Nohy":
+                    barva = "#333333";
+                    break;
+                case "Ramena + Biceps":
+                    barva = "#555555";
+                    break;
+                case "Záda":
+                    barva = "#777777";
+                    break;
+                case "Hrudník + triceps":
+                    barva = "#999999";
+                    break;
+                // Přidat další případy pro další typy tréninků a jejich barvy
+                default:
+                    barva = "gray"; // Výchozí barva pro ostatní typy tréninků
+            }
+
+
             eventy[i] = {
                 title: treninkoveData[i].typTreninku,
                 start: treninkoveData[i].datumTreninku,
-                allDay: true
+                allDay: true,
+                color: barva
             };
         }
     
 $(document).ready(function () {
+
+   
+
+    function changeEventColor(event, color) {
+        event.css("background-color", color);
+    }
 
     $('#calendar').fullCalendar({
         locale: 'cs',
@@ -103,6 +129,16 @@ $(document).ready(function () {
                     var viewName = event.title.replace(' + ', '_').replace(' ', '_')
                     window.location.href = '/' + tpInfo[0].druhTP + tpInfo[0].stylTP + '/' + viewName // Změňte URL podle vašich potřeb
         },
+        eventMouseover: function (event, jsEvent, view) {
+            // Změna barvy při najetí myši
+           // barva = event.backgroundColor; // Uchování původní barvy
+                    changeEventColor($(this), "#859199"); // Změňte barvu podle potřeby
+        },
+        eventMouseout: function (event, jsEvent, view) {
+            // Vrácení původní barvy po opuštění myši
+           // var x = "red";
+            changeEventColor($(this), event.color); // Vrácení původní barvy
+        },
         events: eventy,
         firstDay: 1
         
@@ -111,7 +147,10 @@ $(document).ready(function () {
 }
 )
 
-        
+
+
+
+
 </script> 
 
 

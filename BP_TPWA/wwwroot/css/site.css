@@ -136,6 +136,10 @@ BTN
     margin: 0.3rem;
 }
 
+.float-right-custom {
+    float: right !important;
+}
+
 
 
 

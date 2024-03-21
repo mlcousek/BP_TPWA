@@ -1,2 +1,121 @@
-﻿
-        <h1>Test Hrudnik + tricaček</h1>
+﻿<h1>Trénink Hrudník + triceps</h1>
+<h2>Budování svalové hmoty - Velká/malá partie</h2>
+
+<p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
+
+<div id="kontejner-cviku"></div>
+
+<p>Po odcvičení doporučuji alespoň lehce protáhnout cvičenou svalovou skupinu.</p>
+
+<!-- Bootstrap 5 modální okno -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Název cviku</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalContent">Obsah cviku</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var BSHVM = @Html.Raw(Json.Serialize(ViewBag.BSHVM));
+
+    function naplnitCvicebniSablonu() {
+        var kontejnerCviku = document.getElementById("kontejner-cviku");
+        var table = document.createElement("table");
+        table.classList.add("table", "table-hover");
+
+        // Vytvoření hlavičky tabulky
+        var thead = document.createElement("thead");
+        var headerRow = document.createElement("tr");
+        var headers = ["Název cviku", "Série", "Opakování", "Odpočinek mezi sériemi"];
+        headers.forEach(function (headerText) {
+            var header = document.createElement("th");
+            header.textContent = headerText;
+            header.scope = "col";
+            headerRow.appendChild(header);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Vytvoření těla tabulky
+        var tbody = document.createElement("tbody");
+        BSHVM.forEach(function (cvik) {
+            var row = document.createElement("tr");
+            row.classList.add("table-light");
+
+            var nameCell = document.createElement("td");
+            nameCell.textContent = cvik.název;
+            nameCell.classList.add("clickable"); // Přidání třídy pro klikatelnost
+            nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
+                // this.style.backgroundColor = "lightblue"; // Změna barvy pozadí po kliknutí
+            });
+            nameCell.addEventListener("mouseenter", function () { // Přidání event listeneru pro najetí myší
+                this.style.cursor = "pointer"; // Změna kurzoru na ukazatel po najetí myší
+                this.style.color = "blue"; // Změna barvy textu po najetí myší
+            });
+            nameCell.addEventListener("mouseleave", function () { // Přidání event listeneru pro opuštění myší
+                this.style.color = ""; // Vrácení původní barvy textu po opuštění myší
+
+            });
+            nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
+                document.getElementById("exampleModalLabel").textContent = cvik.název;
+                var modalContent = document.getElementById("modalContent");
+                modalContent.innerHTML = ""; // Vyčištění obsahu modálního okna
+
+                var série = document.createElement("p");
+                série.textContent = "Série: " + cvik.početSérií;
+                modalContent.appendChild(série);
+
+                var početOpakování = document.createElement("p");
+                početOpakování.textContent = "Počet opakování: " + cvik.početOpakování;
+                modalContent.appendChild(početOpakování);
+
+
+                var odpočinek = document.createElement("p");
+                odpočinek.textContent = "Odpočinek: " + cvik.pauzaMeziSériemi + " sekund";
+                modalContent.appendChild(odpočinek);
+
+                var popis = document.createElement("p");
+                popis.textContent = "Popis cviku: " + cvik.popisCviku;
+                modalContent.appendChild(popis);
+
+                var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                    keyboard: false
+                });
+                myModal.show(); // Zobrazení modálního okna pomocí Bootstrap
+            });
+            row.appendChild(nameCell);
+
+            var setsCell = document.createElement("td");
+            setsCell.textContent = cvik.početSérií;
+            row.appendChild(setsCell);
+
+            var repetitionsCell = document.createElement("td");
+            repetitionsCell.textContent = cvik.početOpakování;
+            row.appendChild(repetitionsCell);
+
+
+            var restCell = document.createElement("td");
+            restCell.textContent = cvik.pauzaMeziSériemi + " sekund";
+            row.appendChild(restCell);
+
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        // Přidání tabulky do kontejneru cvičení
+        kontejnerCviku.appendChild(table);
+    }
+
+    naplnitCvicebniSablonu();
+</script>
+
