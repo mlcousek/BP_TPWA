@@ -22,8 +22,8 @@
                 <p id="modalContent">Obsah cviku</p>
                 <div class="form-group">
                     <label for="series">Počet odcvičených sérií:</label>
-                    <input type="number" class="form-control" id="series">
-                    <button type="button" class="btn btn-success" onclick="changeSeriesCount()">Potvrdit série</button>
+                     <input type="number" class="form-control" id="series" min="0" max="50">
+                    <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit série</button>
                 </div>
                 <div id="seriesFields"></div>
             <div class="modal-footer">
@@ -79,6 +79,7 @@
         var tbody = document.createElement("tbody");
         BSHVM.forEach(function (cvik) {
             var row = document.createElement("tr");
+            row.id = cvik.cvikId;
             row.classList.add("table-light");
 
             var nameCell = document.createElement("td");
@@ -155,6 +156,13 @@ var seriesCount = 1; // Počáteční počet sérií
 function changeSeriesCount() {
     var newSeriesCount = document.getElementById("series").value;
     seriesCount = parseInt(newSeriesCount);
+    if (seriesCount < 0) {
+        alert("Zadejte prosím platný počet sérií (0 až 50).");
+        seriesCount = 0;
+    } else if (seriesCount > 50) {
+        alert("Zadejte prosím platný počet sérií (0 až 50).");
+        seriesCount = 0;
+    }
     renderSeriesFields();
 }
 
@@ -171,20 +179,27 @@ function renderSeriesFields() {
         var repetitionsLabel = document.createElement("label");
         repetitionsLabel.setAttribute("for", "repetitions_" + seriesNumber);
         repetitionsLabel.textContent = "Počet opakování v sérii " + seriesNumber + ":";
+        repetitionsLabel.classList.add("my-2");
 
         var repetitionsInput = document.createElement("input");
         repetitionsInput.setAttribute("type", "number");
         repetitionsInput.setAttribute("class", "form-control");
         repetitionsInput.setAttribute("id", "repetitions_" + seriesNumber);
+        repetitionsInput.setAttribute("min", 0);
+        repetitionsInput.setAttribute("max", 100);
+
 
         var weightLabel = document.createElement("label");
         weightLabel.setAttribute("for", "weight_" + seriesNumber);
         weightLabel.textContent = "Váha v sérii " + seriesNumber + " (kg):";
+        weightLabel.classList.add("my-2");
 
         var weightInput = document.createElement("input");
         weightInput.setAttribute("type", "number");
         weightInput.setAttribute("class", "form-control");
         weightInput.setAttribute("id", "weight_" + seriesNumber);
+        weightInput.setAttribute("min", 0);
+        weightInput.setAttribute("max", 600);
 
         seriesField.appendChild(repetitionsLabel);
         seriesField.appendChild(repetitionsInput);
@@ -225,13 +240,18 @@ function submitFeedback() {
             CvicenaVaha: weight
         });
     }
-    console.log("Data sérií:", seriesData);
-    console.log("Data sérií:", seriesData[0]);
 
+    var dataVPohode = 1;
 
-    console.log(dateFromUrl);
-    console.log(cvikId);
-
+    for (var i = 0; i < seriesData.length; i++) {
+        if (seriesData[i].PocetOpakovani > 100 || seriesData[i].PocetOpakovani < 0) {
+            dataVPohode = 0;
+            alert("Zadejte prosím pravdivé údaje.");
+        } else if (seriesData[i].CvicenaVaha > 500 || seriesData[i].CvicenaVaha < 0) {
+            dataVPohode = 0;
+            alert("Zadejte prosím pravdivé údaje.");
+        }
+    }
     
     // Odeslání dat na server pomocí AJAXu
     // $.ajax({
@@ -248,35 +268,41 @@ function submitFeedback() {
     //         console.log("chyba");
     //     }
     // });
-    for (var i = 0; i < seriesData.length; i++) {
-        $.ajax({
-            url: '/TreninkoveData/SaveToDatabase',
-            type: 'POST',
-            //contentType: 'application/json',
-            data: seriesData[i],
 
-            success: function (response) {
-                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-            },
-            error: function (xhr, status, error) {
-                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-                console.log("chyba");
-            }
-        });
+    if (dataVPohode == 1) {
+
+        for (var i = 0; i < seriesData.length; i++) {
+            $.ajax({
+                url: '/TreninkoveData/SaveToDatabase',
+                type: 'POST',
+                //contentType: 'application/json',
+                data: seriesData[i],
+
+                success: function (response) {
+                    // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                },
+                error: function (xhr, status, error) {
+                    // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                    console.log("chyba");
+                }
+            });
+        }
+                var tablecvikId = seriesData[0].cvikId;
+                var selectedRow = document.getElementById(String(tablecvikId));
+                console.log(selectedRow);
+                // Změna barvy pozadí řádku na zelenou
+                if (selectedRow) {
+                    // Odstranění třídy table-light
+                    selectedRow.classList.remove('table-light');
+                    // Přidání třídy table-success
+                    selectedRow.classList.add('table-success');
+                }
+
+
+        changeSeriesCount();
+        $('#myModal').modal('hide');
     }
 
-            var selectedRow = document.querySelector('.table-hover tr.table-light');
-            console.log(selectedRow);
-            // Změna barvy pozadí řádku na zelenou
-            if (selectedRow) {
-                // Odstranění třídy table-light
-                selectedRow.classList.remove('table-light');
-                // Přidání třídy table-success
-                selectedRow.classList.add('table-success');
-            }
-
-    changeSeriesCount();
-    $('#myModal').modal('hide');
 }
 
 // Zobrazení počátečních polí pro sérii při načtení stránky

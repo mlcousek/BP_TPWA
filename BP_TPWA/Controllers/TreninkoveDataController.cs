@@ -193,6 +193,9 @@ namespace BP_TPWA.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 kUlozeni.UzivatelId = userId;
 
+                var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(tp => tp.Id == userId);
+                kUlozeni.VahaUzivatele = uzivatelIdZaznam.Váha;
+
                 _context.Add(kUlozeni);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
