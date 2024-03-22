@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BP_TPWA.Data;
 using BP_TPWA.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace BP_TPWA.Controllers
 {
@@ -59,7 +61,7 @@ namespace BP_TPWA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UzivatelId,Datum,CvikId,PocetSerii,PocetOpakovani,CvicenaVaha")] TreninkoveData treninkoveData)
+        public async Task<IActionResult> Create([Bind("Id,UzivatelId,Datum,CvikId,CisloSerie,PocetOpakovani,CvicenaVaha")] TreninkoveData treninkoveData)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +97,7 @@ namespace BP_TPWA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UzivatelId,Datum,CvikId,PocetSerii,PocetOpakovani,CvicenaVaha")] TreninkoveData treninkoveData)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UzivatelId,Datum,CvikId,CisloSerie,PocetOpakovani,CvicenaVaha")] TreninkoveData treninkoveData)
         {
             if (id != treninkoveData.Id)
             {
@@ -170,18 +172,36 @@ namespace BP_TPWA.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveToDatabase(List<TreninkoveData> treninkoveData)
+        public async Task<IActionResult> SaveToDatabase(DataZFrontendu data)
         {
-            if (ModelState.IsValid)
+            if (data != null)
             {
-                _context.Add(treninkoveData);
+                TreninkoveData kUlozeni = new TreninkoveData();
+                kUlozeni.CisloSerie = data.CisloSerie;
+                kUlozeni.PocetOpakovani = data.PocetOpakovani;
+                kUlozeni.CvicenaVaha = data.CvicenaVaha;
+                kUlozeni.CvikId = data.CvikId;
+                DateTime datum;
+                if (DateTime.TryParse(data.Datum, out datum))
+                {
+                    kUlozeni.Datum = datum;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "TP");
+                }
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                kUlozeni.UzivatelId = userId;
+
+                _context.Add(kUlozeni);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+
             }
-            //ViewData["CvikId"] = new SelectList(_context.Cvik, "CvikId", "CvikId", treninkoveData.CvikId);
+
+              //ViewData["CvikId"] = new SelectList(_context.Cvik, "CvikId", "CvikId", data.CvikId);
             //ViewData["UzivatelId"] = new SelectList(_context.Users, "Id", "Id", treninkoveData.UzivatelId);
-            return View(treninkoveData);
+            return View(data);
         }
     }
 }

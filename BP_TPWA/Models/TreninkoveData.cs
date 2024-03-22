@@ -12,7 +12,7 @@ namespace BP_TPWA.Models
         public string UzivatelId { get; set; }
         public DateTime Datum { get; set; }
         public int CvikId { get; set; }
-        public int PocetSerii { get; set; }
+        public int CisloSerie { get; set; }
         public int PocetOpakovani { get; set; }
         public int CvicenaVaha { get; set; }
 

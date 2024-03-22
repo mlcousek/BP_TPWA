@@ -7,6 +7,9 @@
 
 <p>Po odcvičení doporučuji alespoň lehce protáhnout cvičenou svalovou skupinu.</p>
 
+<button type="button" class="btn btn-dark float-right-custom" id="pridatCvikButton">Přidat cvik</button>
+<button type="button" class="btn btn-secondary" id="zpetNaPlanButton">Zpět na plán</button>
+
 <!-- Modální okno -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -30,9 +33,6 @@
         </div>
     </div>
 </div>
-
-<button type="button" class="btn btn-dark float-right-custom" id="pridatCvikButton">Přidat cvik</button>
-<button type="button" class="btn btn-secondary" id="zpetNaPlanButton">Zpět na plán</button>
 
 
 
@@ -197,21 +197,6 @@ function renderSeriesFields() {
 
 function submitFeedback() {
     // Zde můžete získat zpětnou vazbu a data sérií a provést další akce
-
-    var seriesData = [];
-    for (var i = 0; i < seriesCount; i++) {
-        var seriesNumber = i + 1;
-        var repetitions = document.getElementById("repetitions_" + seriesNumber).value;
-        var weight = document.getElementById("weight_" + seriesNumber).value;
-
-        seriesData.push({
-            series: seriesNumber,
-            repetitions: repetitions,
-            weight: weight
-        });
-    }
-    console.log("Data sérií:", seriesData);
-
     // Získání URL adresy aktuální stránky
     var currentUrl = window.location.href;
 
@@ -224,29 +209,61 @@ function submitFeedback() {
     // Vytvoření objektu typu Date ze získaného řetězce s datem
     var dateFromUrl = new Date(dateParam);
 
+    var dateString = dateFromUrl.toISOString();
+
+    var seriesData = [];
+    for (var i = 0; i < seriesCount; i++) {
+        var seriesNumber = i + 1;
+        var repetitions = document.getElementById("repetitions_" + seriesNumber).value;
+        var weight = document.getElementById("weight_" + seriesNumber).value;
+
+        seriesData.push({
+            Datum: dateString,
+            cvikId: cvikId,
+            CisloSerie: seriesNumber,
+            PocetOpakovani: repetitions,
+            CvicenaVaha: weight
+        });
+    }
+    console.log("Data sérií:", seriesData);
+    console.log("Data sérií:", seriesData[0]);
+
+
     console.log(dateFromUrl);
     console.log(cvikId);
 
-    var postData = {
-        date: dateFromUrl,
-        cvikId: cvikId,
-        seriesData: seriesData
-
-    };
-
+    
     // Odeslání dat na server pomocí AJAXu
-    $.ajax({
-        url: '/TreninkoveDataController/SaveToDatabase', 
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(postData),
-        success: function (response) {
-            // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-        },
-        error: function (xhr, status, error) {
-            // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-        }
-    });
+    // $.ajax({
+    //     url: '/TreninkoveData/SaveToDatabase', 
+    //     type: 'POST',
+    //     //contentType: 'application/json',
+    //     data: seriesData[0],
+
+    //     success: function (response) {
+    //         // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+    //     },
+    //     error: function (xhr, status, error) {
+    //         // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+    //         console.log("chyba");
+    //     }
+    // });
+    for (var i = 0; i < seriesData.length; i++) {
+        $.ajax({
+            url: '/TreninkoveData/SaveToDatabase',
+            type: 'POST',
+            //contentType: 'application/json',
+            data: seriesData[i],
+
+            success: function (response) {
+                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+            },
+            error: function (xhr, status, error) {
+                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                console.log("chyba");
+            }
+        });
+    }
 
             var selectedRow = document.querySelector('.table-hover tr.table-light');
             console.log(selectedRow);
