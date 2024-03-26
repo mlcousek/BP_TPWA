@@ -4,6 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <h1>Index</h1>
 
 <p>
@@ -63,3 +65,70 @@
 }
     </tbody>
 </table>
+
+<canvas id="myChart" width="200" height="50"></canvas>
+
+<script>
+    var treninkovedata = @Html.Raw(Json.Serialize(ViewBag.treninkovedata));
+    var tpdata = @Html.Raw(Json.Serialize(ViewBag.tpdata));
+    console.log(treninkovedata);
+    console.log(tpdata);
+    var stylTP = tpdata[0].stylTP;
+    var grafy;
+
+    if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "BSH") {
+        var bshvmnohyData = filterDataByPlanStyle(treninkovedata, 'BSHVMNohy');
+        var bshvmramenaData = filterDataByPlanStyle(treninkovedata, 'BSHVMRamBic');
+        var bshvmhrudnikData = filterDataByPlanStyle(treninkovedata, 'BSHVMHrTric');
+        var bshvmzadaData = filterDataByPlanStyle(treninkovedata, 'BSHVMZada');
+    }
+
+    // console.log(grafy);
+
+    // var data = [
+    //     { cvik: 'Kliky', stylPlanu: 'VM', hodnota: 20 },
+    //     { cvik: 'Dřepy', stylPlanu: 'VM', hodnota: 30 },
+    //     { cvik: 'Bench Press', stylPlanu: 'HR', hodnota: 50 },
+    //     // Další záznamy
+    // ];
+
+    // Funkce pro filtrování dat podle stylu tréninkového plánu
+    function filterDataByPlanStyle(data, typTreninku) {
+        return data.filter(entry => entry.cvik.typTreninku === typTreninku);
+    }
+
+    // Filtrace dat pro styl tréninkového plánu "VM"
+    // var bshvmnohyData = filterDataByPlanStyle(treninkovedata, 'BSHVMNohy');
+    // console.log(vmData);
+
+    var data = {
+        labels: ["Datum1", "Datum2", "Datum3", "Datum4", "Datum5"],
+        datasets: [{
+            label: 'Maximální zvedaná váha',
+            data: [80, 85, 90, 87, 92],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    };
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Combined Line/Bar Chart'
+                }
+            }
+        },
+    });
+
+</script>
