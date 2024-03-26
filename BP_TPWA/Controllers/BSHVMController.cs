@@ -20,7 +20,13 @@ namespace BP_TPWA.Controllers
                         .Where(tt => tt.TypTreninku == "BSHVMNohy")
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
+
+            var datacviku = _context.TreninkoveData
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+
             ViewBag.BSHVM = cviky;
+            ViewBag.BSHVMdata = datacviku;
             return View();
         }
 
@@ -31,7 +37,13 @@ namespace BP_TPWA.Controllers
                         .Where(tt => tt.TypTreninku == "BSHVMHrTric")
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
+
+            var datacviku = _context.TreninkoveData
+            .Where(id => id.UzivatelId == userId)
+            .ToList();
+
             ViewBag.BSHVM = cviky;
+            ViewBag.BSHVMdata = datacviku;
             return View();
         }
 
@@ -42,7 +54,13 @@ namespace BP_TPWA.Controllers
                         .Where(tt => tt.TypTreninku == "BSHVMRamBic")
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
+
+            var datacviku = _context.TreninkoveData
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+
             ViewBag.BSHVM = cviky;
+            ViewBag.BSHVMdata = datacviku;
             return View();
         }
 
@@ -53,7 +71,12 @@ namespace BP_TPWA.Controllers
                         .Where(tt => tt.TypTreninku == "BSHVMZada")
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
+            var datacviku = _context.TreninkoveData
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+
             ViewBag.BSHVM = cviky;
+            ViewBag.BSHVMdata = datacviku;
             return View();
         }
     }

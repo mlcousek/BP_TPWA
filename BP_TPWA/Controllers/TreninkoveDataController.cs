@@ -202,8 +202,42 @@ namespace BP_TPWA.Controllers
 
             }
 
-              //ViewData["CvikId"] = new SelectList(_context.Cvik, "CvikId", "CvikId", data.CvikId);
+            //ViewData["CvikId"] = new SelectList(_context.Cvik, "CvikId", "CvikId", data.CvikId);
             //ViewData["UzivatelId"] = new SelectList(_context.Users, "Id", "Id", treninkoveData.UzivatelId);
+            return View(data);
+        }
+
+        // POST: TreninkoveData/DeleteFromDatabase
+        public async Task<IActionResult> DeleteFromDatabase(DataZFrontendu data)
+        {
+            if (data != null)
+            {
+                var cvikId = data.CvikId;
+                var uzivatelId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                DateTime datum;
+                if (DateTime.TryParse(data.Datum, out datum))
+                {
+                    // Vyhledej všechny záznamy s odpovídajícím cvikId a datem
+                    var zaznamyKSmazani = await _context.TreninkoveData
+                        .Where(t => t.CvikId == cvikId && t.Datum == datum && t.UzivatelId == uzivatelId)
+                        .ToListAsync();
+
+                    // Ověř, zda byly nalezeny nějaké záznamy
+                    if (zaznamyKSmazani.Any())
+                    {
+                        // Pokud ano, odeber všechny nalezené záznamy
+                        _context.TreninkoveData.RemoveRange(zaznamyKSmazani);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction("Index", "TP");
+                }
+            }
+
             return View(data);
         }
     }
