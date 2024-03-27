@@ -166,6 +166,7 @@ namespace BP_TPWA.Controllers
             var applicationDbContext = _context.TP.Include(t => t.User);
             var tpRecords = await applicationDbContext.ToListAsync();
 
+
             // Získání ID aktuálně přihlášeného uživatele
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -174,6 +175,16 @@ namespace BP_TPWA.Controllers
             
             if(uzivatelIdZaznam != null)
             {
+                DateTime tedka = DateTime.Now;
+                DateTime datumPoslednihoUlozeni = uzivatelIdZaznam.DatumPoslednihoUlozeniVahy;
+                TimeSpan rozdil = tedka - datumPoslednihoUlozeni;
+
+                if (rozdil.TotalDays >= 6)
+                {
+                    uzivatelIdZaznam.AktualniVaha = false;
+                    await _context.SaveChangesAsync();
+                }
+
                 foreach (var tpRecord in tpRecords)
                 {
                     // Zde můžete pracovat s každým záznamem TP a přistupovat k jeho vlastnostem, včetně User.
@@ -341,7 +352,7 @@ namespace BP_TPWA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Délka,DruhTP,StylTP,PocetTreninkuZaTyden,DnyVTydnu,UzivatelID,ZkontorlovaneDny,UlozenaDataDnu")] TP tP)
+        public async Task<IActionResult> Create([Bind("Id,Délka,DruhTP,StylTP,PocetTreninkuZaTyden,DnyVTydnu,UzivatelID,ZkontorlovaneDny,UlozenaDataDnu,AktualniVaha,DatumPoslednihoUlozeniVahy")] TP tP)
         {
             if (ModelState.ContainsKey("User"))
             {
@@ -361,6 +372,8 @@ namespace BP_TPWA.Controllers
                 currentUser.TPId = tP.Id; // Předpokládá se, že máte v modelu AspNetUsers vlastnost TPId
 
                 tP.User = currentUser;
+                tP.AktualniVaha = true;
+                tP.DatumPoslednihoUlozeniVahy = DateTime.Now;
 
                 await _context.SaveChangesAsync();
 

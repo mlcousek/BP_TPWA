@@ -30,6 +30,8 @@ namespace BP_TPWA.Models
         public bool ZkontrolovaneDny {  get; set; }
 
         public bool UlozenaDataDnu { get; set; }
+        public bool AktualniVaha {  get; set; }
+        public DateTime DatumPoslednihoUlozeniVahy {  get; set; }
 
 
 

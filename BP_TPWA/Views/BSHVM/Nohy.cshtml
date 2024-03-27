@@ -400,22 +400,25 @@ function submitFeedback() {
         currentDate.setHours(1, 0, 0, 0); // Nastavení hodin na půlnoc pro porovnání s datem z URL
 
 
+        // FUNGUJE JEN TESTUJU TAK TO ZAKOMENTUJU
+
+        // // Pokud je datum z URL dnešní nebo starší, zobrazit možnost zpětné vazby a další prvky v modálním okně
+        // if (dateFromUrl <= currentDate) {
+        //     // console.log('Datum z URL je dřívější nebo stejný jako aktuální datum.');
+        //     // document.getElementById("feedbackButton").style.display = "block"; // Zobrazení tlačítka zpětné vazby
+        //     // //document.getElementById("modalContent").style.display = "block"; // Zobrazení obsahu modálního okna
+        //     // document.getElementById("seriesFields").style.display = "block"; // Zobrazení polí pro sérii
+        // } else {
+        //     document.getElementById("feedbackButton").style.display = "none"; // Skrytí tlačítka zpětné vazby
+        //     //document.getElementById("modalContent").style.display = "none"; // Skrytí obsahu modálního okna
+        //     document.getElementById("seriesFields").style.display = "none"; // Skrytí polí pro sérii
+
+        //     var seriesForm = document.getElementById("serieFormular");
+        //     seriesForm.style.display = "none";
+        // }
 
 
-        // Pokud je datum z URL dnešní nebo starší, zobrazit možnost zpětné vazby a další prvky v modálním okně
-        if (dateFromUrl <= currentDate) {
-            // console.log('Datum z URL je dřívější nebo stejný jako aktuální datum.');
-            // document.getElementById("feedbackButton").style.display = "block"; // Zobrazení tlačítka zpětné vazby
-            // //document.getElementById("modalContent").style.display = "block"; // Zobrazení obsahu modálního okna
-            // document.getElementById("seriesFields").style.display = "block"; // Zobrazení polí pro sérii
-        } else {
-            document.getElementById("feedbackButton").style.display = "none"; // Skrytí tlačítka zpětné vazby
-            //document.getElementById("modalContent").style.display = "none"; // Skrytí obsahu modálního okna
-            document.getElementById("seriesFields").style.display = "none"; // Skrytí polí pro sérii
-
-            var seriesForm = document.getElementById("serieFormular");
-            seriesForm.style.display = "none";
-        }
+        // KONEC CASTI CO FUNGUJE A TESTUJU JI
 
 // Zobrazení počátečních polí pro sérii při načtení stránky
         renderSeriesFields();
