@@ -66,12 +66,58 @@
 </table>
 
 
-<div id="myModal" class="modal">
+@* <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <p>Zde se ptáme na aktuální váhu uživatele.</p>
     </div>
+</div> *@
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Zadejte aktuální váhu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalContent">Zadejte aktuální váhu (kg) (př.: 82,3)</p>
+                <div id="serieFormular" class="form-group">
+                  @*   <label for="series">Zadejte aktuální váhu:</label> *@
+                    <input type="number" class="form-control" id="vaha" min="0" max="0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@* <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Zadejte aktuální váhu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalContent">Zadejte aktuální váhu</p>
+                <div id="serieFormular" class="form-group">
+                    <label for="vaha">Zadejte aktuální váhu:</label>
+                    <input type="number" class="form-control" id="vaha" min="60" max="100">
+                    <button type="button" class="btn btn-success my-2" onclick="zmenitVahu()">Potvrdit série</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+            </div>
+        </div>
+    </div>
+</div> *@
 
 <div id="calendar"></div>
 @section scripts{
@@ -82,22 +128,35 @@
  <script>
         var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
         var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
+        var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
+        console.log(uzivatelData[0].váha);
 
+        var staraVaha = uzivatelData[0].váha;
+        var inputVaha = document.getElementById('vaha');
+        inputVaha.value = staraVaha;
+
+        // Nastavení min a max hodnoty váhy s odchylkou -10 a +10
+        inputVaha.min = staraVaha - 10;
+        inputVaha.max = staraVaha.váha + 10;
 
      if (tpInfo[0].aktualniVaha === false) {
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
+            var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                keyboard: false
+            });
+            myModal.show(); // Zobrazení modálního okna pomocí Bootstrap
 
             // Zavřít modální okno při kliknutí na ikonu zavřít (X)
-            var closeBtn = modal.querySelector(".close");
+            var closeBtn = modal.querySelector(".btn-close");
             closeBtn.onclick = function () {
-                modal.style.display = "none";
+                $('#myModal').modal('hide')
             }
 
             // Zavřít modální okno při kliknutí mimo modální okno
             window.onclick = function (event) {
                 if (event.target == modal) {
-                    modal.style.display = "none";
+                    $('#myModal').modal('hide');
                 }
             }
      }
@@ -179,7 +238,38 @@ $(document).ready(function () {
 )
 
 
+function submitFeedback() {
+    var novaVaha = document.getElementById("vaha").value;
+    var dataVPohode = 1;
+    if (novaVaha > staraVaha) {
+        if (novaVaha - 11 > staraVaha) {
+            dataVPohode = 0;
+        }
+    } else {
+        if (novaVaha + 11 < staraVaha) {
+            dataVPohode = 0;
+        }
+    }
+    alert("Zadejte prosím pravdivé údaje.");
 
+    if (dataVPohode === 1) {
+        $.ajax({
+            url: '/TP/AktualizaceVahy',
+            type: 'POST',
+            //contentType: 'application/json',
+            data: novaVaha,
+
+            success: function (response) {
+                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                location.reload(true);
+            },
+            error: function (xhr, status, error) {
+                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                console.log("chyba");
+            }
+        });
+    }
+}
 
 
 </script> 

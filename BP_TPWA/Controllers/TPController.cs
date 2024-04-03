@@ -310,10 +310,14 @@ namespace BP_TPWA.Controllers
                 var tpInfo = await _context.TP
                                 .Where(dt => dt.Id == uzivatelIdZaznam.Id)
                                 .ToListAsync();
+                var uzivatel = await _context.Users
+                                .Where(dt => dt.Id == userId)
+                                .ToListAsync();
 
-               // var tpInfo = _context.TP.ToList();
+                // var tpInfo = _context.TP.ToList();
                 ViewBag.DenTreninku = treninkoveData;
                 ViewBag.TP = tpInfo;
+                ViewBag.Uzivatel = uzivatel;
             }
 
             return View(await applicationDbContext.ToListAsync());
@@ -478,6 +482,28 @@ namespace BP_TPWA.Controllers
         private bool TPExists(int id)
         {
             return _context.TP.Any(e => e.Id == id);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> AktualizaceVahy(float vaha)
+        {
+            if (vaha != null)
+            {
+                
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                
+
+                var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+                //uzivatelIdZaznam.Váha = vaha;
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+
+            //ViewData["CvikId"] = new SelectList(_context.Cvik, "CvikId", "CvikId", data.CvikId);
+            //ViewData["UzivatelId"] = new SelectList(_context.Users, "Id", "Id", treninkoveData.UzivatelId);
+            return View(vaha);
         }
     }
 }
