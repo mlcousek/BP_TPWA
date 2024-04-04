@@ -1,0 +1,142 @@
+﻿@model NahledPlanuModel
+
+@{
+    var typyTreninku = Model.Cviky.Select(c => c.TypTreninku).Distinct().ToList();
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    /* Vlastní CSS styly pro vylepšení vzhledu */
+
+    /* Import Roboto písma z Google Fonts */
+
+    /* Základní styly pro tabulku */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        margin: auto; /* Centrování horizontálně */
+        font-family: 'Roboto', sans-serif; /* Použití písma Roboto */
+    }
+
+    th, td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: center; /* Centrování obsahu v buňkách */
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Styly pro zvýraznění hlavičky tabulky */
+    h2 {
+        font-size: 24px;
+        margin-top: 20px;
+        margin-bottom: 16px;
+        text-align: center; /* Centrování nadpisu */
+        font-family: 'Roboto', sans-serif; /* Použití písma Roboto */
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 12px;
+        text-align: center; /* Centrování nadpisu */
+        font-family: 'Roboto', sans-serif; /* Použití písma Roboto */
+    }
+
+    /* Centrování tabulky vertikálně */
+    .table-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Výška obrazovky */
+    }
+</style>
+
+<h2>Tréninkový plán</h2>
+
+<p>Tento tréninkový plán byl vytvořen pomocí Aplikace pro vytváření tréninkových plánů</p>
+
+<h3>Všechny tréninky:</h3>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Typ tréninku</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trenink in Model.Treninky)
+            {
+                <tr>
+                    <td>@trenink.DatumTreninku.ToShortDateString() @trenink.DatumTreninku.ToString("dddd", new System.Globalization.CultureInfo("cs-CZ"))</td>
+                    <td>@trenink.TypTreninku</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* <h2>Konkrétní tréninky</h2>
+
+@foreach (var typTreninku in typyTreninku)
+{
+    @if (@typTreninku == "BSHVMNohy")
+    {
+        <h3>Nohy</h3>
+    }
+    @if (@typTreninku == "BSHVMRamBic")
+    {
+        <h3>Ramena + biceps</h3>
+    }
+    @if (@typTreninku == "BSHVMHrTric")
+    {
+        <h3>Hrudník + Triceps </h3>
+    }
+    @if (@typTreninku == "BSHVMZada")
+    {
+        <h3>Záda</h3>
+    }
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Název</th>
+                    <th>Počet sérií</th>
+                    <th>Počet opakování</th>
+                    <th>Pauza mezi sériemi</th>
+                    <th>Partie</th>
+                    <th>Popis cviku</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cvik in Model.Cviky)
+                {
+                    @if(cvik.TypTreninku == typTreninku)
+                    {
+                        <tr>
+                            <td>@cvik.Název</td>
+                            <td>@cvik.PočetSérií</td>
+                            <td>@cvik.PočetOpakování</td>
+                            <td>@cvik.PauzaMeziSériemi</td>
+                            <td>@cvik.Partie</td>
+                            <td>@cvik.PopisCviku</td>
+                        </tr>
+                        
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+ *@
+

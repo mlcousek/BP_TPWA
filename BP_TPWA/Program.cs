@@ -2,6 +2,7 @@ using BP_TPWA.Data;
 using BP_TPWA.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<Uzivatel>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+//builder.Services.AddRotativa();
+//var rotativaPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages", "rotativa", "1.7.3", "content");
+//RotativaConfiguration.Setup(rotativaPath);
+
 
 var app = builder.Build();
 
@@ -29,12 +35,15 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseRotativa();
 
 app.MapControllerRoute(
     name: "default",

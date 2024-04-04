@@ -11,6 +11,13 @@ using BP_TPWA.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
+//using Rotativa;
+using Rotativa.AspNetCore;
+using System.Threading.Tasks;
+using Rotativa;
+//using System.Web.Mvc;
+
 
 namespace BP_TPWA.Controllers
 {
@@ -179,7 +186,7 @@ namespace BP_TPWA.Controllers
                 DateTime datumPoslednihoUlozeni = uzivatelIdZaznam.DatumPoslednihoUlozeniVahy;
                 TimeSpan rozdil = tedka - datumPoslednihoUlozeni;
 
-                if (rozdil.TotalDays >= 6)
+                if (rozdil.TotalDays >= 1)              /////NASTAVENI JAK CASTO BUDE KONTROLA VAHY, DAM CO DEN KVULI TESTOVANI
                 {
                     uzivatelIdZaznam.AktualniVaha = false;
                     await _context.SaveChangesAsync();
@@ -485,25 +492,122 @@ namespace BP_TPWA.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> AktualizaceVahy(float vaha)
+        public async Task<IActionResult> AktualizaceVahy(VahaZFrontendu vaha)
         {
             if (vaha != null)
             {
-                
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                
-
                 var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
-                //uzivatelIdZaznam.Váha = vaha;
+                double cislo;
 
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (double.TryParse(vaha.Váha, NumberStyles.Number, CultureInfo.InvariantCulture, out cislo))
+                {
+                    uzivatelIdZaznam.Váha = cislo;
+
+                    var uzivatelTP = await _context.TP.SingleOrDefaultAsync(u => u.UzivatelID == userId);
+                    if (uzivatelTP != null)
+                    {
+                        uzivatelTP.AktualniVaha = true;
+                        uzivatelTP.DatumPoslednihoUlozeniVahy = DateTime.Now;
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Něco provedete, když se nepodaří převést řetězec na double
+                    return BadRequest("Nepodařilo se převést váhu na desetinné číslo.");
+                }
 
             }
 
-            //ViewData["CvikId"] = new SelectList(_context.Cvik, "CvikId", "CvikId", data.CvikId);
-            //ViewData["UzivatelId"] = new SelectList(_context.Users, "Id", "Id", treninkoveData.UzivatelId);
             return View(vaha);
         }
+
+        public IActionResult OfflineNahled()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> NahledPlanu()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
+
+            var treninky = await _context.DenTreninku
+                                .Where(d => d.TPId == uzivatelIdZaznam.Id)  
+                                .ToListAsync();
+            var cviky = await _context.Cvik
+                                .Where(d => d.UzivatelId == userId)
+                                .ToListAsync();
+
+            var model = new NahledPlanuModel
+            {
+                Treninky = treninky,
+                Cviky = cviky,
+            };
+
+            var viewName = "NahledPlanu";
+            var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName, model);
+            pdf.FileName = "Nahled planu.pdf";
+
+            return pdf;
+        }
+
+        public async Task<IActionResult> NahledPlanuDny()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
+
+            var treninky = await _context.DenTreninku
+                                .Where(d => d.TPId == uzivatelIdZaznam.Id)
+                                .ToListAsync();
+            var cviky = await _context.Cvik
+                                .Where(d => d.UzivatelId == userId)
+                                .ToListAsync();
+
+            var model = new NahledPlanuModel
+            {
+                Treninky = treninky,
+                Cviky = cviky,
+            };
+
+            var viewName = "NahledPlanuDny";
+            var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName, model);
+            pdf.FileName = "Nahled planu dny.pdf";
+
+            return pdf;
+        }
+
+        public async Task<IActionResult> NahledPlanuTreninky()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
+
+            var treninky = await _context.DenTreninku
+                                .Where(d => d.TPId == uzivatelIdZaznam.Id)
+                                .ToListAsync();
+            var cviky = await _context.Cvik
+                                .Where(d => d.UzivatelId == userId)
+                                .ToListAsync();
+
+            var model = new NahledPlanuModel
+            {
+                Treninky = treninky,
+                Cviky = cviky,
+            };
+
+            var viewName = "NahledPlanuTreninky";
+            var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName, model);
+            pdf.FileName = "Nahled planu treninky.pdf";
+
+            return pdf;
+        }
+
+
     }
 }

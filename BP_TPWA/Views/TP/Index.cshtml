@@ -17,12 +17,12 @@
 
 <script src="./js/cs.js"></script>
 
-<h1>Index</h1>
+<h1>Tréninkový plán</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -63,7 +63,7 @@
         </tr>
 }
     </tbody>
-</table>
+</table> *@
 
 
 @* <div id="myModal" class="modal">
@@ -87,57 +87,53 @@
                     <input type="number" class="form-control" id="vaha" min="0" max="0">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
+                    <button type="button" class="btn btn-primary" id="feedbackButton" onclick="odeslatZpetnouVazbu()">Odeslat zpětnou vazbu</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@* <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Zadejte aktuální váhu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="modalContent">Zadejte aktuální váhu</p>
-                <div id="serieFormular" class="form-group">
-                    <label for="vaha">Zadejte aktuální váhu:</label>
-                    <input type="number" class="form-control" id="vaha" min="60" max="100">
-                    <button type="button" class="btn btn-success my-2" onclick="zmenitVahu()">Potvrdit série</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
-            </div>
-        </div>
-    </div>
-</div> *@
 
 <div id="calendar"></div>
+
+<div style="text-align: center;">
+    <button type="button" class="btn btn-outline-dark" onclick="generovatTP()" style="margin: 20px;">Vygenerovat celý náhled tréninkového plánu</button>
+    <button type="button" class="btn btn-outline-dark" onclick="generovatTPdny()" style="margin: 20px;">Vygenerovat pouze dny tréninků</button>
+    <button type="button" class="btn btn-outline-dark" onclick="generovatTPtreninky()" style="margin: 20px;">Vygenerovat pouze tréninky</button>
+</div>
+
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
 
 
  <script>
-        var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
-        var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
-        var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
-        console.log(uzivatelData[0].váha);
 
-        var staraVaha = uzivatelData[0].váha;
-        var inputVaha = document.getElementById('vaha');
-        inputVaha.value = staraVaha;
+    function generovatTP() {
+        window.location.href = "/TP/NahledPlanu";
+    }
 
-        // Nastavení min a max hodnoty váhy s odchylkou -10 a +10
-        inputVaha.min = staraVaha - 10;
-        inputVaha.max = staraVaha.váha + 10;
+    function generovatTPdny() {
+        window.location.href = "/TP/NahledPlanuDny";
+    }
+
+    function generovatTPtreninky() {
+        window.location.href = "/TP/NahledPlanuTreninky";
+    }
+
+    var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
+    var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
+    var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
+    console.log(uzivatelData[0].váha);
+
+    var staraVaha = uzivatelData[0].váha;
+    var inputVaha = document.getElementById('vaha');
+    inputVaha.value = staraVaha;
+
+    // Nastavení min a max hodnoty váhy s odchylkou -10 a +10
+    inputVaha.min = staraVaha - 10;
+    inputVaha.max = staraVaha.váha + 10;
 
      if (tpInfo[0].aktualniVaha === false) {
             var modal = document.getElementById("myModal");
@@ -238,29 +234,42 @@ $(document).ready(function () {
 )
 
 
-function submitFeedback() {
+function odeslatZpetnouVazbu() {
     var novaVaha = document.getElementById("vaha").value;
+    console.log(novaVaha);
+    console.log(staraVaha);
     var dataVPohode = 1;
     if (novaVaha > staraVaha) {
         if (novaVaha - 11 > staraVaha) {
             dataVPohode = 0;
         }
     } else {
-        if (novaVaha + 11 < staraVaha) {
+        if (novaVaha + 11 > staraVaha) {
             dataVPohode = 0;
         }
     }
-    alert("Zadejte prosím pravdivé údaje.");
+    if (dataVPohode === 0) {
+        alert("Zadejte prosím pravdivé údaje.");
+    }
 
     if (dataVPohode === 1) {
+
+        var vahaData = [];
+        vahaData.push({
+                    Váha: novaVaha.toString()
+        });
+
+        console.log(vahaData[0].Váha);
+
         $.ajax({
             url: '/TP/AktualizaceVahy',
             type: 'POST',
-            //contentType: 'application/json',
-            data: novaVaha,
+            // contentType: 'application/json',
+            data: vahaData[0],
 
             success: function (response) {
                 // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                console.log("osssss");
                 location.reload(true);
             },
             error: function (xhr, status, error) {
@@ -271,6 +280,72 @@ function submitFeedback() {
     }
 }
 
+function generovatPDF1() {
+    $.ajax({
+        url: '/TP/PDFView',
+        type: 'GET',
+        // contentType: 'application/json',
+        //data: vahaData[0],
+
+        success: function (response) {
+            // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+            //location.reload(true);
+            //window.open(response);
+            console.log("oss");
+           // downloadPDF(response);
+            //window.open(response, '_blank');
+        },
+        error: function (xhr, status, error) {
+            // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+            console.log("chyba p5i generovani ");
+        }
+    });
+}
+
+function generovatPDF() {
+    // $.ajax({
+    //     url: '/TP/PDFView',
+    //     type: 'GET',
+    //     // contentType: 'application/json',
+    //     //data: vahaData[0],
+
+    //     success: function (response) {
+    //         // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+    //         //location.reload(true);
+    //         //window.open(response);
+    //         console.log("oss");
+    //         // downloadPDF(response);
+    //         //window.open(response, '_blank');
+    //     },
+    //     error: function (xhr, status, error) {
+    //         // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+    //         console.log("chyba p5i generovani ");
+    //     }
+    // });
+            window.location.href = "/TP/PDFView";
+}
+
+
+// Funkce pro stahování PDF
+function downloadPDF(pdfData) {
+    // Vytvoříme nový objekt Blob ze získaných dat PDF
+    var blob = new Blob([pdfData], { type: 'application/pdf' });
+
+    // Vytvoříme URL objektu Blob
+    var url = window.URL.createObjectURL(blob);
+
+    // Vytvoříme nový odkaz na URL objektu Blob
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Tréninkový_plán.pdf'; // Nastavíme jméno souboru pro stahování
+    document.body.appendChild(a);
+
+    // Simulujeme kliknutí na odkaz pro spuštění stahování
+    a.click();
+
+    // Po dokončení stahování odstraníme odkaz
+    window.URL.revokeObjectURL(url);
+}
 
 </script> 
 

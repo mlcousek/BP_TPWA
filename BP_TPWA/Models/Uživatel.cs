@@ -11,7 +11,7 @@ namespace BP_TPWA.Models
         public string Příjmení { get; set; }
         public int Věk { get; set; }
         public int Výška { get; set; }
-        public int Váha { get; set; }
+        public double Váha { get; set; }
         public int Úroveň { get; set; }
         public int? TPId { get; set; }
 

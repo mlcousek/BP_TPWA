@@ -147,6 +147,11 @@ BTN
     KALENDAR
 */
 
+
+.uder-calendar-button {
+    margin-top 20px !important;
+}
+
 .fc-content-skeleton tbody tr {
     height: 100px; /* Zmìò výšku podle potøeby */
 }

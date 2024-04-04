@@ -184,8 +184,8 @@ namespace BP_TPWA.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("VahaUzivatele")
-                        .HasColumnType("int");
+                    b.Property<double>("VahaUzivatele")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -259,8 +259,8 @@ namespace BP_TPWA.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("Váha")
-                        .HasColumnType("int");
+                    b.Property<double>("Váha")
+                        .HasColumnType("float");
 
                     b.Property<int>("Výška")
                         .HasColumnType("int");

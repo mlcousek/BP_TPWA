@@ -10,7 +10,7 @@ namespace BP_TPWA.Models
         public int Id { get; set; }
 
         public string UzivatelId { get; set; }
-        public int VahaUzivatele { get; set; }
+        public double VahaUzivatele { get; set; }
         public DateTime Datum { get; set; }
         public int CvikId { get; set; }
         public int CisloSerie { get; set; }

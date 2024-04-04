@@ -27,6 +27,12 @@ namespace BP_TPWA.Controllers
 
             ViewBag.BSHVM = cviky;
             ViewBag.BSHVMdata = datacviku;
+
+            //var viewName = "Ramena_biceps"; // Název pohledu, který chcete renderovat do PDF
+            //var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName);
+            //pdf.FileName = "Ramena_biceps.pdf";
+            //return pdf;
+
             return View();
         }
 
@@ -44,6 +50,12 @@ namespace BP_TPWA.Controllers
 
             ViewBag.BSHVM = cviky;
             ViewBag.BSHVMdata = datacviku;
+
+            //var viewName = "Hrudník_triceps"; // Název pohledu, který chcete renderovat do PDF
+            //var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName);
+            //pdf.FileName = "Hrudník_triceps.pdf";
+            //return pdf;
+
             return View();
         }
 
