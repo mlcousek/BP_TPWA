@@ -54,13 +54,13 @@ body {
         z-index: 1;
     }
 
-    .mainimage:before {
+/*    .mainimage:before {
         content: "";
-        background: rgba(var(--background-color-rgb), 0.5);
+        background: rgba(var(--background-color-rgb), 0.2);
         position: absolute;
         inset: 0;
         z-index: 2;
-    }
+    }*/
 
     .mainimage .container {
         position: relative;
@@ -170,4 +170,81 @@ BTN
     text-align: center;
     display: block; /* zajistí, že se text bude vertikálnì zarovnávat */
     margin: 0 auto; /* zajistí, že se element bude horizontálnì zarovnávat */
+}
+
+
+
+/*
+    Profil NAV
+*/
+
+.nav-link-cus {
+    color: black !important;
+}
+
+.nav-pills-cus .nav-link-cus.active {
+    background-color: black !important;
+    color: white !important;
+}
+
+
+/*
+     NAVIGACE HLAVNI
+*/
+
+
+#logo-v-nav{
+    margin-left: 15px;
+    margin-right: 20px;
+}
+
+
+/*
+      HLAVNI STRANKA POZADI
+*/
+
+.navbar-cus {
+    /*background: transparent !important;
+    z-index: 4 !important;*/
+    background-image: url('../Images/sven-mieke-MsCgmHuirDo-unsplash-min.jpg') !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+}
+
+
+.background-section {
+    background-image: url('../Images/sven-mieke-MsCgmHuirDo-unsplash-min.jpg') !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    height: 100vh !important; /* Nastavte výšku na 100% výšky okna pro zobrazení celého obrázku */
+}
+
+.background-footer {
+    background-image: url('../Images/sven-mieke-MsCgmHuirDo-unsplash-min.jpg') !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    /*height: 200px !important;*/ /* Nastavte výšku podle potøeby */
+    margin: 0px !important;
+    padding: 0px !important;
+    border-bottom: none !important;
+    border: none !important;
+}
+
+.footer-cus {
+
+    border-bottom: none !important;
+    border: none !important;
+}
+
+
+
+/*
+     UPRAVA TEXTU BARVY
+*/
+.odkaz-white{
+    color: white !important;
+}
+
+.odkaz-black {
+    color: black !important;
 }

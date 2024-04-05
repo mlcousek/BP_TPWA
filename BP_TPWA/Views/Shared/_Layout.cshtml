@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/MojeCSSSablona.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BP_TPWA.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/png" href="~/Images/logo-cerne.png">
     
 </head>
 
@@ -40,6 +41,85 @@
         {
 
         }
+        else if (controllerName == "Home" && actionName == "Index")
+        {
+            <header>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <nav class="navbar navbar-cus navbar-expand-lg bg-dark" data-bs-theme="dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/images/logo-bile.png" alt="Logo" width="50" height="50" id="logo-v-nav" class="d-inline-block align-text-top">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarColor02">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
+                                            Domů
+                                            <span class="visually-hidden">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="TP" asp-action="Index">Tréninkový plán</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="TreninkoveData" asp-action="Index">Přehled dat</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
+                                    </li>
+                                    @* <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
+                        </li> *@
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <partial name="_LoginPartial" />
+                            </div>
+                        </div>
+                    </nav>
+                }
+                else
+                {
+                    <nav class="navbar navbar-cus navbar-expand-lg bg-dark" data-bs-theme="dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/images/logo-bile.png" alt="Logo" width="50" height="50" id="logo-v-nav" class="d-inline-block align-text-top">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarColor02">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
+                                            Domů
+                                            <span class="visually-hidden">(current)</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Features</a>
+                                    </li>
+                                </ul>
+                                <partial name="_LoginPartial" />
+                            </div>
+                        </div>
+                    </nav>
+                }
+            </header>
+        }
         else
         {
             <header>
@@ -47,7 +127,9 @@
                 {
                     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="#">Navbar</a>
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/images/logo-bile.png" alt="Logo" width="50" height="50" id ="logo-v-nav" class="d-inline-block align-text-top">
+                            </a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -91,7 +173,9 @@
                 {
                     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="#">Navbar</a>
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/images/logo-bile.png" alt="Logo" width="50" height="50" id="logo-v-nav" class="d-inline-block align-text-top">
+                            </a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -122,7 +206,9 @@
         {
             <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/logo-bile.png" alt="Logo" width="50" height="50" id="logo-v-nav" class="d-inline-block align-text-top">
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -166,7 +252,9 @@
         {
             <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/logo-bile.png" alt="Logo" width="50" height="50" id="logo-v-nav" class="d-inline-block align-text-top">
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -278,14 +366,16 @@
         if (controllerName == "Home" && actionName == "Index")
         {
             // Pro controller Home a akci Index
-            <div class="container-fluid p-0">
+            <div class="container-fluid p-0 ">
                 <main role="main">
                     @RenderBody()
                 </main>
             </div>
-            <footer class="border-top footer text-muted bg-dark">
-                <div class="container">
-                    <span class="text-white">© 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></span>
+            <footer class="border-top footer footer-cus text-muted bg-dark">
+                <div class="background-footer">
+                    <div class="container">
+                        <span class="text-white">&copy; @DateTime.Now.Year - Jiří Mlčoušek - <a class="odkaz-white" asp-area="" asp-controller="Home" asp-action="Privacy">Zásady ochrany osobních údajů</a></span>
+                    </div>
                 </div>
             </footer>
         }
@@ -299,7 +389,7 @@
             </div>
             <footer class="border-top footer text-muted">
                 <div class="container">
-                    &copy; 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; @DateTime.Now.Year - Jiří Mlčoušek - <a class="odkaz-black" asp-area="" asp-controller="Home" asp-action="Privacy">Zásady ochrany osobních údajů</a>
                 </div>
             </footer>
         }
@@ -314,7 +404,7 @@
         </div>
         <footer class="border-top footer text-muted">
             <div class="container">
-                &copy; 2024 - Jiří Mlčoušek - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; @DateTime.Now.Year - Jiří Mlčoušek - <a class="odkaz-black" asp-area="" asp-controller="Home" asp-action="Privacy">Zásady ochrany osobních údajů</a>
             </div>
         </footer>
     }
