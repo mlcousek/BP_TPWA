@@ -56,7 +56,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return NotFound($"Nelze načíst uživatele s tímto emailem '{email}'.");
             }
 
             Email = email;

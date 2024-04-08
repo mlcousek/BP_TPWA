@@ -1,8 +1,11 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Potvrtit email";
+    ViewData["Title"] = "Potvrdit email";
 }
 
 <h1>@ViewData["Title"]</h1>
+<form class="form-inline" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+    <button type="submit" class="btn btn-dark custom-nav-btn">Přihlásit se</button>
+</form>
 <partial name="_StatusMessage" model="Model.StatusMessage" />

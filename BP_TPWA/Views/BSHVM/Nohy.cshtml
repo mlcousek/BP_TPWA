@@ -26,6 +26,11 @@
                     <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit série</button>
                 </div>
                 <div id="seriesFields"></div>
+                <div id="uzivatelVahaFormular" class="form-group">
+                    <label style="margin-top: 10px;" for="uzivatelVaha">Váha při cvičení cviku:</label>
+                    <input type="number" class="form-control" id="uzivatelVaha" min="20" max="300">
+                    @* <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit váhu</button> *@
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
@@ -39,21 +44,28 @@
 
 <script>
     
+    // Získání dnešního data
+    var dnes = new Date();
+    var dd = String(dnes.getDate()).padStart(2, '0');
+    var mm = String(dnes.getMonth() + 1).padStart(2, '0'); // Leden je 0!
+    var yyyy = dnes.getFullYear();
+    var dnesDatum = yyyy + '-' + mm + '-' + dd;
+
+
     var cvikId;
 
-
+    //ziskani data z url
     var currentUrl = window.location.href;
-
-    // Vytvoření nové instance URLSearchParams s query parametry získanými z aktuální URL
     var queryParams = new URLSearchParams(window.location.search);
-
-    // Získání hodnoty parametru 'date' z URL
     var dateParam = queryParams.get('date');
-
-    // Vytvoření objektu typu Date ze získaného řetězce s datem
     var dateFromUrl = new Date(dateParam);
-
     var dateString = dateFromUrl.toISOString();
+    var dateStringShort = dateString.substring(0, 10);
+
+
+    if (dnesDatum < dateStringShort) {
+        document.getElementById('uzivatelVahaFormular').style.display = 'none';
+    }
 
     var pridatCvikButton = document.getElementById("pridatCvikButton");
 
@@ -123,7 +135,6 @@
             nameCell.textContent = cvik.název;
             nameCell.classList.add("clickable"); // Přidání třídy pro klikatelnost
             nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
-               // this.style.backgroundColor = "lightblue"; // Změna barvy pozadí po kliknutí
                      cvikId = cvik.cvikId;
                     var cvikVDatabazi2 = BSHVMdata.find(function (item) {
                         var datumVPlanu = dateString.slice(0, 10);
@@ -255,29 +266,55 @@ function renderSeriesFields() {
         weightInput.setAttribute("min", 0);
         weightInput.setAttribute("max", 600);
 
+        // var uzivatelVahaLabel = document.createElement("label");
+        // uzivatelVahaLabel.setAttribute("for", "uzivatelVaha_" + seriesNumber);
+        // uzivatelVahaLabel.textContent = "Váha uživatele " + seriesNumber + " (kg):";
+        // uzivatelVahaLabel.classList.add("my-2");
+
+        // var uzivatelVahaInput = document.createElement("input");
+        // uzivatelVahaInput.setAttribute("type", "number");
+        // uzivatelVahaInput.setAttribute("class", "form-control");
+        // uzivatelVahaInput.setAttribute("id", "uzivatelVaha_" + seriesNumber);
+        // uzivatelVahaInput.setAttribute("min", 0);
+        // uzivatelVahaInput.setAttribute("max", 300);
+
         seriesField.appendChild(repetitionsLabel);
         seriesField.appendChild(repetitionsInput);
         seriesField.appendChild(weightLabel);
         seriesField.appendChild(weightInput);
+        // seriesField.appendChild(uzivatelVahaLabel);
+        // seriesField.appendChild(uzivatelVahaInput);
 
         seriesFieldsContainer.appendChild(seriesField);
     }
 }
 
 function submitFeedback() {
+
     var seriesData = [];
     for (var i = 0; i < seriesCount; i++) {
         var seriesNumber = i + 1;
         var repetitions = document.getElementById("repetitions_" + seriesNumber).value;
         var weight = document.getElementById("weight_" + seriesNumber).value;
 
-        seriesData.push({
-            Datum: dateString,
-            cvikId: cvikId,
-            CisloSerie: seriesNumber,
-            PocetOpakovani: repetitions,
-            CvicenaVaha: weight
-        });
+        if (uzivatelVaha.value === "") {
+            seriesData.push({
+                Datum: dateString,
+                cvikId: cvikId,
+                CisloSerie: seriesNumber,
+                PocetOpakovani: repetitions,
+                CvicenaVaha: weight
+            });
+        } else {
+            seriesData.push({
+                Datum: dateString,
+                cvikId: cvikId,
+                CisloSerie: seriesNumber,
+                PocetOpakovani: repetitions,
+                CvicenaVaha: weight,
+                Vaha: uzivatelVaha.value
+            });
+        }
     }
 
     var dataVPohode = 1;
@@ -336,25 +373,6 @@ function submitFeedback() {
                     }
                 });
 
-            // for (var i = 0; i < seriesData.length; i++) {
-            //     $.ajax({
-            //         url: '/TreninkoveData/SaveToDatabase',
-            //         type: 'POST',
-            //         //contentType: 'application/json',
-            //         data: seriesData[i],
-
-            //         success: function (response) {
-            //             // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-            //             location.reload(true);
-            //         },
-            //         error: function (xhr, status, error) {
-            //             // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-            //             console.log("chyba");
-            //         }
-            //     });
-            // }
-
-
         } else {
 
             for (var i = 0; i < seriesData.length; i++) {
@@ -374,20 +392,9 @@ function submitFeedback() {
                     }
                 });
             }
-                    // var selectedRow = document.getElementById(String(cvikId));
-                    // console.log(selectedRow);
-                    // // Změna barvy pozadí řádku na zelenou
-                    // if (selectedRow) {
-                    //     // Odstranění třídy table-light
-                    //     selectedRow.classList.remove('table-light');
-                    //     // Přidání třídy table-success
-                    //     selectedRow.classList.add('table-success');
-                    // }
-
 
             changeSeriesCount();
             $('#myModal').modal('hide');
-           // location.reload(true);
         }
 
     }
@@ -397,7 +404,7 @@ function submitFeedback() {
 
         // Získání aktuálního data
         var currentDate = new Date();
-        currentDate.setHours(1, 0, 0, 0); // Nastavení hodin na půlnoc pro porovnání s datem z URL
+        currentDate.setHours(1, 0, 0, 0); 
 
 
         // FUNGUJE JEN TESTUJU TAK TO ZAKOMENTUJU

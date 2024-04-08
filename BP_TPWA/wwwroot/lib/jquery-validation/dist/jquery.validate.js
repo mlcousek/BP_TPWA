@@ -369,22 +369,24 @@ $.extend( $.validator, {
 	},
 
 	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		equalTo: "Please enter the same value again.",
-		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-		minlength: $.validator.format( "Please enter at least {0} characters." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-		range: $.validator.format( "Please enter a value between {0} and {1}." ),
-		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-		min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
-		step: $.validator.format( "Please enter a multiple of {0}." )
+		required: "Tento údaj je povinný.",
+		remote: "Prosím, opravte tento údaj.",
+		email: "Prosím, zadejte platný e-mail.",
+		url: "Prosím, zadejte platné URL.",
+		date: "Prosím, zadejte platné datum.",
+		dateISO: "Prosím, zadejte platné datum (ISO).",
+		number: "Prosím, zadejte číslo.",
+		digits: "Prosím, zadávejte pouze číslice.",
+		creditcard: "Prosím, zadejte číslo kreditní karty.",
+		equalTo: "Prosím, zadejte znovu stejnou hodnotu.",
+		extension: "Prosím, zadejte soubor se správnou příponou.",
+		maxlength: $.validator.format("Prosím, zadejte nejvíce {0} znaků."),
+		minlength: $.validator.format("Prosím, zadejte nejméně {0} znaků."),
+		rangelength: $.validator.format("Prosím, zadejte od {0} do {1} znaků."),
+		range: $.validator.format("Prosím, zadejte hodnotu od {0} do {1}."),
+		max: $.validator.format("Prosím, zadejte hodnotu menší nebo rovnu {0}."),
+		min: $.validator.format("Prosím, zadejte hodnotu větší nebo rovnu {0}."),
+		step: $.validator.format("Musí být násobkem čísla {0}.")
 	},
 
 	autoCreateRanges: false,
@@ -1659,3 +1661,7 @@ if ( $.ajaxPrefilter ) {
 }
 return $;
 }));
+
+
+
+

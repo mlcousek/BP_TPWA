@@ -27,4 +27,12 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        // Počkejme na načtení stránky
+        window.onload = function () {
+            // Změníme URL adresu na novou stránku
+            window.location.href = "Manage/Email";
+        }
+    </script>
 }

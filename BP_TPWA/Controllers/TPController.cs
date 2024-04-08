@@ -177,6 +177,8 @@ namespace BP_TPWA.Controllers
             // Získání ID aktuálně přihlášeného uživatele
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+
+
             // Dotaz do databáze pro nalezení záznamů podle UživatelId
             var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
             
@@ -317,15 +319,15 @@ namespace BP_TPWA.Controllers
                 var tpInfo = await _context.TP
                                 .Where(dt => dt.Id == uzivatelIdZaznam.Id)
                                 .ToListAsync();
+                ViewBag.DenTreninku = treninkoveData;
+                ViewBag.TP = tpInfo;
+            }
                 var uzivatel = await _context.Users
                                 .Where(dt => dt.Id == userId)
                                 .ToListAsync();
 
                 // var tpInfo = _context.TP.ToList();
-                ViewBag.DenTreninku = treninkoveData;
-                ViewBag.TP = tpInfo;
                 ViewBag.Uzivatel = uzivatel;
-            }
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -384,6 +386,7 @@ namespace BP_TPWA.Controllers
 
                 tP.User = currentUser;
                 tP.AktualniVaha = true;
+                
                 tP.DatumPoslednihoUlozeniVahy = DateTime.Now;
 
                 await _context.SaveChangesAsync();

@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using BP_TPWA.Models;
+using System.Globalization;
+using BP_TPWA.Controllers;
 
 namespace BP_TPWA.Areas.Identity.Pages.Account
 {
@@ -30,6 +32,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<Uzivatel> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+
 
         public RegisterModel(
             UserManager<Uzivatel> userManager,
@@ -75,7 +78,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required (ErrorMessage = "Toto pole je povinné.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -84,10 +87,10 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Toto pole je povinné.")]
+            [StringLength(100, ErrorMessage = "{0} musí být alespoň {2} znaků dlouhé a maximálně {1} znaků dlouhé.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Heslo")]
             public string Password { get; set; }
 
             /// <summary>
@@ -95,28 +98,32 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Potvrď heslod")]
+            [Compare("Password", ErrorMessage = "Hesla se liší.")]
             public string ConfirmPassword { get; set; }
-            
-            [Required]
+
+            [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Jméno")]
             public string Jméno { get; set; }
-            [Required]
+            [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Příjmení")]
             public string Příjmení { get; set; }
-            [Required]
+            [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Věk")]
             public int Věk { get; set; }
-            [Required]
+            [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Výška")]
             public int Výška { get; set; }
-            [Required]
+            [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Váha")]
-            public int Váha { get; set; }
-            [Required]
+            public string Váha { get; set; }
+            [Required(ErrorMessage = "Toto pole je povinné.")]
+            [Display(Name = "Pohlaví")]
+            public int Pohlaví { get; set; }
+            [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Úroveň")]
             public int Úroveň { get; set; }
+            public bool PridaneData { get; set; }
 
         }
 
@@ -131,53 +138,77 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            //if (ModelState.ContainsKey("Input.Váha"))
+            //{
+            //    ModelState.Remove("Input.Váha");
+            //}
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
-                if(user != null)
+                double number;
+
+                if (double.TryParse(Input.Váha, NumberStyles.Number, CultureInfo.InvariantCulture, out number))
                 {
-                    user.Jméno = Input.Jméno;
-                    user.Příjmení = Input.Příjmení;
-                    user.Váha = Input.Váha;
-                    user.Výška = Input.Výška;
-                    user.Věk = Input.Věk;
-                    user.Úroveň = Input.Úroveň;
-                }
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                    // Převod byl úspěšný, number obsahuje hodnotu
+                    
 
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    var user = CreateUser();
+                    if(user != null)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        user.Jméno = Input.Jméno;
+                        user.Příjmení = Input.Příjmení;
+                        user.Váha = number;
+                        user.Výška = Input.Výška;
+                        user.Věk = Input.Věk;
+                        user.Úroveň = Input.Úroveň;
+                        user.Pohlaví = Input.Pohlaví;
+                        user.PridaneData = false;
                     }
-                    else
+
+                    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                    var result = await _userManager.CreateAsync(user, Input.Password);
+
+                    if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+
+                        _logger.LogInformation("Uživatel vytvořen s heslem.");
+
+                        
+
+                        var userId = await _userManager.GetUserIdAsync(user);
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                            $"Prosím potvrď si účet <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>kliknutím zde</a>.");
+
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
                     }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
+            else
+            {
+                // Převod selhal
+            }
+
+            
 
             // If we got this far, something failed, redisplay form
             return Page();

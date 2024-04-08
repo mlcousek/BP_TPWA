@@ -10,6 +10,7 @@ namespace BP_TPWA.Models
         public int CisloSerie { get; set; }
         public int PocetOpakovani { get; set; }
         public int CvicenaVaha { get; set; }
+        public string? Vaha { get; set; }
 
     }
 }

@@ -4,26 +4,139 @@
     ViewData["Title"] = "Registrace";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+</div>
 
 <div class="row">
+    @* <div class="col-md-4"> *@
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div class="text-center">
+                <h2>Vytvořit nový účet</h2>    
+            </div>
+
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <!-- Informace o sobě -->
+            <div class="text-center">
+                <h3>Vyplň o sobě informace</h3> 
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                    <label asp-for="Input.Email">Email</label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="jmeno@priklad.cz" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Jméno">Jméno</label>
+                    <input asp-for="Input.Jméno" class="form-control" autocomplete="jméno" aria-required="true" placeholder="Jméno" />
+                    <span asp-validation-for="Input.Jméno" class="text-danger"></span>
+                </div>
+                
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                    <label asp-for="Input.Password">Heslo</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Heslo" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Příjmení">Příjmení</label>
+                    <input asp-for="Input.Příjmení" class="form-control" autocomplete="příjmení" aria-required="true" placeholder="Přijmení" />
+                    <span asp-validation-for="Input.Příjmení" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                    <label asp-for="Input.ConfirmPassword">Potvrzení hesla</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Heslo" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Věk">Věk</label>
+                    <input asp-for="Input.Věk" class="form-control" autocomplete="věk" aria-required="true" placeholder="Věk" />
+                    <span asp-validation-for="Input.Věk" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Váha">Váha (př. 77.7) (kg)</label>
+                    <input asp-for="Input.Váha" class="form-control" autocomplete="váha" aria-required="true" step="any" />
+                    <span asp-validation-for="Input.Váha" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Výška">Výška (př. 170) (cm)</label>
+                    <input asp-for="Input.Výška" class="form-control" autocomplete="výška" aria-required="true" />
+                    <span asp-validation-for="Input.Výška" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Pohlaví">Pohlaví</label>
+                    <select asp-for="Input.Pohlaví" class="form-control" autocomplete="pohlaví" aria-required="true">
+                        <option value="1">Muž</option>
+                        <option value="2">Žena</option>
+                        <option value="3">Jiné</option>
+                    </select>
+                    <span asp-validation-for="Input.Úroveň" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-3 row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Úroveň">Úroveň</label>
+                    <select asp-for="Input.Úroveň" class="form-control" autocomplete="cíl" aria-required="true">
+                        <option value="1">Začátečník</option>
+                        <option value="2">Pokročilý</option>
+                    </select>
+                    <span asp-validation-for="Input.Úroveň" class="text-danger"></span>
+                </div>
+            </div>
+            @* <div class="form-floating mb-3">
+                <select asp-for="Input.Úroveň" class="form-control" autocomplete="cíl" aria-required="true">
+                    <option value="1">Začátečník</option>
+                    <option value="2">Pokročilý</option>
+                </select>
+                <label asp-for="Input.Úroveň">Úroveň</label>
+                <span asp-validation-for="Input.Úroveň" class="text-danger"></span>
+            </div> *@
+            <div class="text-center">
+                <button id="registerSubmit" type="submit" class="w-50 btn btn-lg btn-dark" style="margin-bottom: 10px;">Registrovat se</button>
+            </div>
+
+            
+
+        </form>
+    @* </div> *@
+</div>
+@* <div class="row">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Vytvořit nový účet.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="jmeno@priklad.cz" />
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="heslo" />
                 <label asp-for="Input.Password">Heslo</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="heslo" />
                 <label asp-for="Input.ConfirmPassword">Potvrzení hesla</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
@@ -62,7 +175,7 @@
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrovat se</button>
         </form>
-    </div>
+    </div> *@
 @*     <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to register.</h3>
@@ -97,4 +210,10 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function pridejData() {
+            window.location.href = "/Cvik/PridejData";
+        }
+    </script>
 }

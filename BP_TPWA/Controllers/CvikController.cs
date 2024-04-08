@@ -15,25 +15,26 @@ namespace BP_TPWA.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+
         public CvikController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        
+
         // Akce pro přidání dat do databáze
-        public IActionResult PridejData()
+        public async Task<IActionResult> PridejData()
         {
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if(userId != null)
+            if (userId != null)
             {
                 //VM
 
                 // Nohy
 
-                var cvik1 = new Cvik {Název = "Dřepy s vlastní vahou", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 30, PopisCviku = "Zahřátí + aktivace", Partie = "Nohy", TypTreninku = "BSHVMNohy", UzivatelId = userId };
+                var cvik1 = new Cvik { Název = "Dřepy s vlastní vahou", PočetSérií = 3, PočetOpakování = "10, 10, 10", PauzaMeziSériemi = 30, PopisCviku = "Zahřátí + aktivace", Partie = "Nohy", TypTreninku = "BSHVMNohy", UzivatelId = userId };
                 var cvik2 = new Cvik { Název = "Zadní dřepy", PočetSérií = 5, PočetOpakování = "x", PauzaMeziSériemi = 0, PopisCviku = "Silový cvik dřep", Partie = "Nohy", TypTreninku = "BSHVMNohy", UzivatelId = userId };
                 var cvik3 = new Cvik { Název = "Legpress", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHVMNohy", UzivatelId = userId };
                 var cvik4 = new Cvik { Název = "Zákopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis zákopy", Partie = "Nohy", TypTreninku = "BSHVMNohy", UzivatelId = userId };
@@ -93,11 +94,17 @@ namespace BP_TPWA.Controllers
                     _context.Cvik.Add(cvik);
                 }
 
+                var uzivatel = await _context.Users
+                                .Where(dt => dt.Id == userId)
+                                .ToListAsync();
+                uzivatel[0].PridaneData = true;
                 _context.SaveChanges();
 
             }
             return RedirectToAction("Index"); // Přesměrujte na stránku s výpisem cviků https://localhost:xxxxx/Cvik/PridejData
         }
+
+
 
 
         // GET: Cvik

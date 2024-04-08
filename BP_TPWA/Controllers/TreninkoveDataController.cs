@@ -9,6 +9,7 @@ using BP_TPWA.Data;
 using BP_TPWA.Models;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using System.Globalization;
 
 namespace BP_TPWA.Controllers
 {
@@ -194,6 +195,23 @@ namespace BP_TPWA.Controllers
                 kUlozeni.PocetOpakovani = data.PocetOpakovani;
                 kUlozeni.CvicenaVaha = data.CvicenaVaha;
                 kUlozeni.CvikId = data.CvikId;
+                
+                
+                if(data.Vaha != null)
+                {
+                    double cislo;
+
+                    if (double.TryParse(data.Vaha, NumberStyles.Number, CultureInfo.InvariantCulture, out cislo))
+                    {
+                        kUlozeni.VahaUzivatele = cislo;
+                    }
+                    else
+                    {
+                        // Něco provedete, když se nepodaří převést řetězec na double
+                        return BadRequest("Nepodařilo se převést váhu na desetinné číslo.");
+                    }
+                }
+
                 DateTime datum;
                 if (DateTime.TryParse(data.Datum, out datum))
                 {
@@ -203,11 +221,15 @@ namespace BP_TPWA.Controllers
                 {
                     return RedirectToAction("Index", "TP");
                 }
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                kUlozeni.UzivatelId = userId;
 
-                var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(tp => tp.Id == userId);
-                kUlozeni.VahaUzivatele = uzivatelIdZaznam.Váha;
+
+                if (data.Vaha == null)
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    kUlozeni.UzivatelId = userId;
+                    var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(tp => tp.Id == userId);
+                    kUlozeni.VahaUzivatele = uzivatelIdZaznam.Váha;
+                }
 
                 _context.Add(kUlozeni);
                 await _context.SaveChangesAsync();
