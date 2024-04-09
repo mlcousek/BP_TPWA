@@ -128,27 +128,27 @@
         console.log(uzivatelData[0].váha);
         console.log(uzivatelData[0].tpId);
         console.log(uzivatelData[0]);
-     if (uzivatelData[0].pridaneData === false) {
-            $.ajax({
-                url: '/Cvik/PridejData',
-                type: 'GET',
-                // contentType: 'application/json',
-                //data: vahaData[0],
+     // if (uzivatelData[0].pridaneData === false) {
+     //        $.ajax({
+     //            url: '/Cvik/PridejData',
+     //            type: 'GET',
+     //            // contentType: 'application/json',
+     //            //data: vahaData[0],
 
-                success: function (response) {
-                    // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-                    //location.reload(true);
-                    //window.open(response);
-                    console.log("oss");
-                    // downloadPDF(response);
-                    //window.open(response, '_blank');
-                },
-                error: function (xhr, status, error) {
-                    // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-                    console.log("chyba p5i generovani ");
-                }
-            });
-     }
+     //            success: function (response) {
+     //                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+     //                //location.reload(true);
+     //                //window.open(response);
+     //                console.log("oss");
+     //                // downloadPDF(response);
+     //                //window.open(response, '_blank');
+     //            },
+     //            error: function (xhr, status, error) {
+     //                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+     //                console.log("chyba p5i generovani ");
+     //            }
+     //        });
+     // }
     
     var element = document.getElementById('generovaniTlacitka');
     var vytvoritTP = document.getElementById('vytvoritTP');
@@ -190,6 +190,7 @@
                 }
          }
             console.log(tpInfo);
+            console.log(treninkoveData);
             var delkaTD = treninkoveData.length;
             var eventy = [];
 
@@ -211,6 +212,27 @@
                         break;
                     case "Hrudník + triceps":
                         barva = "#999999";
+                        break;
+                    case "Kruhový trénink 1":
+                        barva = "#333333";
+                        break;
+                    case "Kruhový trénink 2":
+                        barva = "#555555";
+                        break;
+                    case "Kruhový trénink 3":
+                        barva = "#777777";
+                        break;
+                    case "Kruhový trénink 4":
+                        barva = "#999999";
+                        break;
+                    case "Legs":
+                        barva = "#333333";
+                        break;
+                    case "Push":
+                        barva = "#555555";
+                        break;
+                    case "Pull":
+                        barva = "#777777";
                         break;
                     // Přidat další případy pro další typy tréninků a jejich barvy
                     default:
@@ -250,12 +272,10 @@
             },
             eventMouseover: function (event, jsEvent, view) {
                 // Změna barvy při najetí myši
-               // barva = event.backgroundColor; // Uchování původní barvy
                         changeEventColor($(this), "#859199"); // Změňte barvu podle potřeby
             },
             eventMouseout: function (event, jsEvent, view) {
                 // Vrácení původní barvy po opuštění myši
-               // var x = "red";
                 changeEventColor($(this), event.color); // Vrácení původní barvy
             },
             events: eventy,

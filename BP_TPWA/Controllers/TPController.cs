@@ -283,7 +283,7 @@ namespace BP_TPWA.Controllers
                                 typTreninkuCislo++;
 
                             }
-                            else
+                            else if (uzivatelIdZaznam.StylTP == "KR")
                             {
                                 if (typTreninkuCislo == 4)
                                 {
@@ -291,7 +291,7 @@ namespace BP_TPWA.Controllers
                                 }
                                 typTreninku = GetTypTreninkuKR(typTreninkuCislo);
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = "Kruhový trénink" }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                             }
                             // Vytvořte nový záznam v databázi pro každé datum tréninku

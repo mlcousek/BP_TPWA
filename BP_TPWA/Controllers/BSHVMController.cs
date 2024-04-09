@@ -25,13 +25,8 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
-            ViewBag.BSHVM = cviky;
-            ViewBag.BSHVMdata = datacviku;
-
-            //var viewName = "Ramena_biceps"; // Název pohledu, který chcete renderovat do PDF
-            //var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName);
-            //pdf.FileName = "Ramena_biceps.pdf";
-            //return pdf;
+            ViewBag.cviky = cviky;
+            ViewBag.datacviku = datacviku;
 
             return View();
         }
@@ -48,13 +43,8 @@ namespace BP_TPWA.Controllers
             .Where(id => id.UzivatelId == userId)
             .ToList();
 
-            ViewBag.BSHVM = cviky;
-            ViewBag.BSHVMdata = datacviku;
-
-            //var viewName = "Hrudník_triceps"; // Název pohledu, který chcete renderovat do PDF
-            //var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName);
-            //pdf.FileName = "Hrudník_triceps.pdf";
-            //return pdf;
+            ViewBag.cviky = cviky;
+            ViewBag.datacviku = datacviku;
 
             return View();
         }
@@ -71,8 +61,8 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
-            ViewBag.BSHVM = cviky;
-            ViewBag.BSHVMdata = datacviku;
+            ViewBag.cviky = cviky;
+            ViewBag.datacviku = datacviku;
             return View();
         }
 
@@ -87,8 +77,8 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
-            ViewBag.BSHVM = cviky;
-            ViewBag.BSHVMdata = datacviku;
+            ViewBag.cviky = cviky;
+            ViewBag.datacviku = datacviku;
             return View();
         }
     }

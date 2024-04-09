@@ -71,8 +71,8 @@
         window.location.href = "/TP"; // Zde nahraďte "adresa-vasi-stranky" adresou, na kterou chcete uživatele přesměrovat
     });
 
-    var BSHVM = @Html.Raw(Json.Serialize(ViewBag.BSHVM));
-    var BSHVMdata = @Html.Raw(Json.Serialize(ViewBag.BSHVMdata));
+    var cviky = @Html.Raw(Json.Serialize(ViewBag.cviky));
+    var datacviku = @Html.Raw(Json.Serialize(ViewBag.datacviku));
 
 
     function naplnitCvicebniSablonu() {
@@ -95,15 +95,15 @@
 
         // Vytvoření těla tabulky
         var tbody = document.createElement("tbody");
-        BSHVM.forEach(function (cvik) {
+        cviky.forEach(function (cvik) {
             var row = document.createElement("tr");
             row.id = cvik.cvikId;
             row.classList.add("table-light");
 
 
-            console.log(BSHVMdata);
+                console.log(datacviku);
 
-            var cvikVDatabazi = BSHVMdata.find(function (item) {
+            var cvikVDatabazi = datacviku.find(function (item) {
                 var datumVPlanu = dateString.slice(0, 10);
                 var datumZDatabaze = item.datum.slice(0, 10);
                 return item.cvikId === cvik.cvikId && datumVPlanu === datumZDatabaze;
@@ -125,7 +125,7 @@
             nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
                 // this.style.backgroundColor = "lightblue"; // Změna barvy pozadí po kliknutí
                 cvikId = cvik.cvikId;
-                var cvikVDatabazi2 = BSHVMdata.find(function (item) {
+                var cvikVDatabazi2 = datacviku.find(function (item) {
                     var datumVPlanu = dateString.slice(0, 10);
                     var datumZDatabaze = item.datum.slice(0, 10);
                     return item.cvikId === cvik.cvikId && datumVPlanu === datumZDatabaze;
@@ -295,7 +295,7 @@
 
         if (dataVPohode == 1) {
 
-            var cvikVDatabazi1 = BSHVMdata.find(function (item) {
+            var cvikVDatabazi1 = datacviku.find(function (item) {
                 var datumVPlanu1 = dateString.slice(0, 10);
                 var datumZDatabaze1 = item.datum.slice(0, 10);
                 return item.cvikId === cvikId && datumVPlanu1 === datumZDatabaze1;

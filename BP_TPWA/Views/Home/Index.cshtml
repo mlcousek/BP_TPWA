@@ -55,4 +55,30 @@ else
     <!-- End Hero Section -->
 }
 
+@if (SignInManager.IsSignedIn(User))
+{
+    @section scripts{
+        <script>
 
+            var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
+            console.log(uzivatelData[0].váha);
+            console.log(uzivatelData[0].tpId);
+            console.log(uzivatelData[0]);
+            if (uzivatelData[0].pridaneData === false) {
+                $.ajax({
+                    url: '/Cvik/PridejData',
+                    type: 'GET',
+                    // contentType: 'application/json',
+                    //data: vahaData[0],
+
+                    success: function (response) {
+                        
+                    },
+                    error: function (xhr, status, error) {
+                        
+                    }
+                });
+            }
+        </script>
+    }
+}
