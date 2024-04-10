@@ -54,5 +54,7 @@ namespace BP_TPWA.Models
             set => TypyTreninku = value?.Split(',').ToList();
         }
         public string UzivatelId { get; set; }
+        [ForeignKey("UzivatelId")]
+        public Uzivatel Id { get; set; }
     }
 }

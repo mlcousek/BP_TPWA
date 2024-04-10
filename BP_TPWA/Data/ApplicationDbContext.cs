@@ -17,7 +17,15 @@ namespace BP_TPWA.Data
         public DbSet<BP_TPWA.Models.Cvik> Cvik { get; set; } = default!;
         public DbSet<BP_TPWA.Models.TreninkoveData> TreninkoveData { get; set; } = default!;
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<TP>()
+                .HasMany(tp => tp.DnyVTydnu)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
 
+        }
     }
 }

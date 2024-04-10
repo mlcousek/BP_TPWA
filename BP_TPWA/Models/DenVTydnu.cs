@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace BP_TPWA.Models
 {
@@ -12,6 +13,10 @@ namespace BP_TPWA.Models
         [Required]
         public DayOfWeek Den { get; set; }
         public Boolean DenTréninku { get; set; }
+        //[ForeignKey("TP")]
+        //public int TPId { get; set; }
+        //[JsonIgnore]
+        //public TP TP { get; set; }
 
 
     }

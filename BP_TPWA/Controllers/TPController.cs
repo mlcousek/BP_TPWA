@@ -216,7 +216,7 @@ namespace BP_TPWA.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.TP.Include(t => t.User);
-            var tpRecords = await applicationDbContext.ToListAsync();
+            //var tpRecords = await applicationDbContext.ToListAsync();
 
 
             // Získání ID aktuálně přihlášeného uživatele
@@ -239,10 +239,10 @@ namespace BP_TPWA.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                foreach (var tpRecord in tpRecords)
-                {
+                //foreach (var tpRecord in tpRecords)
+                //{
                     // Zde můžete pracovat s každým záznamem TP a přistupovat k jeho vlastnostem, včetně User.
-                    var ZkontrolovaneDny = tpRecord.ZkontrolovaneDny;
+                    var ZkontrolovaneDny = uzivatelIdZaznam.ZkontrolovaneDny;
                     if (ZkontrolovaneDny == false)
                     {
                         var denVTydnuRecords = await _context.TP
@@ -264,11 +264,11 @@ namespace BP_TPWA.Controllers
                                 i = 0;
                             }
                         }
-                        tpRecord.ZkontrolovaneDny = true;
+                         uzivatelIdZaznam.ZkontrolovaneDny = true;
                     }
                 
                     await _context.SaveChangesAsync();
-                }
+               // }
             }
 
             if(uzivatelIdZaznam != null)
@@ -443,11 +443,16 @@ namespace BP_TPWA.Controllers
             {
                 ModelState.Remove("User");
             }
-
+            //for(int i = 0; i < 7; i++)
+            //{
+            //    if (ModelState.ContainsKey("DnyVTydnu[" + i + "].TP"))
+            //    {
+            //        ModelState.Remove("DnyVTydnu[" + i + "].TP");
+            //    }
+            //}
 
             if (ModelState.IsValid)
             {
-
                 _context.Add(tP);
                 await _context.SaveChangesAsync();
 
@@ -458,6 +463,12 @@ namespace BP_TPWA.Controllers
 
                 tP.User = currentUser;
                 tP.AktualniVaha = true;
+
+                //for (int i = 0; i < 7; i++)
+                //{
+                //    tP.DnyVTydnu[i].TP = tP;
+                //    tP.DnyVTydnu[i].TP.Id = tP.Id;
+                //}
                 
                 tP.DatumPoslednihoUlozeniVahy = DateTime.Now;
 
@@ -552,6 +563,7 @@ namespace BP_TPWA.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var tP = await _context.TP.FindAsync(id);
+            
             if (tP != null)
             {
                 _context.TP.Remove(tP);

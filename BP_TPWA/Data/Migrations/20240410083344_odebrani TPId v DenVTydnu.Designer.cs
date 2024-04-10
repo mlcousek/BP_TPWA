@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410083344_odebrani TPId v DenVTydnu")]
+    partial class odebraniTPIdvDenVTydnu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -450,8 +453,7 @@ namespace BP_TPWA.Data.Migrations
                 {
                     b.HasOne("BP_TPWA.Models.TP", null)
                         .WithMany("DnyVTydnu")
-                        .HasForeignKey("TPId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TPId");
                 });
 
             modelBuilder.Entity("BP_TPWA.Models.TP", b =>
