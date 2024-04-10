@@ -48,8 +48,11 @@
     console.log(grafy);
 
     // Funkce pro filtrování dat podle stylu tréninkového plánu
+    // function filterDataPodleTypuTreninku(data, typTreninku) {
+    //     return data.filter(entry => entry.cvik.typTreninku === typTreninku);
+    // }
     function filterDataPodleTypuTreninku(data, typTreninku) {
-        return data.filter(entry => entry.cvik.typTreninku === typTreninku);
+        return data.filter(entry => entry.cvik.typyTreninku.includes(typTreninku));
     }
 
    // Funkce pro filtrování dat podle cviku

@@ -90,6 +90,51 @@ namespace BP_TPWA.Controllers
             }
         }
 
+       private string GetTypTreninkuZkratka(TP TP, string typTreninku)
+       {
+            if (TP.DruhTP == "BSH")
+            {
+                if (TP.StylTP == "VM")
+                {
+                    if (typTreninku == "Nohy")
+                    {
+                        return "BSHVMNohy";
+                    }
+                    else if (typTreninku == "Ramena + biceps")
+                    {
+                        return "BSHVMRamBic";
+                    }
+                    else if (typTreninku == "Záda")
+                    {
+                        return "BSHVMZada";
+                    }
+                    else if (typTreninku == "Hrudník + triceps")
+                    {
+                        return "BSHVMHrTric";
+                    }
+                    
+                }
+                else if (TP.StylTP == "PPL")
+                {
+                    return "Zatimnic";
+                }
+                else if (TP.StylTP == "KR")
+                {
+                    return "Zatimnic";
+                }
+            }
+            else if (TP.DruhTP == "SR")
+            {
+                return "Zatimnic";
+            }
+            else if (TP.DruhTP == "RV")
+            {
+                return "Zatimnic";
+            }
+            return "CHYBA";
+        }
+
+
         private string GetTypTreninkuVM(int cislodne)
         {
             // Implementujte logiku pro získání typu tréninku podle dne
@@ -107,7 +152,7 @@ namespace BP_TPWA.Controllers
             }
             else if (cislodne == 2)
             {
-                return "Ramena + Biceps";
+                return "Ramena + biceps";
             }
             else if (cislodne == 3)
             {
@@ -249,6 +294,8 @@ namespace BP_TPWA.Controllers
                 List<DateTime> dataTréninkovýchDnů = GeneratorTréninkovýchDat.VytvářeníDatumůTréninku(uzivatelIdZaznam.PocetTreninkuZaTyden, uzivatelIdZaznam.Délka * 4, dnyTréninku);
                 //Model.DataTreninkovychDnu = dataTréninkovýchDnů;
                 var typTreninku = "";
+                var typTreninkuZkratka = "";
+
                 var typTreninkuCislo = 0;
                 if (uzivatelIdZaznam.UlozenaDataDnu == false)
                 {
@@ -264,8 +311,17 @@ namespace BP_TPWA.Controllers
                                 }
 
                                 typTreninku = GetTypTreninkuVM(typTreninkuCislo);
+                                typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+
+
+                                var cviky =  _context.Cvik
+                                            .Where(c => c.UzivatelId == userId)
+                                            .AsEnumerable()
+                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+                                            .ToList();
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = cviky }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                                 typTreninkuCislo++;
 
@@ -277,8 +333,16 @@ namespace BP_TPWA.Controllers
                                 }
 
                                 typTreninku = GetTypTreninkuPPL(typTreninkuCislo);
+                                typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+
+
+                                var cviky = await _context.Cvik
+                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+                                            .Where(c => c.UzivatelId == userId)
+                                            .ToListAsync();
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = cviky }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                                 typTreninkuCislo++;
 
@@ -290,8 +354,16 @@ namespace BP_TPWA.Controllers
                                     typTreninkuCislo = 0;
                                 }
                                 typTreninku = GetTypTreninkuKR(typTreninkuCislo);
+                                typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+
+
+                                var cviky = await _context.Cvik
+                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+                                            .Where(c => c.UzivatelId == userId)
+                                            .ToListAsync();
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = cviky }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                             }
                             // Vytvořte nový záznam v databázi pro každé datum tréninku

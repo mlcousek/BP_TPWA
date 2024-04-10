@@ -158,6 +158,7 @@
         vytvoritTP.style.display = 'none';
 
         var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
+        console.log(treninkoveData);
         var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
 
         var staraVaha = uzivatelData[0].váha;

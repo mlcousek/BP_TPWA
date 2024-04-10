@@ -17,7 +17,7 @@ namespace BP_TPWA.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cviky = _context.Cvik
-                        .Where(tt => tt.TypTreninku == "BSHKR1")
+                        .Where(c => c.TypyTreninku.Contains("BSHKR1"))
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
@@ -35,7 +35,7 @@ namespace BP_TPWA.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cviky = _context.Cvik
-                        .Where(tt => tt.TypTreninku == "BSHKR2")
+                        .Where(c => c.TypyTreninku.Contains("BSHKR2"))
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
@@ -53,7 +53,7 @@ namespace BP_TPWA.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cviky = _context.Cvik
-                        .Where(tt => tt.TypTreninku == "BSHKR3")
+                        .Where(c => c.TypyTreninku.Contains("BSHKR3"))
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
@@ -70,7 +70,7 @@ namespace BP_TPWA.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cviky = _context.Cvik
-                        .Where(tt => tt.TypTreninku == "BSHKR4")
+                        .Where(c => c.TypyTreninku.Contains("BSHKR4"))
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
             var datacviku = _context.TreninkoveData

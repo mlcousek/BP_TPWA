@@ -1,7 +1,7 @@
 ﻿@model NahledPlanuModel
 
 @{
-    var typyTreninku = Model.Cviky.Select(c => c.TypTreninku).Distinct().ToList();
+    var typyTreninku = Model.Cviky.SelectMany(c => c.TypyTreninku).Distinct().ToList();
 }
 
 <head>
@@ -77,7 +77,7 @@
             {
                 <tr>
                     <td>@trenink.DatumTreninku.ToShortDateString() @trenink.DatumTreninku.ToString("dddd", new System.Globalization.CultureInfo("cs-CZ"))</td>
-                    <td>@trenink.TypTreninku</td>
+                    <td>@trenink.TypTreninku</td>  
                 </tr>
             }
         </tbody>
