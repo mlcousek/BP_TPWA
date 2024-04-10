@@ -12,23 +12,29 @@
 
 <!-- Modální okno -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Název cviku</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <p id="modalContent">Obsah cviku</p>
-            <div id="serieFormular" class="form-group">
-                <label for="series">Počet odcvičených sérií:</label>
-                <input type="number" class="form-control" id="series" min="0" max="50">
-                <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit série</button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Název cviku</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div id="seriesFields"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+            <div class="modal-body">
+                <p id="modalContent">Obsah cviku</p>
+                <div id="serieFormular" class="form-group">
+                    <label for="series">Počet odcvičených sérií:</label>
+                    <input type="number" class="form-control" id="series" min="0" max="50">
+                    <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit série</button>
+                </div>
+                <div id="seriesFields"></div>
+                <div id="uzivatelVahaFormular" class="form-group">
+                    <label style="margin-top: 10px;" for="uzivatelVaha">Váha při cvičení cviku:</label>
+                    <input type="number" class="form-control" id="uzivatelVaha" min="20" max="300">
+                    @* <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit váhu</button>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+                </div>
             </div>
         </div>
     </div>
@@ -36,8 +42,8 @@
 
 
 
-
-<script>
+@*
+ <script>
 
     var cvikId;
 
@@ -415,5 +421,441 @@
 
     // Zobrazení počátečních polí pro sérii při načtení stránky
     renderSeriesFields();
-</script>
+</script> *@
 
+@* 
+<p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
+
+<div id="kontejner-cviku"></div>
+
+<p>Po odcvičení doporučuji alespoň lehce protáhnout cvičenou svalovou skupinu.</p>
+
+<button type="button" class="btn btn-dark float-right-custom" id="pridatCvikButton">Přidat cvik</button>
+<button type="button" class="btn btn-secondary" id="zpetNaPlanButton">Zpět na plán</button>
+
+<!-- Modální okno -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Název cviku</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalContent">Obsah cviku</p>
+                <div id="serieFormular" class="form-group">
+                    <label for="series">Počet odcvičených sérií:</label>
+                    <input type="number" class="form-control" id="series" min="0" max="50">
+                    <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit série</button>
+                </div>
+                <div id="seriesFields"></div>
+                <div id="uzivatelVahaFormular" class="form-group">
+                    <label style="margin-top: 10px;" for="uzivatelVaha">Váha při cvičení cviku:</label>
+                    <input type="number" class="form-control" id="uzivatelVaha" min="20" max="300">
+                    @* <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit váhu</button> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ *@
+
+
+    <script>
+
+        // Získání dnešního data
+        var dnes = new Date();
+        var dd = String(dnes.getDate()).padStart(2, '0');
+        var mm = String(dnes.getMonth() + 1).padStart(2, '0'); // Leden je 0!
+        var yyyy = dnes.getFullYear();
+        var dnesDatum = yyyy + '-' + mm + '-' + dd;
+
+
+        var cvikId;
+
+        //ziskani data z url
+        var currentUrl = window.location.href;
+        var queryParams = new URLSearchParams(window.location.search);
+        var dateParam = queryParams.get('date');
+        var dateFromUrl = new Date(dateParam);
+        var dateString = dateFromUrl.toISOString();
+        var dateStringShort = dateString.substring(0, 10);
+
+
+        if (dnesDatum < dateStringShort) {
+            document.getElementById('uzivatelVahaFormular').style.display = 'none';
+        }
+
+        var pridatCvikButton = document.getElementById("pridatCvikButton");
+
+        // Přidejte posluchače událostí pro kliknutí na tlačítko
+        pridatCvikButton.addEventListener("click", function () {
+            // Přesměrujte uživatele na jinou stránku pomocí window.location.href
+            window.location.href = "/Cvik/Create"; // Zde nahraďte "adresa-vasi-stranky" adresou, na kterou chcete uživatele přesměrovat
+        });
+
+        var zpetNaPlanButton = document.getElementById("zpetNaPlanButton");
+
+        // Přidejte posluchače událostí pro kliknutí na tlačítko
+        zpetNaPlanButton.addEventListener("click", function () {
+            // Přesměrujte uživatele na jinou stránku pomocí window.location.href
+            window.location.href = "/TP"; // Zde nahraďte "adresa-vasi-stranky" adresou, na kterou chcete uživatele přesměrovat
+        });
+
+        var cviky = @Html.Raw(Json.Serialize(ViewBag.cviky));
+        var datacviku = @Html.Raw(Json.Serialize(ViewBag.datacviku));
+        var typTreninkuZkratka = @Html.Raw(Json.Serialize(ViewBag.typTreninkuZkratka));
+
+        console.log(typTreninkuZkratka);
+
+        function naplnitCvicebniSablonu() {
+            var kontejnerCviku = document.getElementById("kontejner-cviku");
+            var table = document.createElement("table");
+            table.classList.add("table", "table-hover");
+
+            // Vytvoření hlavičky tabulky
+            var thead = document.createElement("thead");
+            var headerRow = document.createElement("tr");
+            var headers = ["Název cviku", "Série", "Opakování", "Odpočinek mezi sériemi"];
+            headers.forEach(function (headerText) {
+                var header = document.createElement("th");
+                header.textContent = headerText;
+                header.scope = "col";
+                headerRow.appendChild(header);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Vytvoření těla tabulky
+            var tbody = document.createElement("tbody");
+            cviky.forEach(function (cvik) {
+
+                var index = cvik.typyTreninku.indexOf(typTreninkuZkratka);
+
+                var row = document.createElement("tr");
+                row.id = cvik.cvikId;
+                row.classList.add("table-light");
+
+
+                console.log(datacviku);
+
+                var cvikVDatabazi = datacviku.find(function (item) {
+                    var datumVPlanu = dateString.slice(0, 10);
+                    var datumZDatabaze = item.datum.slice(0, 10);
+                    return item.cvikId === cvik.cvikId && datumVPlanu === datumZDatabaze;
+                });
+
+                if (cvikVDatabazi) {
+                    row.classList.remove('table-light');
+                    row.classList.add("table-success");
+                    // Změna textu tlačítka na "Upravit zpětnou vazbu"
+                    document.getElementById("feedbackButton").textContent = "Upravit zpětnou vazbu";
+                    // Změna třídy tlačítka na "btn-warning"
+                    document.getElementById("feedbackButton").classList.remove("btn-primary");
+                    document.getElementById("feedbackButton").classList.add("btn-warning");
+                }
+
+                var nameCell = document.createElement("td");
+                nameCell.textContent = cvik.název;
+                nameCell.classList.add("clickable"); // Přidání třídy pro klikatelnost
+                nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
+                    cvikId = cvik.cvikId;
+                    var cvikVDatabazi2 = datacviku.find(function (item) {
+                        var datumVPlanu = dateString.slice(0, 10);
+                        var datumZDatabaze = item.datum.slice(0, 10);
+                        return item.cvikId === cvik.cvikId && datumVPlanu === datumZDatabaze;
+                    });
+                    if (cvikVDatabazi2) {
+                        document.getElementById("feedbackButton").textContent = "Upravit zpětnou vazbu";
+                        // Změna třídy tlačítka na "btn-warning"
+                        document.getElementById("feedbackButton").classList.remove("btn-primary");
+                        document.getElementById("feedbackButton").classList.add("btn-warning");
+                    } else {
+                        document.getElementById("feedbackButton").textContent = "Poslat zpětnou vazbu";
+                        // Změna třídy tlačítka na "btn-warning"
+                        document.getElementById("feedbackButton").classList.remove("btn-warning");
+                        document.getElementById("feedbackButton").classList.add("btn-primary");
+                    }
+
+                });
+                nameCell.addEventListener("mouseenter", function () { // Přidání event listeneru pro najetí myší
+                    this.style.cursor = "pointer"; // Změna kurzoru na ukazatel po najetí myší
+                    this.style.color = "blue"; // Změna barvy textu po najetí myší
+                });
+                nameCell.addEventListener("mouseleave", function () { // Přidání event listeneru pro opuštění myší
+                    this.style.color = ""; // Vrácení původní barvy textu po opuštění myší
+
+                });
+                nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
+                    document.getElementById("exampleModalLabel").textContent = cvik.název;
+                    var modalContent = document.getElementById("modalContent");
+                    modalContent.innerHTML = ""; // Vyčištění obsahu modálního okna
+
+                    var série = document.createElement("p");
+                    série.textContent = "Série: " + cvik.počtySérií[index];
+                    modalContent.appendChild(série);
+
+                    var početOpakování = document.createElement("p");
+                    početOpakování.textContent = "Počet opakování: " + cvik.počtyOpakování[index];
+                    console.log(cvik.počtyOpakování);
+                    modalContent.appendChild(početOpakování);
+
+
+                    var odpočinek = document.createElement("p");
+                    odpočinek.textContent = "Odpočinek: " + cvik.pauzyMeziSériemi[index] + " sekund";
+                    modalContent.appendChild(odpočinek);
+
+                    var popis = document.createElement("p");
+                    popis.textContent = "Popis cviku: " + cvik.popisCviku;
+                    modalContent.appendChild(popis);
+
+                    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                        keyboard: false
+                    });
+                    myModal.show(); // Zobrazení modálního okna pomocí Bootstrap
+                });
+                row.appendChild(nameCell);
+
+                var setsCell = document.createElement("td");
+                setsCell.textContent = cvik.počtySérií[index];
+                row.appendChild(setsCell);
+
+                var repetitionsCell = document.createElement("td");
+                repetitionsCell.textContent = cvik.počtyOpakování[index];
+                row.appendChild(repetitionsCell);
+
+
+                var restCell = document.createElement("td");
+                restCell.textContent = cvik.pauzyMeziSériemi[index] + " sekund";
+                row.appendChild(restCell);
+
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            // Přidání tabulky do kontejneru cvičení
+            kontejnerCviku.appendChild(table);
+        }
+
+        naplnitCvicebniSablonu();
+
+
+
+        var seriesCount = 1; // Počáteční počet sérií
+
+        function changeSeriesCount() {
+            var newSeriesCount = document.getElementById("series").value;
+            seriesCount = parseInt(newSeriesCount);
+            if (seriesCount < 0) {
+                alert("Zadejte prosím platný počet sérií (0 až 50).");
+                seriesCount = 0;
+            } else if (seriesCount > 50) {
+                alert("Zadejte prosím platný počet sérií (0 až 50).");
+                seriesCount = 0;
+            }
+            renderSeriesFields();
+        }
+
+
+        function renderSeriesFields() {
+            var seriesFieldsContainer = document.getElementById("seriesFields");
+            seriesFieldsContainer.innerHTML = ""; // Vyčištění obsahu kontejneru
+
+            for (var i = 0; i < seriesCount; i++) {
+                var seriesNumber = i + 1;
+                var seriesField = document.createElement("div");
+                seriesField.classList.add("form-group");
+
+                var repetitionsLabel = document.createElement("label");
+                repetitionsLabel.setAttribute("for", "repetitions_" + seriesNumber);
+                repetitionsLabel.textContent = "Počet opakování v sérii " + seriesNumber + ":";
+                repetitionsLabel.classList.add("my-2");
+
+                var repetitionsInput = document.createElement("input");
+                repetitionsInput.setAttribute("type", "number");
+                repetitionsInput.setAttribute("class", "form-control");
+                repetitionsInput.setAttribute("id", "repetitions_" + seriesNumber);
+                repetitionsInput.setAttribute("min", 0);
+                repetitionsInput.setAttribute("max", 50);
+
+
+                var weightLabel = document.createElement("label");
+                weightLabel.setAttribute("for", "weight_" + seriesNumber);
+                weightLabel.textContent = "Váha v sérii " + seriesNumber + " (kg):";
+                weightLabel.classList.add("my-2");
+
+                var weightInput = document.createElement("input");
+                weightInput.setAttribute("type", "number");
+                weightInput.setAttribute("class", "form-control");
+                weightInput.setAttribute("id", "weight_" + seriesNumber);
+                weightInput.setAttribute("min", 0);
+                weightInput.setAttribute("max", 600);
+
+                // var uzivatelVahaLabel = document.createElement("label");
+                // uzivatelVahaLabel.setAttribute("for", "uzivatelVaha_" + seriesNumber);
+                // uzivatelVahaLabel.textContent = "Váha uživatele " + seriesNumber + " (kg):";
+                // uzivatelVahaLabel.classList.add("my-2");
+
+                // var uzivatelVahaInput = document.createElement("input");
+                // uzivatelVahaInput.setAttribute("type", "number");
+                // uzivatelVahaInput.setAttribute("class", "form-control");
+                // uzivatelVahaInput.setAttribute("id", "uzivatelVaha_" + seriesNumber);
+                // uzivatelVahaInput.setAttribute("min", 0);
+                // uzivatelVahaInput.setAttribute("max", 300);
+
+                seriesField.appendChild(repetitionsLabel);
+                seriesField.appendChild(repetitionsInput);
+                seriesField.appendChild(weightLabel);
+                seriesField.appendChild(weightInput);
+                // seriesField.appendChild(uzivatelVahaLabel);
+                // seriesField.appendChild(uzivatelVahaInput);
+
+                seriesFieldsContainer.appendChild(seriesField);
+            }
+        }
+
+        function submitFeedback() {
+
+            var seriesData = [];
+            for (var i = 0; i < seriesCount; i++) {
+                var seriesNumber = i + 1;
+                var repetitions = document.getElementById("repetitions_" + seriesNumber).value;
+                var weight = document.getElementById("weight_" + seriesNumber).value;
+
+                if (uzivatelVaha.value === "") {
+                    seriesData.push({
+                        Datum: dateString,
+                        cvikId: cvikId,
+                        CisloSerie: seriesNumber,
+                        PocetOpakovani: repetitions,
+                        CvicenaVaha: weight
+                    });
+                } else {
+                    seriesData.push({
+                        Datum: dateString,
+                        cvikId: cvikId,
+                        CisloSerie: seriesNumber,
+                        PocetOpakovani: repetitions,
+                        CvicenaVaha: weight,
+                        Vaha: uzivatelVaha.value
+                    });
+                }
+            }
+
+            var dataVPohode = 1;
+
+            for (var i = 0; i < seriesData.length; i++) {
+                if (seriesData[i].PocetOpakovani > 100 || seriesData[i].PocetOpakovani < 0) {
+                    dataVPohode = 0;
+                    alert("Zadejte prosím pravdivé údaje.");
+                } else if (seriesData[i].CvicenaVaha > 500 || seriesData[i].CvicenaVaha < 0) {
+                    dataVPohode = 0;
+                    alert("Zadejte prosím pravdivé údaje.");
+                }
+            }
+
+
+            if (dataVPohode == 1) {
+
+                var cvikVDatabazi1 = datacviku.find(function (item) {
+                    var datumVPlanu1 = dateString.slice(0, 10);
+                    var datumZDatabaze1 = item.datum.slice(0, 10);
+                    return item.cvikId === cvikId && datumVPlanu1 === datumZDatabaze1;
+                });
+
+                if (cvikVDatabazi1) {
+                    console.log("je tam");
+                    $.ajax({
+                        url: '/TreninkoveData/DeleteFromDatabase',
+                        type: 'POST',
+                        //contentType: 'application/json',
+                        data: seriesData[0],
+
+                        success: function (response) {
+                            // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                            //location.reload(true);
+                            for (var i = 0; i < seriesData.length; i++) {
+                                $.ajax({
+                                    url: '/TreninkoveData/SaveToDatabase',
+                                    type: 'POST',
+                                    //contentType: 'application/json',
+                                    data: seriesData[i],
+
+                                    success: function (response) {
+                                        // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                                        location.reload(true);
+                                    },
+                                    error: function (xhr, status, error) {
+                                        // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                                        console.log("chyba");
+                                    }
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                            console.log("chyba");
+                        }
+                    });
+
+                } else {
+
+                    for (var i = 0; i < seriesData.length; i++) {
+                        $.ajax({
+                            url: '/TreninkoveData/SaveToDatabase',
+                            type: 'POST',
+                            //contentType: 'application/json',
+                            data: seriesData[i],
+
+                            success: function (response) {
+                                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                                location.reload(true);
+                            },
+                            error: function (xhr, status, error) {
+                                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                                console.log("chyba");
+                            }
+                        });
+                    }
+
+                    changeSeriesCount();
+                    $('#myModal').modal('hide');
+                }
+
+            }
+
+        }
+
+
+        // Získání aktuálního data
+        var currentDate = new Date();
+        currentDate.setHours(1, 0, 0, 0);
+
+
+        // FUNGUJE JEN TESTUJU TAK TO ZAKOMENTUJU
+
+        // // Pokud je datum z URL dnešní nebo starší, zobrazit možnost zpětné vazby a další prvky v modálním okně
+        // if (dateFromUrl <= currentDate) {
+        //     // console.log('Datum z URL je dřívější nebo stejný jako aktuální datum.');
+        //     // document.getElementById("feedbackButton").style.display = "block"; // Zobrazení tlačítka zpětné vazby
+        //     // //document.getElementById("modalContent").style.display = "block"; // Zobrazení obsahu modálního okna
+        //     // document.getElementById("seriesFields").style.display = "block"; // Zobrazení polí pro sérii
+        // } else {
+        //     document.getElementById("feedbackButton").style.display = "none"; // Skrytí tlačítka zpětné vazby
+        //     //document.getElementById("modalContent").style.display = "none"; // Skrytí obsahu modálního okna
+        //     document.getElementById("seriesFields").style.display = "none"; // Skrytí polí pro sérii
+
+        //     var seriesForm = document.getElementById("serieFormular");
+        //     seriesForm.style.display = "none";
+        // }
+
+
+        // KONEC CASTI CO FUNGUJE A TESTUJU JI
+
+        // Zobrazení počátečních polí pro sérii při načtení stránky
+        renderSeriesFields();
+    </script>

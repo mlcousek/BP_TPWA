@@ -122,11 +122,12 @@
                 {
                     if (cvik.TypyTreninku.Contains(typTreninku))
                     {
+                        var index = cvik.TypyTreninku.IndexOf(typTreninku);
                         <tr>
                             <td>@cvik.Název</td>
-                            <td>@cvik.PočetSérií</td>
-                            <td>@cvik.PočetOpakování</td>
-                            <td>@cvik.PauzaMeziSériemi</td>
+                            <td>@cvik.PočtySérií[index]</td>
+                            <td>@cvik.PočtyOpakování[index]</td>
+                            <td>@cvik.PauzyMeziSériemi[index]</td>
                             <td>@cvik.Partie</td>
                             <td>@cvik.PopisCviku</td>
                         </tr>

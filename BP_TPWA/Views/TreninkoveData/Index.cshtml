@@ -170,19 +170,19 @@
                 data: {
                     labels: dates,
                     datasets: [{
-                        label: 'Nejvyšší váha',
+                        label: 'Nejvyšší váha (kg)',
                         data: maxVahy,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     }, {
-                        label: 'Průměrná váha',
+                        label: 'Průměrná váha (kg)',
                         data: prumVahy,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }, {
-                        label: 'Aktuální váha uživatele',
+                        label: 'Aktuální váha uživatele (kg)',
                         data: vahyUzivatele, 
                         backgroundColor: 'rgba(255, 206, 86, 0.2)',
                         borderColor: 'rgba(255, 206, 86, 1)',
@@ -208,25 +208,25 @@
                 data: {
                     labels: dates,
                     datasets: [{
-                        label: 'Nejvyšší váha',
+                        label: 'Nejvyšší váha (kg)',
                         data: maxVahy,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     }, {
-                        label: 'Průměrná váha',
+                        label: 'Průměrná váha (kg)',
                         data: prumVahy,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }, {
-                        label: 'Aktuální váha uživatele',
+                        label: 'Aktuální váha uživatele (kg)',
                         data: vahyUzivatele,
                         backgroundColor: 'rgba(255, 206, 86, 0.2)',
                         borderColor: 'rgba(255, 206, 86, 1)',
                         borderWidth: 1
                     }, {
-                        label: 'Součet nazvedaných vah',
+                        label: 'Součet nazvedaných vah (kg)',
                         data: sumaVah,
                         backgroundColor: 'rgba(0, 0, 0, 0.2)',
                         borderColor: 'rgba(0, 0, 0, 1)',
@@ -302,12 +302,13 @@
         return " ";
     }
 
-    console.log(grafy);
+    //console.log(grafy);
 
     var i = 0;
-    var uniqueCviky = []; // Pole pro uchování unikátních cviků
+    //var uniqueCviky = []; // Pole pro uchování unikátních cviků
 
     Object.keys(grafy).forEach(function (kategorie) {
+        var uniqueCviky = [];
         Object.keys(grafy[kategorie]).forEach(function (cvik) {
             var nazevCviku = grafy[kategorie][cvik].cvik.název;
             var idCviku = grafy[kategorie][cvik].cvikId;

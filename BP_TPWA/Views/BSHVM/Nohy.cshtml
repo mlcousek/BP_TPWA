@@ -85,7 +85,9 @@
 
     var cviky = @Html.Raw(Json.Serialize(ViewBag.cviky));
     var datacviku = @Html.Raw(Json.Serialize(ViewBag.datacviku));
+    var typTreninkuZkratka = @Html.Raw(Json.Serialize(ViewBag.typTreninkuZkratka));
 
+        console.log(typTreninkuZkratka);
 
     function naplnitCvicebniSablonu() {
         var kontejnerCviku = document.getElementById("kontejner-cviku");
@@ -108,6 +110,9 @@
         // Vytvoření těla tabulky
         var tbody = document.createElement("tbody");
         cviky.forEach(function (cvik) {
+
+            var index = cvik.typyTreninku.indexOf(typTreninkuZkratka);
+
             var row = document.createElement("tr");
             row.id = cvik.cvikId;
             row.classList.add("table-light");
@@ -168,16 +173,17 @@
                 modalContent.innerHTML = ""; // Vyčištění obsahu modálního okna
 
                 var série = document.createElement("p");
-                série.textContent = "Série: " + cvik.početSérií;
+                série.textContent = "Série: " + cvik.počtySérií[index];
                 modalContent.appendChild(série);
 
                 var početOpakování = document.createElement("p");
-                početOpakování.textContent = "Počet opakování: " + cvik.početOpakování;
+                početOpakování.textContent = "Počet opakování: " + cvik.počtyOpakování[index];
+                console.log(cvik.počtyOpakování);
                 modalContent.appendChild(početOpakování);
 
 
                 var odpočinek = document.createElement("p");
-                odpočinek.textContent = "Odpočinek: " + cvik.pauzaMeziSériemi + " sekund";
+                odpočinek.textContent = "Odpočinek: " + cvik.pauzyMeziSériemi[index] + " sekund";
                 modalContent.appendChild(odpočinek);
 
                 var popis = document.createElement("p");
@@ -192,16 +198,16 @@
             row.appendChild(nameCell);
 
             var setsCell = document.createElement("td");
-            setsCell.textContent = cvik.početSérií;
+            setsCell.textContent = cvik.počtySérií[index];
             row.appendChild(setsCell);
 
             var repetitionsCell = document.createElement("td");
-            repetitionsCell.textContent = cvik.početOpakování;
+            repetitionsCell.textContent = cvik.počtyOpakování[index];
             row.appendChild(repetitionsCell);
 
 
             var restCell = document.createElement("td");
-            restCell.textContent = cvik.pauzaMeziSériemi + " sekund";
+            restCell.textContent = cvik.pauzyMeziSériemi[index] + " sekund";
             row.appendChild(restCell);
 
             tbody.appendChild(row);

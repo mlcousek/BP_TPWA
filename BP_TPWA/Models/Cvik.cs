@@ -10,9 +10,36 @@ namespace BP_TPWA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CvikId { get; set; }
         public string Název { get; set; }
-        public string PočetOpakování { get; set; }
-        public int PočetSérií { get; set; }
-        public int PauzaMeziSériemi { get; set; }
+        [NotMapped]
+        public List<string>? PočtyOpakování { get; set; }
+
+        [Column("PočetOpakování")]
+        public string? PočetOpakováníSerialized
+        {
+            get => PočtyOpakování != null ? string.Join(".", PočtyOpakování) : null;
+            set => PočtyOpakování = value?.Split('.').ToList();
+        }
+        //public string PočetOpakování { get; set; }
+        [NotMapped]
+        public List<int>? PočtySérií { get; set; }
+
+        [Column("PočetSérií")]
+        public string? PočetSériíSerialized
+        {
+            get => PočtySérií != null ? string.Join(",", PočtySérií) : null;
+            set => PočtySérií = value?.Split(',').Select(int.Parse).ToList();
+        }
+        //public int PočetSérií { get; set; }
+        [NotMapped]
+        public List<int>? PauzyMeziSériemi { get; set; }
+
+        [Column("PauzaMeziSériemi")]
+        public string? PauzaMeziSériemiSerialized
+        {
+            get => PauzyMeziSériemi != null ? string.Join(",", PauzyMeziSériemi) : null;
+            set => PauzyMeziSériemi = value?.Split(',').Select(int.Parse).ToList();
+        }
+        //public int PauzaMeziSériemi { get; set; }
         public string Partie {  get; set; }
 
         public string? PopisCviku { get; set; }

@@ -132,7 +132,7 @@ namespace BP_TPWA.Controllers
                 return "Zatimnic";
             }
             return "CHYBA";
-        }
+       }
 
 
         private string GetTypTreninkuVM(int cislodne)

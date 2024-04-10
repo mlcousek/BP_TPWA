@@ -49,6 +49,13 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
+            var TPUzivatele = _context.TP
+                              .Where(x => x.UzivatelID == userId)
+                               .ToList();
+
+            var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
+
+            ViewBag.typTreninkuZkratka = typTreninkuZkratka;
             ViewBag.cviky = cviky;
             ViewBag.datacviku = datacviku;
 
@@ -86,6 +93,13 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
+            var TPUzivatele = _context.TP
+                              .Where(x => x.UzivatelID == userId)
+                               .ToList();
+
+            var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
+
+            ViewBag.typTreninkuZkratka = typTreninkuZkratka;
             ViewBag.cviky = cviky;
             ViewBag.datacviku = datacviku;
 
@@ -123,6 +137,13 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
+            var TPUzivatele = _context.TP
+                              .Where(x => x.UzivatelID == userId)
+                               .ToList();
+
+            var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
+
+            ViewBag.typTreninkuZkratka = typTreninkuZkratka;
             ViewBag.cviky = cviky;
             ViewBag.datacviku = datacviku;
 
@@ -160,10 +181,60 @@ namespace BP_TPWA.Controllers
                         .Where(id => id.UzivatelId == userId)
                         .ToList();
 
+            var TPUzivatele = _context.TP
+                              .Where(x => x.UzivatelID == userId)
+                               .ToList();
+
+            var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
+
+            ViewBag.typTreninkuZkratka = typTreninkuZkratka;
             ViewBag.cviky = cviky;
             ViewBag.datacviku = datacviku;
 
             return View();
+        }
+        private string GetTypTreninkuZkratka(TP TP, string typTreninku)
+        {
+            if (TP.DruhTP == "BSH")
+            {
+                if (TP.StylTP == "VM")
+                {
+                    if (typTreninku == "Nohy")
+                    {
+                        return "BSHVMNohy";
+                    }
+                    else if (typTreninku == "Ramena + biceps")
+                    {
+                        return "BSHVMRamBic";
+                    }
+                    else if (typTreninku == "Záda")
+                    {
+                        return "BSHVMZada";
+                    }
+                    else if (typTreninku == "Hrudník + triceps")
+                    {
+                        return "BSHVMHrTric";
+                    }
+
+                }
+                else if (TP.StylTP == "PPL")
+                {
+                    return "Zatimnic";
+                }
+                else if (TP.StylTP == "KR")
+                {
+                    return "Zatimnic";
+                }
+            }
+            else if (TP.DruhTP == "SR")
+            {
+                return "Zatimnic";
+            }
+            else if (TP.DruhTP == "RV")
+            {
+                return "Zatimnic";
+            }
+            return "CHYBA";
         }
     }
 }
