@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410113557_zoufalstvi336")]
+    partial class zoufalstvi336
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,11 +62,9 @@ namespace BP_TPWA.Data.Migrations
 
                     b.Property<string>("UzivatelId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CvikId");
-
-                    b.HasIndex("UzivatelId");
 
                     b.ToTable("Cvik");
                 });
@@ -433,17 +434,6 @@ namespace BP_TPWA.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("BP_TPWA.Models.Cvik", b =>
-                {
-                    b.HasOne("BP_TPWA.Models.Uzivatel", "Uzivatel")
-                        .WithMany()
-                        .HasForeignKey("UzivatelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Uzivatel");
                 });
 
             modelBuilder.Entity("BP_TPWA.Models.DenTreninku", b =>

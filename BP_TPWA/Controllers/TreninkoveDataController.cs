@@ -38,7 +38,7 @@ namespace BP_TPWA.Controllers
             ViewBag.tpdata = tpdata;
 
 
-            var applicationDbContext = _context.TreninkoveData.Include(t => t.Cvik).Include(t => t.Uzivatel);
+            var applicationDbContext = _context.TreninkoveData.Include(t => t.Cvik);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -51,8 +51,8 @@ namespace BP_TPWA.Controllers
             }
 
             var treninkoveData = await _context.TreninkoveData
+                
                 .Include(t => t.Cvik)
-                .Include(t => t.Uzivatel)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (treninkoveData == null)
             {
@@ -152,8 +152,8 @@ namespace BP_TPWA.Controllers
             }
 
             var treninkoveData = await _context.TreninkoveData
+                
                 .Include(t => t.Cvik)
-                .Include(t => t.Uzivatel)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (treninkoveData == null)
             {

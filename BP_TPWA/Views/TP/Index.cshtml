@@ -21,7 +21,7 @@
 
 
 <button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
-<table class="table">
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -62,15 +62,10 @@
         </tr>
 }
     </tbody>
-</table>
+</table> *@
 
 
-@* <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Zde se ptáme na aktuální váhu uživatele.</p>
-    </div>
-</div> *@
+
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -125,30 +120,10 @@
     }
 
     var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
-        console.log(uzivatelData[0].váha);
-        console.log(uzivatelData[0].tpId);
-        console.log(uzivatelData[0]);
-     // if (uzivatelData[0].pridaneData === false) {
-     //        $.ajax({
-     //            url: '/Cvik/PridejData',
-     //            type: 'GET',
-     //            // contentType: 'application/json',
-     //            //data: vahaData[0],
+    var datacviku = @Html.Raw(Json.Serialize(ViewBag.Datacviku));
 
-     //            success: function (response) {
-     //                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-     //                //location.reload(true);
-     //                //window.open(response);
-     //                console.log("oss");
-     //                // downloadPDF(response);
-     //                //window.open(response, '_blank');
-     //            },
-     //            error: function (xhr, status, error) {
-     //                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-     //                console.log("chyba p5i generovani ");
-     //            }
-     //        });
-     // }
+    var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
+    var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
     
     var element = document.getElementById('generovaniTlacitka');
     var vytvoritTP = document.getElementById('vytvoritTP');
@@ -156,10 +131,6 @@
 
         element.style.display = 'block';
         vytvoritTP.style.display = 'none';
-
-        var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
-        console.log(treninkoveData);
-        var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
 
         var staraVaha = uzivatelData[0].váha;
         var inputVaha = document.getElementById('vaha');
@@ -190,6 +161,8 @@
                     }
                 }
          }
+
+
             console.log(tpInfo);
             console.log(treninkoveData);
             var delkaTD = treninkoveData.length;
@@ -199,7 +172,6 @@
 
             // Přidání dat do pole events
             for (var i = 0; i < delkaTD; i++) {
-
                 var barva;
                 switch (treninkoveData[i].typTreninku) {
                     case "Nohy":
@@ -238,15 +210,43 @@
                     // Přidat další případy pro další typy tréninků a jejich barvy
                     default:
                         barva = "gray"; // Výchozí barva pro ostatní typy tréninků
+
                 }
+                    var idCvikuVPlanu = []; // Pole pro uchování cviků plánovaných pro tento trénink
+                    var dobre = 1;
+                    // Získání všech cviků plánovaných pro tento trénink
+                    datacviku.forEach(function (zaznam) {
+                        if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) {
+                            if (!idCvikuVPlanu.includes(zaznam.cvikId)) {
+                                idCvikuVPlanu.push(zaznam.cvikId);
+                            }
+                        }
+                    });
+                    var cvikIdecka = treninkoveData[i].cviky.map(cvik => cvik.cvikId);
+                    cvikIdecka = cvikIdecka.sort((a, b) => a - b);
+                    idCvikuVPlanu = idCvikuVPlanu.sort((a, b) => a - b);
 
+                    if (idCvikuVPlanu.length === cvikIdecka.length) {
+                        // Provést požadovanou akci
+                        for (let i = 0; i < idCvikuVPlanu.length; i++) {
+                            if (idCvikuVPlanu[i] === cvikIdecka[i]) {
 
-                eventy[i] = {
-                    title: treninkoveData[i].typTreninku,
-                    start: treninkoveData[i].datumTreninku,
-                    allDay: true,
-                    color: barva
-                };
+                            } else {
+                                dobre = 0;
+                            }
+                        }
+                        if (dobre === 1) {
+                            barva = "#17E683";
+                        }
+                    }
+
+                    eventy[i] = {
+                        title: treninkoveData[i].typTreninku,
+                        start: treninkoveData[i].datumTreninku,
+                        allDay: true,
+                        color: barva,
+                        className: moment(treninkoveData[i].datumTreninku).format("YYYY-MM-DD")
+                    };
             }
     
     $(document).ready(function () {
@@ -286,7 +286,6 @@
         )
     }
     )
-
 
     function odeslatZpetnouVazbu() {
         var novaVaha = document.getElementById("vaha").value;
@@ -338,16 +337,8 @@
         $.ajax({
             url: '/TP/PDFView',
             type: 'GET',
-            // contentType: 'application/json',
-            //data: vahaData[0],
-
             success: function (response) {
-                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-                //location.reload(true);
-                //window.open(response);
                 console.log("oss");
-               // downloadPDF(response);
-                //window.open(response, '_blank');
             },
             error: function (xhr, status, error) {
                 // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
@@ -357,28 +348,8 @@
     }
 
     function generovatPDF() {
-        // $.ajax({
-        //     url: '/TP/PDFView',
-        //     type: 'GET',
-        //     // contentType: 'application/json',
-        //     //data: vahaData[0],
-
-        //     success: function (response) {
-        //         // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-        //         //location.reload(true);
-        //         //window.open(response);
-        //         console.log("oss");
-        //         // downloadPDF(response);
-        //         //window.open(response, '_blank');
-        //     },
-        //     error: function (xhr, status, error) {
-        //         // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-        //         console.log("chyba p5i generovani ");
-        //     }
-        // });
                 window.location.href = "/TP/PDFView";
     }
-
 
     // Funkce pro stahování PDF
     function downloadPDF(pdfData) {
@@ -400,7 +371,7 @@
         // Po dokončení stahování odstraníme odkaz
         window.URL.revokeObjectURL(url);
     }
-     }
+    }
 
 </script> 
 

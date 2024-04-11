@@ -26,6 +26,12 @@ namespace BP_TPWA.Data
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //modelBuilder.Entity<Cvik>()
+            //            .HasOne(c => c.Uzivatel)
+            //            .WithOne()
+            //            //.HasForeignKey(c => c.UzivatelId) // Specifikace cizího klíče
+            //            .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

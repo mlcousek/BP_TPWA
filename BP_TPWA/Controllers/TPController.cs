@@ -397,9 +397,13 @@ namespace BP_TPWA.Controllers
                 var uzivatel = await _context.Users
                                 .Where(dt => dt.Id == userId)
                                 .ToListAsync();
+                var datacviku = _context.TreninkoveData
+                            .Where(id => id.UzivatelId == userId)
+                            .ToList();
 
-                // var tpInfo = _context.TP.ToList();
-                ViewBag.Uzivatel = uzivatel;
+            // var tpInfo = _context.TP.ToList();
+            ViewBag.Uzivatel = uzivatel;
+            ViewBag.Datacviku = datacviku;
 
             return View(await applicationDbContext.ToListAsync());
         }
