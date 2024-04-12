@@ -42,6 +42,26 @@ namespace BP_TPWA.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: Maximalky
+        public async Task<IActionResult> Maximalky()
+        {
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var datacviku = _context.TreninkoveData
+                        .Where(id => id.UzivatelId == userId)
+                        .ToList();
+            var tpdata = _context.TP
+                    .Where(id => id.UzivatelID == userId)
+                    .ToList();
+
+            ViewBag.treninkovedata = datacviku;
+            ViewBag.tpdata = tpdata;
+
+
+            var applicationDbContext = _context.TreninkoveData.Include(t => t.Cvik);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: TreninkoveData/Details/5
         public async Task<IActionResult> Details(int? id)
         {

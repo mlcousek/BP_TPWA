@@ -7,11 +7,11 @@
 
 <p>Po odcvičení doporučuji alespoň lehce protáhnout cvičenou svalovou skupinu.</p>
 
-<button type="button" class="btn btn-dark float-right-custom" id="pridatCvikButton">Přidat cvik</button>
-<button type="button" class="btn btn-secondary" id="zpetNaPlanButton">Zpět na plán</button>
+<button type="button" class="btn btn-dark float-right-custom mb-3" id="pridatCvikButton">Přidat cvik</button>
+<button type="button" class="btn btn-secondary mb-3" id="zpetNaPlanButton">Zpět na plán</button>
 
-<!-- Modální okno -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modální okno 1 -->
+<div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -31,16 +31,38 @@
                     <input type="number" class="form-control" id="uzivatelVaha" min="20" max="300">
                     @* <button type="button" class="btn btn-success my-2" onclick="changeSeriesCount()">Potvrdit váhu</button> *@
                 </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary mb-3" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
+                    <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Zavřít</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modální okno 2 -->
+ <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Na jaké místo se má cvik přesunout?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="poradiFormular" class="form-group">
+                    <label for="poradiKam"></label>
+                    <input type="number" class="form-control" id="poradiKam" min="1" max="1000" value="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info mb-3" id="feedbackButton2" onclick="zmenitPoradiCviku()">Potvrdit</button>
+                    <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
-    
+
 
 <script>
     // Získání dnešního data
@@ -69,8 +91,8 @@
     var pridatCvikButton = document.getElementById("pridatCvikButton");
 
     pridatCvikButton.addEventListener("click", function () {
-        window.location.href = "/Cvik/Create"; 
-    });
+            window.location.href = "/Cvik/PridatDoPlanu?date=" + dateParam;
+        });
 
     var zpetNaPlanButton = document.getElementById("zpetNaPlanButton");
 
@@ -79,6 +101,7 @@
     });
 
     var cviky = @Html.Raw(Json.Serialize(ViewBag.cviky));
+    console.log(cviky);
     var datacviku = @Html.Raw(Json.Serialize(ViewBag.datacviku));
     var typTreninkuZkratka = @Html.Raw(Json.Serialize(ViewBag.typTreninkuZkratka));
 
@@ -92,7 +115,7 @@
         // Vytvoření hlavičky tabulky
         var thead = document.createElement("thead");
         var headerRow = document.createElement("tr");
-        var headers = ["Název cviku", "Série", "Opakování", "Odpočinek mezi sériemi"];
+        var headers = ["Pořadí", "Název cviku", "Série", "Opakování", "Odpočinek mezi sériemi"];
         headers.forEach(function (headerText) {
             var header = document.createElement("th");
             header.textContent = headerText;
@@ -104,16 +127,17 @@
 
         // Vytvoření těla tabulky
         var tbody = document.createElement("tbody");
+        var cvikInCvikyn = -1;
+        var cislovani = 0;
         cviky.forEach(function (cvik) {
-
+            cislovani = cislovani + 1;
+            cvikInCvikyn = cvikInCvikyn + 1;
             var index = cvik.typyTreninku.indexOf(typTreninkuZkratka);
 
             var row = document.createElement("tr");
             row.id = cvik.cvikId;
             row.classList.add("table-light");
 
-
-                console.log(datacviku);
 
             var cvikVDatabazi = datacviku.find(function (item) {
                 var datumVPlanu = dateString.slice(0, 10);
@@ -130,7 +154,13 @@
                 document.getElementById("feedbackButton").classList.remove("btn-primary");
                 document.getElementById("feedbackButton").classList.add("btn-warning");
             }
-            
+
+            var idCell = document.createElement("td");
+            idCell.textContent = cislovani;
+            row.appendChild(idCell);
+
+
+
             var nameCell = document.createElement("td");
             nameCell.textContent = cvik.název;
             nameCell.classList.add("clickable"); 
@@ -162,7 +192,7 @@
                 this.style.color = ""; 
 
             });
-            nameCell.addEventListener("click", function () { // Přidání event listeneru pro kliknutí
+            nameCell.addEventListener("click", function () { 
                 document.getElementById("exampleModalLabel").textContent = cvik.název;
                 var modalContent = document.getElementById("modalContent");
                 modalContent.innerHTML = ""; // Vyčištění obsahu modálního okna
@@ -185,13 +215,13 @@
                 popis.textContent = "Popis cviku: " + cvik.popisCviku;
                 modalContent.appendChild(popis);
 
-                    document.getElementById("series").value = cvik.počtySérií[index];
+                document.getElementById("series").value = cvik.počtySérií[index];
                 changeSeriesCount1(cvik);
 
-                var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                var myModal = new bootstrap.Modal(document.getElementById('myModal1'), {
                     keyboard: false
                 });
-                myModal.show(); // Zobrazení modálního okna 
+                myModal.show(); 
             });
             row.appendChild(nameCell);
 
@@ -207,6 +237,81 @@
             var restCell = document.createElement("td");
             restCell.textContent = cvik.pauzyMeziSériemi[index] + " sekund";
             row.appendChild(restCell);
+
+          
+
+            var deleteAUpravitCell = document.createElement("td");
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Smazat cvik";
+            deleteButton.classList.add("btn", "btn-outline-danger", "btn-sm", "custom-mr");
+            deleteButton.addEventListener("click", function () {
+                    var rowId = this.parentNode.parentNode.id;
+                    var seriesDatac = [];
+                    seriesDatac.push({
+                        Datum: dateString,
+                        cvikId: rowId,
+                        CisloSerie: -1,
+                        PocetOpakovani: -1,
+                        CvicenaVaha: -1,
+                        Vaha: -1
+                    });
+                    $.ajax({
+                        url: '/TreninkoveData/DeleteFromDatabase',
+                        type: 'POST',
+                        //contentType: 'application/json',
+                        data: seriesDatac[0],
+
+                        success: function (response) {
+                            console.log("top");
+                            $.ajax({
+                                url: '/Cvik/SmazatDataCvikuZDatabazeIDenTreninku',
+                                type: 'POST',
+                                //contentType: 'application/json',
+                                data: seriesDatac[0],
+
+                                success: function (response) {
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log("chyba pri mazani dat cviku");
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("chyba v mazani treninkovych dat z databaze");
+                        }
+                    });
+                
+            });
+            deleteAUpravitCell.appendChild(deleteButton);
+            //row.appendChild(deleteCell);
+
+            //var upravitCell = document.createElement("td");
+            var upravitButton = document.createElement("button");
+            upravitButton.textContent = "Upravit cvik";
+            upravitButton.classList.add("btn", "btn-outline-warning", "btn-sm", "custom-mr");
+            upravitButton.id = cvik.cvikId
+            upravitButton.addEventListener("click", function () {
+                var rowId = this.parentNode.parentNode.id;
+                window.location.href = "/Cvik/UpravitCvik?id=" + rowId + "&date=" + dateParam;
+            });
+            deleteAUpravitCell.appendChild(upravitButton);
+
+            var posunoutButton = document.createElement("button");
+            posunoutButton.textContent = "Posunout cvik";
+            posunoutButton.classList.add("btn", "btn-outline-info", "btn-sm");
+            posunoutButton.id = cvik.cvikId;
+            posunoutButton.addEventListener("click", function () {
+                // var idecko1 = this.parentNode.parentNode.id;
+                openModal('myModal2', this.parentNode.parentNode.id);
+                // var myModal2 = new bootstrap.Modal(document.getElementById('myModal2'), {
+                //     keyboard: false
+                // });
+                // myModal2.show();
+            });
+            deleteAUpravitCell.appendChild(posunoutButton);
+
+            row.appendChild(deleteAUpravitCell);
 
             tbody.appendChild(row);
         });
@@ -394,7 +499,6 @@ function submitFeedback() {
         });
 
         if (cvikVDatabazi1) {
-            console.log("je tam");
                 $.ajax({
                     url: '/TreninkoveData/DeleteFromDatabase',
                     type: 'POST',
@@ -456,6 +560,46 @@ function submitFeedback() {
 
 }
 
+    function zmenitPoradiCviku() {
+        var tlacitkoId = event.target.id;
+        var poradiKam = document.getElementById("poradiKam").value;
+        var seriesDatacus = [];
+            seriesDatacus.push({
+                Datum: dateString,
+                cvikId: tlacitkoId,
+                CisloSerie: poradiKam,
+                PocetOpakovani: -1,
+                CvicenaVaha: -1,
+                Vaha: -1
+            });
+        $.ajax({
+            url: '/Cvik/ZmenitPoradi',
+            type: 'POST',
+            //contentType: 'application/json',
+            data: seriesDatacus[0],
+
+            success: function (response) {
+                // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
+                location.reload(true);
+            },
+            error: function (xhr, status, error) {
+                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
+                console.log("chyba");
+            }
+        });
+    }
+
+
+    function openModal(modalId, cvikId) {
+      
+        var tlacitko = document.getElementById("feedbackButton2");
+        tlacitko.id = cvikId;
+
+        var myModal = new bootstrap.Modal(document.getElementById(modalId), {
+            keyboard: false
+        });
+        myModal.show();
+    }
 
         // Získání aktuálního data
         var currentDate = new Date();

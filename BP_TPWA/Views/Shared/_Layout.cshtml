@@ -71,6 +71,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TreninkoveData" && ViewContext.RouteData.Values["Action"].ToString() == "Maximalky" ? "active" : "")" asp-area="" asp-controller="TreninkoveData" asp-action="Maximalky">Maximálky</a>
+                                    </li>
                                     @* <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
                         </li> *@
@@ -150,6 +153,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TreninkoveData" && ViewContext.RouteData.Values["Action"].ToString() == "Maximalky" ? "active" : "")" asp-area="" asp-controller="TreninkoveData" asp-action="Maximalky">Maximálky</a>
+                                    </li>
                                     @* <li class="nav-item">
                                         <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
                                     </li> *@
@@ -228,6 +234,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="TreninkoveData" asp-action="Maximalky">Maximálky</a>
                             </li>
                             @* <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>

@@ -1,12 +1,12 @@
 ﻿@model BP_TPWA.Models.Cvik
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Upravit cvik";
 }
 
-<h1>Edit</h1>
+<h1>Upravit cvik</h1>
 
-<h4>Cvik</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,35 +19,25 @@
                 <span asp-validation-for="Název" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PočtyOpakování" class="control-label"></label>
-                <input asp-for="PočtyOpakování" class="form-control" />
-                <span asp-validation-for="PočtyOpakování" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PočtySérií" class="control-label"></label>
-                <input asp-for="PočtySérií" class="form-control" />
-                <span asp-validation-for="PočtySérií" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PauzyMeziSériemi" class="control-label"></label>
-                <input asp-for="PauzyMeziSériemi" class="form-control" />
-                <span asp-validation-for="PauzyMeziSériemi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PopisCviku" class="control-label"></label>
+                <label asp-for="PopisCviku" class="control-label">Popis cviku</label>
                 <input asp-for="PopisCviku" class="form-control" />
                 <span asp-validation-for="PopisCviku" class="text-danger"></span>
             </div>
+            <div class="form-group mb-3">
+                <label asp-for="Partie" class="control-label">Partie</label>
+                <input asp-for="Partie" class="form-control" />
+                <span asp-validation-for="Partie" class="text-danger"></span>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Uložit" class="btn btn-warning mb-3" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<form asp-controller="Cvik" asp-action="Index" method="get">
+    <button type="submit" class="btn btn-dark">Zpět</button>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

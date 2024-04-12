@@ -1,0 +1,57 @@
+﻿@model BP_TPWA.Models.Cvik
+
+@{
+    ViewData["Title"] = "Vytvořit vlastní cvik";
+}
+
+<h1>Vytvořit vlastní cvik</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Název" class="control-label"></label>
+                <input asp-for="Název" class="form-control" />
+                <span asp-validation-for="Název" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Partie" class="control-label"></label>
+                <input asp-for="Partie" class="form-control" />
+                <span asp-validation-for="Partie" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PočtySérií" class="control-label">Počet sérií (př. 4)</label>
+                <input asp-for="PočtySérií" class="form-control" />
+                <span asp-validation-for="PočtySérií" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PočtyOpakování" class="control-label">Počet opakování (př. 10, 10, 10) (pokud jedna série př. 10)</label>
+                <input asp-for="PočtyOpakování" class="form-control" />
+                <span asp-validation-for="PočtyOpakování" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PauzyMeziSériemi" class="control-label">Pauza mezi sériemi (s) (př. 60)</label>
+                <input asp-for="PauzyMeziSériemi" class="form-control" />
+                <span asp-validation-for="PauzyMeziSériemi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PopisCviku" class="control-label">Popis cviku</label>
+                <input asp-for="PopisCviku" class="form-control" />
+                <span asp-validation-for="PopisCviku" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="hidden" name="datum" value="@ViewBag.datum">
+                <input type="submit" value="Vytvořit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<form asp-controller="TP" asp-action="Index">
+    <button type="submit" class="btn btn-dark mb-3">Zpět na TP</button>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

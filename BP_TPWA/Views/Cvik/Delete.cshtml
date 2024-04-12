@@ -1,14 +1,14 @@
 ﻿@model BP_TPWA.Models.Cvik
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Smazat cvik";
 }
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+
+<h3>Opravdu chcete smazat tento cvik?</h3>
 <div>
-    <h4>Cvik</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -18,24 +18,6 @@
             @Html.DisplayFor(model => model.Název)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PočtyOpakování)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PočtyOpakování)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PočtySérií)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PočtySérií)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PauzyMeziSériemi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PauzyMeziSériemi)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PopisCviku)
         </dt>
         <dd class = "col-sm-10">
@@ -43,9 +25,14 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="CvikId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="button-container-cus1">
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="CvikId" />
+            <input type="submit" value="Smazat" class="btn btn-danger custom-mr" /> 
+        </form>
+
+        <form asp-controller="Cvik" asp-action="Index" method="get">
+            <button type="submit" class="btn btn-dark">Zpět</button>
+        </form>
+    </div>
 </div>

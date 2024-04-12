@@ -1,0 +1,305 @@
+﻿@model IEnumerable<BP_TPWA.Models.TreninkoveData>
+
+@{
+    ViewData["Title"] = "Maximálky";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h1>Maximálky</h1>
+<p class="pridejData">Zatím jsi nezapsal žádné data!</p>
+
+
+<div id="maximalky"></div>
+<div id="buttons"></div> <!-- Kontejner pro tlačítka -->
+
+<div id="info"></div>
+
+
+
+
+<style>
+    .btn-spacing {
+        margin-right: 1em; /* Pravá mezera mezi tlačítky */
+        margin-bottom: 1em;
+    }
+</style>
+
+<script>
+    var treninkovedata = @Html.Raw(Json.Serialize(ViewBag.treninkovedata));
+    var tpdata = @Html.Raw(Json.Serialize(ViewBag.tpdata));
+    console.log(treninkovedata);
+    console.log(tpdata);
+
+    if (treninkovedata.length !== 0) {
+        document.querySelector('.pridejData').style.display = 'none'
+    
+        var grafy;
+
+        if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "BSH") {
+            var bshvmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMNohy');
+            var bshvmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMRamBic');
+            var bshvmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMHrTric');
+            var bshvmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMZada');
+            grafy = { bshvmnohyData, bshvmramenaData, bshvmhrudnikData, bshvmzadaData };
+        }
+
+        function filterDataPodleTypuTreninku(data, typTreninku) {
+            return data.filter(entry => entry.cvik.typyTreninku.includes(typTreninku));
+        }
+
+        console.log(grafy);
+        Object.keys(grafy).forEach(function (kategorie) {
+            var dataKategorie = grafy[kategorie];
+
+            // Seskupení dat podle cviku
+            var groupedByExercise = {};
+            dataKategorie.forEach(function (cvikData) {
+                var cvikName = cvikData.cvik.název;
+                if (!groupedByExercise[cvikName]) {
+                    groupedByExercise[cvikName] = [];
+                }
+                groupedByExercise[cvikName].push(cvikData);
+            });
+ 
+            // Vytvoření grafu pro každý cvik
+            Object.keys(groupedByExercise).forEach(function (cvikName) {
+                var cvikDataForExercise = groupedByExercise[cvikName];
+
+                // Zjistit, zda cvik odpovídá Benchpress, Mrtvý tah nebo Drep
+                var isBenchpress = cvikDataForExercise.some(function (cvikData) {
+                    return cvikData.cvik.název === 'Benchpress'; 
+                });
+
+                var isDeadlift = cvikDataForExercise.some(function (cvikData) {
+                    return cvikData.cvik.název === 'Mrtvý tah'; 
+                });
+
+                var isSquat = cvikDataForExercise.some(function (cvikData) {
+                    return cvikData.cvikId === 'Dřep'; 
+                });
+
+                if (isBenchpress || isDeadlift || isSquat) {
+                    var maximalkyContainer = document.createElement('div');
+                    maximalkyContainer.classList.add('maximalky-container');
+                    document.getElementById('maximalky').appendChild(maximalkyContainer);
+                }
+
+                // Vytvoření kontejneru pro každý graf
+                
+                var infoContainer = document.createElement('div');
+
+                
+                infoContainer.classList.add('info-container');
+
+                
+                document.getElementById('info').appendChild(infoContainer);
+
+                var adjustedData = {};
+                cvikDataForExercise.forEach(function (cvikData) {
+                    var datum = cvikData.datum;
+                    var cvicenaVaha = cvikData.cvicenaVaha;
+                    var pocetOpakovani = cvikData.pocetOpakovani;
+                    var aktualniVahaUzivatele = cvikData.vahaUzivatele;
+                    
+                    infoContainer.id = cvikData.cvikId;
+                    if (isBenchpress || isDeadlift || isSquat)
+                    {
+                        maximalkyContainer.id = cvikData.cvikId;
+                    }
+
+                    if (!adjustedData[datum]) {
+                        adjustedData[datum] = { maxVaha: cvicenaVaha, sumaVah: cvicenaVaha * pocetOpakovani, pocetSérií: 1, pocetOpakovani: pocetOpakovani, vahaUzivatele: aktualniVahaUzivatele };
+                    } else {
+                        adjustedData[datum].maxVaha = Math.max(adjustedData[datum].maxVaha, cvicenaVaha);
+                        adjustedData[datum].sumaVah += cvicenaVaha * pocetOpakovani;
+                        adjustedData[datum].pocetSérií++;
+                        adjustedData[datum].pocetOpakovani += pocetOpakovani;
+                    }
+                });
+
+                // Vytvoření pole dat pro graf
+                var dates = Object.keys(adjustedData);
+                var maxVahy = dates.map(date => adjustedData[date].maxVaha);
+                var prumVahy = dates.map(date => adjustedData[date].sumaVah / adjustedData[date].pocetOpakovani);
+                var sumaVah = dates.map(date => adjustedData[date].sumaVah);
+                var vahyUzivatele = dates.map(date => adjustedData[date].vahaUzivatele);
+
+                //Data do souhrnu
+                var maximalniVaha = Math.max(...maxVahy);
+                var indexMaxVaha = maxVahy.indexOf(maximalniVaha);
+                var vahaUzivatelePriMaxVaze = vahyUzivatele[indexMaxVaha];
+                var datumMaximalniVahy = dates[indexMaxVaha];
+                datumMaximalniVahy = datumMaximalniVahy.slice(0, 10);
+
+                // Vytvoření HTML obsahu informačního kontejneru s přidanými daty
+                infoContainer.innerHTML = `
+                    <p>${cvikName}: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</p>
+                `;
+
+                if (isBenchpress || isDeadlift || isSquat) {
+                    maximalkyContainer.innerHTML = `
+                        <h3>${cvikName}: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</h3>
+                    `;
+                }
+
+                for (var i = 0; i < dates.length; i++) {
+                    dates[i] = dates[i].slice(0, 10);
+                }
+            });
+        });
+        // function pridaniBDD() 
+        // { 
+
+        // }
+        // Vytvoření tlačítek pro každý prvek v objektu grafy
+        Object.keys(grafy).forEach(function (kategorie) {
+            var button = document.createElement('button');
+            button.id = tlacitkoText(kategorie);
+            button.textContent = tlacitkoText(kategorie);
+            button.classList.add('btn', 'btn-dark', 'btn-spacing');
+            button.addEventListener('click', function () {
+                // Zde můžete přidat kód pro zobrazení příslušného grafu
+                console.log("turbo");
+                
+                 var kliknuteTlacitkoId = this.id;
+
+                var ziskanaKategorie = ziskatKategorii(kliknuteTlacitkoId);
+                console.log(ziskanaKategorie);
+
+                //v/* ar indexMojiKategorie = grafy.indexOf(ziskanaKategorie); */
+                var cvikyCoChciVypsat = grafy[ziskanaKategorie];
+
+                var bezDuplikatu = odstranDuplikaty(cvikyCoChciVypsat);
+                console.log(bezDuplikatu);
+                console.log("89");
+
+
+                var infoDiv1 = document.getElementById('info');
+
+                var infoContainers1 = infoDiv1.getElementsByClassName('info-container');
+
+                // Projděte všechny nalezené prvky a nastavte jejich styl display na 'none'
+                for (var i = 0; i < infoContainers1.length; i++) {
+
+                    infoContainers1[i].style.display = 'none';
+                }
+
+                for (var i = 0; i < bezDuplikatu.length; i++) {
+
+                    var info = document.getElementById(bezDuplikatu[i].cvikId);
+
+                    info.style.display = 'block';
+                }
+            });
+             document.getElementById('buttons').appendChild(button);
+        });
+
+        function odstranDuplikaty(data) {
+            var uniqueData = {};
+            data.forEach(item => {
+                if (!uniqueData[item.cvikId]) {
+                    uniqueData[item.cvikId] = item;
+                }
+            });
+            return Object.values(uniqueData);
+        }
+
+        function ziskatKategorii(text) {
+            if (text === "Nohy") {
+                return "bshvmnohyData";
+            } else if (text === "Ramena + biceps") {
+                return "bshvmramenaData";
+            } else if (text === "Hrudník + triceps") {
+                return "bshvmhrudnikData";
+            } else if (text === "Záda") {
+                return "bshvmzadaData";
+            }
+            return " ";
+        }
+
+        function tlacitkoText(kategorie) {
+            if (kategorie === "bshvmnohyData") {
+                return "Nohy";
+            } else if (kategorie === "bshvmramenaData") {
+                return "Ramena + biceps";
+            } else if (kategorie === "bshvmhrudnikData") {
+                return "Hrudník + triceps";
+            } else if (kategorie === "bshvmzadaData") {
+                return "Záda";
+            }
+            return " ";
+        }
+
+        var i = 0;
+        //var uniqueCviky = []; // Pole pro uchování unikátních cviků
+
+        Object.keys(grafy).forEach(function (kategorie) {
+            var uniqueCviky = [];
+            Object.keys(grafy[kategorie]).forEach(function (cvik) {
+                var nazevCviku = grafy[kategorie][cvik].cvik.název;
+                var idCviku = grafy[kategorie][cvik].cvikId;
+
+                // Zkontrolovat, zda cvik již není v poli uniqueCviky
+                if (!uniqueCviky.includes(nazevCviku)) {
+                    uniqueCviky.push(nazevCviku); // Přidat cvik do pole unikátních cviků
+                    console.log(uniqueCviky);
+
+                    var button = document.createElement('button');
+                    button.id = tlacitkoText(kategorie);
+                    button.textContent = nazevCviku;
+                    button.classList.add('btn', 'btn-light', 'btn-spacing');
+                    button.addEventListener('click', function () {
+                        // Zde můžete přidat kód pro zobrazení příslušného grafu
+                        console.log('Graf pro cvik: ' + nazevCviku + ' a id:' + idCviku);
+                        
+                        var infoDiv1 = document.getElementById('info');
+
+                        
+                        var infoContainers1 = infoDiv1.getElementsByClassName('info-container');
+
+                        // Projděte všechny nalezené prvky a nastavte jejich styl display na 'none'
+                        for (var i = 0; i < infoContainers1.length; i++) {
+                           
+                            infoContainers1[i].style.display = 'none';
+                        }
+                        
+
+                        
+                        var info = document.getElementById(idCviku);
+                        
+                        info.style.display = 'block';
+
+                        
+
+                    });
+                    //document.getElementById(tlacitkoText(kategorie) + 'butt').appendChild(button);
+                }
+            });
+            i++;
+        });
+
+        Object.keys(grafy).forEach(function (kategorie) {
+            var containerId = tlacitkoText(kategorie) + 'butt';
+            var container = document.getElementById(containerId);
+            if (container) {
+                container.style.display = 'none';
+            }
+        });
+
+        // Najděte element <div id="charts">
+        
+        var infoDiv = document.getElementById('info');
+
+        // Najděte všechny prvky s třídou 'chart-container' v rámci <div id="charts">
+       
+        var infoContainers = infoDiv.getElementsByClassName('info-container');
+
+        // Projděte všechny nalezené prvky a nastavte jejich styl display na 'none'
+        for (var i = 0; i < infoContainers.length; i++) {
+            
+            infoContainers[i].style.display = 'none';
+        }
+    }
+
+</script>

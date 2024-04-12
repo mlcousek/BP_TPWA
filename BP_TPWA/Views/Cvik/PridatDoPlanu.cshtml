@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<BP_TPWA.Models.Cvik>
 
 @{
-    ViewData["Title"] = "Databáze cviků";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Databáze cviků</h1>
-
+<h1>Cviky</h1>
 
 
 <div class="form-group">
@@ -18,6 +17,12 @@
         }
     </select>
 </div>
+
+
+@{
+    var datumTreninku = @ViewBag.datum;
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -25,52 +30,44 @@
                 @Html.DisplayNameFor(model => model.Název)
             </th>
             <th>
-                Popis cviku
+               Popis cviku
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        if (item.UzivatelId == @ViewBag.uzivatelId)
-        {
+        @foreach (var item in Model) {
+            if (item.UzivatelId == @ViewBag.uzivatelId)
+            {
 
                 <tr id="@Html.DisplayFor(modelItem => item.Partie)">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Název)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PopisCviku)
-                </td>
-                <td>
-                    <div class="button-container-cus1">
-                        <form asp-controller="Cvik" asp-action="Edit" asp-route-id="@item.CvikId" method="get">
-                            <button type="submit" class="btn btn-outline-warning btn-sm custom-mr">Upravit</button>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Název)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PopisCviku)
+                    </td>
+                    <td>
+                        <form method="get" action="/Cvik/NastavitData">
+                            <input type="hidden" name="id" value="@item.CvikId" />
+                            <input type="hidden" name="date" value="@datumTreninku" />
+                            <button class="btn btn-outline-dark btn-sm" type="submit">Přidat do plánu</button>
                         </form>
-                        <form asp-controller="Cvik" asp-action="Delete" asp-route-id="@item.CvikId" method="get">
-                            <button type="submit" class="btn btn-outline-danger btn-sm">Smazat</button>
-                        </form>
-                        
-                    </div>
-                    @* <a asp-action="Edit" asp-route-id="@item.CvikId">Upravit</a>  *@
-                    @* <a asp-action="Details" asp-route-id="@item.CvikId">Details</a> | *@
-                    @* <a asp-action="Delete" asp-route-id="@item.CvikId">Smazat</a> *@
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            }
         }
-}
     </tbody>
 </table>
-
 <div class="button-container-cus">
     <form method="get" action="/TP/Index">
         <button class="btn btn-dark mb-3" type="submit">Zpět na plán</button>
     </form>
-    <form method="get" action="/Cvik/Create">
+    <form method="get" action="/Cvik/Create1">
+        <input type="hidden" name="datum" value="@datumTreninku">
         <button class="btn btn-outline-dark float-right-custom mb-3" type="submit">Vytvoř si svůj cvik</button>
     </form>
 </div>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

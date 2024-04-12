@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BP_TPWA.Models.Cvik>
+
+@{
+    ViewData["Title"] = "Nastavit Data";
+}
+
+@foreach (var item in Model)
+{
+    <h1>Nastavit Data pro cvik @Html.DisplayFor(modelItem => item.Název)</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" action="/Cvik/UlozitPridaneData">
+                <input type="hidden" name="cvikId" value="@item.CvikId" />
+                <input type="hidden" name="datum" value="@ViewBag.datum" />
+                <label for="pocetSerií" class="form-label mt-4">Počet sérií (př. 3)</label>
+                <input type="text" class="form-control" id="pocetSerií" name="pocetSerií" placeholder="Počet sérií" required />
+
+                <label for="opakování" class="form-label mt-4">Opakování v sériích (př. 12, 10, 8)</label>
+                <input type="text" class="form-control" id="opakování" name="opakování" placeholder="Opakování v sériích" required />
+
+                <label for="pauza" class="form-label mt-4">Pauza mezi sériemi (s) (př. 60)</label>
+                <input type="text" class="form-control" id="pauza" name="pauza" placeholder="Pauza mezi sériemi (s)" required />
+
+                <button type="submit" class="btn btn-outline-success mt-3 mb-3">Uložit</button>
+            </form>
+        </div>
+    </div>
+
+    <form method="get" action="/TP/Index">
+        <button class="btn btn-dark mb-3" type="submit">Zpět na plán</button>
+    </form>
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

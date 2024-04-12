@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Vytvořit cvik</h1>
 
 <h4>Cvik</h4>
 <hr />
@@ -22,19 +22,19 @@
                 <input asp-for="Partie" class="form-control" />
                 <span asp-validation-for="Partie" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
                 <label asp-for="PočtySérií" class="control-label"></label>
-                <input asp-for="PočtySérií" class="form-control" />
+                <input asp-for="PočtySérií" class="form-control" value=0 />
                 <span asp-validation-for="PočtySérií" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
                 <label asp-for="PočtyOpakování" class="control-label"></label>
-                <input asp-for="PočtyOpakování" class="form-control" />
+                <input asp-for="PočtyOpakování" class="form-control" value="" />
                 <span asp-validation-for="PočtyOpakování" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
                 <label asp-for="PauzyMeziSériemi" class="control-label"></label>
-                <input asp-for="PauzyMeziSériemi" class="form-control" />
+                <input asp-for="PauzyMeziSériemi" class="form-control" value=0 />
                 <span asp-validation-for="PauzyMeziSériemi" class="text-danger"></span>
             </div>
             <div class="form-group">

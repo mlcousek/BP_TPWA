@@ -27,7 +27,14 @@ namespace BP_TPWA.Models
         public string? PočetSériíSerialized
         {
             get => PočtySérií != null ? string.Join(",", PočtySérií) : null;
-            set => PočtySérií = value?.Split(',').Select(int.Parse).ToList();
+            //set => PočtySérií = value?.Split(',').Select(int.Parse).ToList();
+            set
+            {
+                if (value != null && value != "")
+                {
+                    PočtySérií = value?.Split(',').Select(int.Parse).ToList();
+                }
+            }
         }
         //public int PočetSérií { get; set; }
         [NotMapped]
@@ -37,7 +44,14 @@ namespace BP_TPWA.Models
         public string? PauzaMeziSériemiSerialized
         {
             get => PauzyMeziSériemi != null ? string.Join(",", PauzyMeziSériemi) : null;
-            set => PauzyMeziSériemi = value?.Split(',').Select(int.Parse).ToList();
+            //set => PauzyMeziSériemi = value?.Split(',').Select(int.Parse).ToList();
+            set
+            {
+                if (value != null && value != "")
+                {
+                    PauzyMeziSériemi = value?.Split(',').Select(int.Parse).ToList();
+                }
+            }
         }
         //public int PauzaMeziSériemi { get; set; }
         public string Partie {  get; set; }
