@@ -83,6 +83,8 @@
                     var maximalkyContainer = document.createElement('div');
                     maximalkyContainer.classList.add('maximalky-container');
                     document.getElementById('maximalky').appendChild(maximalkyContainer);
+                    var maximalkyCast = document.getElementById('maximalky');
+                    maximalkyCast.classList.add('text-center');
                 }
 
                 // Vytvoření kontejneru pro každý graf
@@ -159,21 +161,15 @@
             button.textContent = tlacitkoText(kategorie);
             button.classList.add('btn', 'btn-dark', 'btn-spacing');
             button.addEventListener('click', function () {
-                // Zde můžete přidat kód pro zobrazení příslušného grafu
-                console.log("turbo");
                 
                  var kliknuteTlacitkoId = this.id;
 
                 var ziskanaKategorie = ziskatKategorii(kliknuteTlacitkoId);
                 console.log(ziskanaKategorie);
 
-                //v/* ar indexMojiKategorie = grafy.indexOf(ziskanaKategorie); */
                 var cvikyCoChciVypsat = grafy[ziskanaKategorie];
 
                 var bezDuplikatu = odstranDuplikaty(cvikyCoChciVypsat);
-                console.log(bezDuplikatu);
-                console.log("89");
-
 
                 var infoDiv1 = document.getElementById('info');
 
