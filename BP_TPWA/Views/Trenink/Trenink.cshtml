@@ -1,5 +1,14 @@
 ﻿<h1>Trénink @ViewBag.typTreninku</h1>
-<h2>Budování svalové hmoty - Velká/malá partie</h2>
+
+<div class="texty">
+    <div class="BSHVMNohy BSHVMRamBic BSHVMZada BSHVMHrTric" style="display: none;">
+        <h2>Budování svalové hmoty - Velká/malá partie</h2>
+    </div>
+    <div class="BSHKR1 BSHKR2 BSHKR3" style="display: none;">
+        <h2>Budování svalové hmoty - Kruhový trénink</h2>
+        <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
+    </div>
+</div>
 
 <p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
 
@@ -64,6 +73,13 @@
 
 
 <script>
+    
+    var element = document.querySelector('.@ViewBag.typTreninkuZkratka');
+    console.log(element);
+    if (element) {
+
+        element.style.display = 'block';
+    }
     // Získání dnešního data
     var dnes = new Date();
     var dd = String(dnes.getDate()).padStart(2, '0');
@@ -83,7 +99,7 @@
     var dateStringShort = dateString.substring(0, 10);
 
 
-    if (dnesDatum < dateStringShort) {
+    if (dnesDatum <= dateStringShort) {
         document.getElementById('uzivatelVahaFormular').style.display = 'none';
     }
 
@@ -214,15 +230,52 @@
             });
             row.appendChild(nameCell);
 
+            var cvikVDatabaziZaznamy = datacviku.filter(function (item) {
+                var datumVPlanu = dateString.slice(0, 10);
+                var datumZDatabaze = item.datum.slice(0, 10);
+                return item.cvikId === cvik.cvikId && datumVPlanu === datumZDatabaze;
+            });
+
+            console.log(cvikVDatabaziZaznamy);
+
             var setsCell = document.createElement("td");
-            setsCell.textContent = cvik.počtySérií[index];
+            var restCell = document.createElement("td");
+            var repetitionsCell = document.createElement("td");
+
+            if (cvikVDatabazi) {
+                var maxCisloSerie = -Infinity; 
+                var pocetOpakovaniString = [];
+
+                cvikVDatabaziZaznamy.forEach(function (zaznam) {
+                    if (zaznam.cisloSerie > maxCisloSerie) {
+                        maxCisloSerie = zaznam.cisloSerie;
+                    }
+
+                    var index = zaznam.cisloSerie - 1;
+                    console.log(index);
+                    console.log(index >= pocetOpakovaniString.length);
+                    if (index >= pocetOpakovaniString.length) {
+                        for (var i = pocetOpakovaniString.length; i < index; i++) {
+                        }
+                        pocetOpakovaniString.push(zaznam.pocetOpakovani); 
+                    } else {
+                        pocetOpakovaniString.splice(index, 0, zaznam.pocetOpakovani); 
+                    }
+                });
+                console.log(pocetOpakovaniString);
+                var spojenyPocetOpakovaniString = pocetOpakovaniString.join(", ");
+                setsCell.textContent = maxCisloSerie;
+                repetitionsCell.textContent = spojenyPocetOpakovaniString;
+
+            } else {
+
+                setsCell.textContent = cvik.počtySérií[index];
+                repetitionsCell.textContent = cvik.počtyOpakování[index];
+            }
             row.appendChild(setsCell);
 
-            var repetitionsCell = document.createElement("td");
-            repetitionsCell.textContent = cvik.počtyOpakování[index];
             row.appendChild(repetitionsCell);
 
-            var restCell = document.createElement("td");
             restCell.textContent = cvik.pauzyMeziSériemi[index] + " sekund";
             row.appendChild(restCell);
 
@@ -268,7 +321,6 @@
                 
             });
             deleteAUpravitCell.appendChild(deleteButton);
-
             var upravitButton = document.createElement("button");
             upravitButton.textContent = "Upravit cvik";
             upravitButton.classList.add("btn", "btn-outline-warning", "btn-sm", "custom-mr");
@@ -278,6 +330,12 @@
                 window.location.href = "/Cvik/UpravitCvik?id=" + rowId + "&date=" + dateParam;
             });
             deleteAUpravitCell.appendChild(upravitButton);
+            if (cvikVDatabazi) 
+            { 
+                
+                upravitButton.style.opacity = '0';
+                upravitButton.style.pointerEvents = 'none';
+            }
 
             var posunoutButton = document.createElement("button");
             posunoutButton.textContent = "Posunout cvik";

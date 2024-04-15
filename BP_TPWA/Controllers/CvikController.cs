@@ -53,7 +53,7 @@ namespace BP_TPWA.Controllers
                 cvik1.PočtySérií.Add(3);
                 cvik1.PočtyOpakování.Add("10, 10, 10");
                 cvik1.PauzyMeziSériemi.Add(30);
-                var cvik2 = new Cvik { Název = "Zadní dřepy", PopisCviku = "Silový cvik dřep", Partie = "Nohy", UzivatelId = userId };
+                var cvik2 = new Cvik { Název = "Dřepy", PopisCviku = "Silový cvik dřep", Partie = "Nohy", UzivatelId = userId };
                 if (cvik2.TypyTreninku == null)
                 {
                     cvik2.TypyTreninku = new List<string>();
@@ -67,7 +67,7 @@ namespace BP_TPWA.Controllers
                 cvik2.TypyTreninku.Add("BSHVMNohy");
                 cvik2.PočtySérií.Add(5);
                 cvik2.PočtyOpakování.Add("12, 10, 5, 2, 1");
-                cvik2.PauzyMeziSériemi.Add(0);
+                cvik2.PauzyMeziSériemi.Add(80);
                 var cvik3 = new Cvik { Název = "Legpress", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
                 if (cvik3.TypyTreninku == null)
                 {
@@ -83,19 +83,6 @@ namespace BP_TPWA.Controllers
                 cvik3.PočtySérií.Add(4);
                 cvik3.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik3.PauzyMeziSériemi.Add(60);
-
-
-                //Test
-                //if (cvik3.PočtySérií == null)
-                //{
-                //    cvik3.PočtySérií = new List<int>();
-                //    cvik3.PočtyOpakování = new List<string>();
-                //    cvik3.PauzyMeziSériemi = new List<int>();
-                //}
-                ////cvik3.TypyTreninku.Add("BSHVMRamBic");
-                ////cvik3.PočtySérií.Add(2);
-                ////cvik3.PočtyOpakování.Add("10, 10");
-                ////cvik3.PauzyMeziSériemi.Add(100);
 
                 var cvik4 = new Cvik { Název = "Zákopy", PopisCviku = "Popis zákopy", Partie = "Nohy", UzivatelId = userId };
                 if (cvik4.TypyTreninku == null)
@@ -128,7 +115,7 @@ namespace BP_TPWA.Controllers
                 cvik5.PočtySérií.Add(4);
                 cvik5.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik5.PauzyMeziSériemi.Add(60);
-                var cvik6 = new Cvik { Název = "Bulharský dřep", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
+                var cvik6 = new Cvik { Název = "Bulharský dřep", PopisCviku = "Popis bulhart", Partie = "Nohy", UzivatelId = userId };
                 if (cvik6.TypyTreninku == null)
                 {
                     cvik6.TypyTreninku = new List<string>();
@@ -143,7 +130,7 @@ namespace BP_TPWA.Controllers
                 cvik6.PočtySérií.Add(4);
                 cvik6.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik6.PauzyMeziSériemi.Add(60);
-                var cvik7 = new Cvik { Název = "Rumunský dřep", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
+                var cvik7 = new Cvik { Název = "Rumunský mrtvý tah", PopisCviku = "Popis rumuny", Partie = "Nohy", UzivatelId = userId };
                 if (cvik7.TypyTreninku == null)
                 {
                     cvik7.TypyTreninku = new List<string>();
@@ -158,7 +145,7 @@ namespace BP_TPWA.Controllers
                 cvik7.PočtySérií.Add(4);
                 cvik7.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik7.PauzyMeziSériemi.Add(60);
-                var cvik8 = new Cvik { Název = "Hiptrusty", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
+                var cvik8 = new Cvik { Název = "Hiptrusty", PopisCviku = "Popis hiptrusty", Partie = "Nohy", UzivatelId = userId };
                 if (cvik8.TypyTreninku == null)
                 {
                     cvik8.TypyTreninku = new List<string>();
@@ -173,7 +160,7 @@ namespace BP_TPWA.Controllers
                 cvik8.PočtySérií.Add(4);
                 cvik8.PočtyOpakování.Add("10, 10, 10, 10");
                 cvik8.PauzyMeziSériemi.Add(60);
-                var cvik9 = new Cvik { Název = "Lýtka ve stoje", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
+                var cvik9 = new Cvik { Název = "Lýtka ve stoje", PopisCviku = "Popis lýtka", Partie = "Nohy", UzivatelId = userId };
                 if (cvik9.TypyTreninku == null)
                 {
                     cvik9.TypyTreninku = new List<string>();
@@ -579,19 +566,1721 @@ namespace BP_TPWA.Controllers
                 //KR podhlavni
 
                 //Kruhový trénik 1
+                //Drep
+                cvik2.TypyTreninku.Add("BSHKR1");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("10, 5, 5, 2, 1");
+                cvik2.PauzyMeziSériemi.Add(80);
 
-                //var cvik38 = new Cvik { Název = "Zadní dřepy", PočetSérií = 5, PočetOpakování = "x", PauzaMeziSériemi = 0, PopisCviku = "Silový cvik dřep", Partie = "Nohy", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik39 = new Cvik { Název = "Legpress", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis legpress", Partie = "Nohy", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik40 = new Cvik { Název = "Zákopy", PočetSérií = 4, PočetOpakování = "10, 10, 12, 12", PauzaMeziSériemi = 60, PopisCviku = "Popis zákopy", Partie = "Nohy", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik41 = new Cvik { Název = "Mrtvý tah", PočetSérií = 5, PočetOpakování = "10, 5, 5, 3, 1", PauzaMeziSériemi = 90, PopisCviku = "Mrtvý tah - komplexni cvik", Partie = "Záda", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik42 = new Cvik { Název = "Shyby nadhmatem", PočetSérií = 4, PočetOpakování = "10, 8, 6, 4", PauzaMeziSériemi = 60, PopisCviku = "Shyby", Partie = "Záda", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik43 = new Cvik { Název = "Stahování tyče na stroji před hlavu - vertikálně", PočetSérií = 4, PočetOpakování = "10, 10, 10, 10", PauzaMeziSériemi = 60, PopisCviku = "Stahování na stoji", Partie = "Záda", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik44 = new Cvik { Název = "Benchpress", PočetSérií = 5, PočetOpakování = "15, 10, 5, 2, 1 ", PauzaMeziSériemi = 60, PopisCviku = "Komplexni cvik benchpress", Partie = "Hrudník", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik45 = new Cvik { Název = "Tlaky na hrudník na nakloněné lavici", PočetSérií = 4, PočetOpakování = "12, 12, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Tlaky na lavici na hrudník", Partie = "Hrudník", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik46 = new Cvik { Název = "Bicepsové přítahy jednoruček", PočetSérií = 4, PočetOpakování = "12, 10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Přítahy jednoruček", Partie = "Biceps", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik47 = new Cvik { Název = "Bicepsové přítahy obouručky", PočetSérií = 3, PočetOpakování = "10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Přítahy obouručky", Partie = "Biceps", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik48 = new Cvik { Název = "Tricepsové stahování kladky", PočetSérií = 4, PočetOpakování = "12, 10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Stahování kladky na triceps", Partie = "Trieps", TypTreninku = "BSHKR1", UzivatelId = userId };
-                //var cvik49 = new Cvik { Název = "Tricepsové stahování kladky za hlavu", PočetSérií = 4, PočetOpakování = "12, 10, 10, 8", PauzaMeziSériemi = 60, PopisCviku = "Stahování kladky na triceps za hlavu", Partie = "Trieps", TypTreninku = "BSHKR1", UzivatelId = userId };
+                //Legpress
+                cvik3.TypyTreninku.Add("BSHKR1");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Lýtka 
+                cvik9.TypyTreninku.Add("BSHKR1");
+                cvik9.PočtySérií.Add(4);
+                cvik9.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik9.PauzyMeziSériemi.Add(60);
+
+                //Předkopy
+                cvik5.TypyTreninku.Add("BSHKR1");
+                cvik5.PočtySérií.Add(4);
+                cvik5.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik5.PauzyMeziSériemi.Add(60);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("BSHKR1");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("BSHKR1");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 3, 3");
+                cvik29.PauzyMeziSériemi.Add(90);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("BSHKR1");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("BSHKR1");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 5, 2, 1");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("BSHKR1");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("BSHKR1");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("BSHKR1");
+                cvik13.PočtySérií.Add(3);
+                cvik13.PočtyOpakování.Add("10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("BSHKR1");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("BSHKR1");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("BSHKR1");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("BSHKR1");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik27.PauzyMeziSériemi.Add(60);
+
+
+                //Kruhový trénik 2
+                //Drep
+                cvik2.TypyTreninku.Add("BSHKR2");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("10, 5, 5, 2, 1");
+                cvik2.PauzyMeziSériemi.Add(80);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("BSHKR2");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Rumunský mrtvý tah
+                cvik7.TypyTreninku.Add("BSHKR2");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik7.PauzyMeziSériemi.Add(60);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("BSHKR2");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 3, 3");
+                cvik29.PauzyMeziSériemi.Add(90);
+
+                //Shyby nadhmatem
+                cvik30.TypyTreninku.Add("BSHKR2");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(60);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("BSHKR2");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                //Stahování tyče na stroji před hlavu - horizontálně
+                cvik32.TypyTreninku.Add("BSHKR2");
+                cvik32.PočtySérií.Add(4);
+                cvik32.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(60);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("BSHKR2");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 5, 2, 1");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("BSHKR2");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("BSHKR2");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("BSHKR2");
+                cvik13.PočtySérií.Add(3);
+                cvik13.PočtyOpakování.Add("10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("BSHKR2");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("BSHKR2");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("BSHKR2");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("BSHKR2");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik27.PauzyMeziSériemi.Add(60);
+
+                //Kruhový trénik 3
+                //Drep
+                cvik2.TypyTreninku.Add("BSHKR3");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("10, 5, 5, 2, 1");
+                cvik2.PauzyMeziSériemi.Add(80);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("BSHKR3");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("BSHKR3");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("BSHKR3");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 3, 3");
+                cvik29.PauzyMeziSériemi.Add(90);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("BSHKR3");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("BSHKR3");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 5, 2, 1");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("BSHKR3");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Peck deck
+                cvik23.TypyTreninku.Add("BSHKR3");
+                cvik23.PočtySérií.Add(4);
+                cvik23.PočtyOpakování.Add("12, 12, 10, 10");
+                cvik23.PauzyMeziSériemi.Add(60);
+
+                //Stahování kladek na hrudník
+                cvik24.TypyTreninku.Add("BSHKR3");
+                cvik24.PočtySérií.Add(3);
+                cvik24.PočtyOpakování.Add("12, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("BSHKR3");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("BSHKR3");
+                cvik13.PočtySérií.Add(3);
+                cvik13.PočtyOpakování.Add("10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("BSHKR3");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("BSHKR3");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("BSHKR3");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("BSHKR3");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik27.PauzyMeziSériemi.Add(60);
+
+
+                //PPL podhlavni
+
+                // Push
+                //Kliky
+                cvik20.TypyTreninku.Add("BSHPPLPush");
+                cvik20.PočtySérií.Add(3);
+                cvik20.PočtyOpakování.Add("10, 10, 10");
+                cvik20.PauzyMeziSériemi.Add(30);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("BSHPPLPush");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 5, 2, 1");
+                cvik21.PauzyMeziSériemi.Add(80);
+
+                //Tlaky na ramena s jednoručnou činkou
+                cvik12.TypyTreninku.Add("BSHPPLPush");
+                cvik12.PočtySérií.Add(5);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8, 5");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na stroji
+                cvik16.TypyTreninku.Add("BSHPPLPush");
+                cvik16.PočtySérií.Add(4);
+                cvik16.PočtyOpakování.Add("10, 10, 8, 6");
+                cvik16.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("BSHPPLPush");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Stahování kladek na hrudník
+                cvik24.TypyTreninku.Add("BSHPPLPush");
+                cvik24.PočtySérií.Add(3);
+                cvik24.PočtyOpakování.Add("12, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jednoručnou činkou
+                cvik13.TypyTreninku.Add("BSHPPLPush");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("12, 12, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+                
+                //Stroj na zadky ramen
+                cvik14.TypyTreninku.Add("BSHPPLPush");
+                cvik14.PočtySérií.Add(4);
+                cvik14.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik14.PauzyMeziSériemi.Add(60);
+
+                //Dipy na bradle
+                cvik25.TypyTreninku.Add("BSHPPLPush");
+                cvik25.PočtySérií.Add(3);
+                cvik25.PočtyOpakování.Add("10, 10, 10");
+                cvik25.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("BSHPPLPush");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //PULL
+                //Mrtvý tah bez závaží
+                cvik28.TypyTreninku.Add("BSHPPLPull");
+                cvik28.PočtySérií.Add(3);
+                cvik28.PočtyOpakování.Add("10, 10, 10");
+                cvik28.PauzyMeziSériemi.Add(40);
+                
+                // Mrtvý tah
+                cvik29.TypyTreninku.Add("BSHPPLPull");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 3, 1");
+                cvik29.PauzyMeziSériemi.Add(90);
+
+                // Shyby nadhmatem
+                cvik30.TypyTreninku.Add("BSHPPLPull");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(60);
+
+                // Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("BSHPPLPull");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                // Přitahování tyče na stroji - horizontálně
+                cvik32.TypyTreninku.Add("BSHPPLPull");
+                cvik32.PočtySérií.Add(4);
+                cvik32.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(60);
+
+                //Přitahování tyče ve stoje
+                cvik34.TypyTreninku.Add("BSHPPLPull");
+                cvik34.PočtySérií.Add(3);
+                cvik34.PočtyOpakování.Add("10, 10, 10");
+                cvik34.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("BSHPPLPull");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 8");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("BSHPPLPull");
+                cvik18.PočtySérií.Add(3);
+                cvik18.PočtyOpakování.Add("10, 10, 8");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy na stroji
+                cvik19.TypyTreninku.Add("BSHPPLPull");
+                cvik19.PočtySérií.Add(3);
+                cvik19.PočtyOpakování.Add("10, 10, 8");
+                cvik19.PauzyMeziSériemi.Add(60);
+
+
+                //LEGS 
+                //Dřepy s vlastní vahou
+                cvik1.TypyTreninku.Add("BSHPPLLegs");
+                cvik1.PočtySérií.Add(3);
+                cvik1.PočtyOpakování.Add("10, 10, 10");
+                cvik1.PauzyMeziSériemi.Add(30);
+
+                //Dřepy
+                cvik2.TypyTreninku.Add("BSHPPLLegs");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("12, 10, 5, 2, 1");
+                cvik2.PauzyMeziSériemi.Add(90);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("BSHPPLLegs");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("BSHPPLLegs");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                //Předkopy
+                cvik5.TypyTreninku.Add("BSHPPLLegs");
+                cvik5.PočtySérií.Add(4);
+                cvik5.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik5.PauzyMeziSériemi.Add(60);
+
+                //Bulharský dřep
+                cvik6.TypyTreninku.Add("BSHPPLLegs");
+                cvik6.PočtySérií.Add(4);
+                cvik6.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik6.PauzyMeziSériemi.Add(60);
+
+                //Rumunský mrtvý tah
+                cvik7.TypyTreninku.Add("BSHPPLLegs");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik7.PauzyMeziSériemi.Add(60);
+
+                //Hiptrusty
+                cvik8.TypyTreninku.Add("BSHPPLLegs");
+                cvik8.PočtySérií.Add(4);
+                cvik8.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik8.PauzyMeziSériemi.Add(60);
+
+                //Lýtka ve stoje
+                cvik9.TypyTreninku.Add("BSHPPLLegs");
+                cvik9.PočtySérií.Add(4);
+                cvik9.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik9.PauzyMeziSériemi.Add(60);
+
+                //RV hlavni
+
+                //VM podhlavni
+
+                cvik1.TypyTreninku.Add("RVVMNohy");
+                cvik1.PočtySérií.Add(3);
+                cvik1.PočtyOpakování.Add("10, 10, 10");
+                cvik1.PauzyMeziSériemi.Add(30);
+
+                cvik2.TypyTreninku.Add("RVVMNohy");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("12, 10, 10, 8, 5");
+                cvik2.PauzyMeziSériemi.Add(60);
+              
+                cvik3.TypyTreninku.Add("RVVMNohy");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(40);
+
+                cvik4.TypyTreninku.Add("RVVMNohy");
+                cvik4.PočtySérií.Add(5);
+                cvik4.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(40);
+
+                cvik5.TypyTreninku.Add("RVVMNohy");
+                cvik5.PočtySérií.Add(5);
+                cvik5.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik5.PauzyMeziSériemi.Add(40);
+                
+                cvik6.TypyTreninku.Add("RVVMNohy");
+                cvik6.PočtySérií.Add(5);
+                cvik6.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik6.PauzyMeziSériemi.Add(60);
+                
+                cvik7.TypyTreninku.Add("RVVMNohy");
+                cvik7.PočtySérií.Add(5);
+                cvik7.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik7.PauzyMeziSériemi.Add(40);
+
+                cvik8.TypyTreninku.Add("RVVMNohy");
+                cvik8.PočtySérií.Add(6);
+                cvik8.PočtyOpakování.Add("10, 10, 10, 10, 10, 10");
+                cvik8.PauzyMeziSériemi.Add(60);
+
+                cvik9.TypyTreninku.Add("RVVMNohy");
+                cvik9.PočtySérií.Add(5);
+                cvik9.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik9.PauzyMeziSériemi.Add(40);
+
+                //Ramena + biceps
+
+                cvik11.TypyTreninku.Add("RVVMRamBic");
+                cvik11.PočtySérií.Add(2);
+                cvik11.PočtyOpakování.Add("10, 10");
+                cvik11.PauzyMeziSériemi.Add(30);
+
+                cvik12.TypyTreninku.Add("RVVMRamBic");
+                cvik12.PočtySérií.Add(5);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8, 5");
+                cvik12.PauzyMeziSériemi.Add(60);
+                
+                cvik13.TypyTreninku.Add("RVVMRamBic");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("12, 12, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(40);
+
+                cvik14.TypyTreninku.Add("RVVMRamBic");
+                cvik14.PočtySérií.Add(4);
+                cvik14.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik14.PauzyMeziSériemi.Add(30);
+                
+                cvik15.TypyTreninku.Add("RVVMRamBic");
+                cvik15.PočtySérií.Add(4);
+                cvik15.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik15.PauzyMeziSériemi.Add(40);
+
+                cvik16.TypyTreninku.Add("RVVMRamBic");
+                cvik16.PočtySérií.Add(5);
+                cvik16.PočtyOpakování.Add("10, 10, 10, 10, 8");
+                cvik16.PauzyMeziSériemi.Add(40);
+                
+                cvik17.TypyTreninku.Add("RVVMRamBic");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(30);
+                
+                cvik18.TypyTreninku.Add("RVVMRamBic");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 8");
+                cvik18.PauzyMeziSériemi.Add(30);
+                
+                cvik19.TypyTreninku.Add("RVVMRamBic");
+                cvik19.PočtySérií.Add(3);
+                cvik19.PočtyOpakování.Add("10, 10, 12");
+                cvik19.PauzyMeziSériemi.Add(30);
+
+                ////Hrudník + triceps
+
+                cvik20.TypyTreninku.Add("RVVMHrTric");
+                cvik20.PočtySérií.Add(3);
+                cvik20.PočtyOpakování.Add("10, 10, 10");
+                cvik20.PauzyMeziSériemi.Add(30);
+
+                cvik21.TypyTreninku.Add("RVVMHrTric");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 10, 8, 6");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                cvik22.TypyTreninku.Add("RVVMHrTric");
+                cvik22.PočtySérií.Add(5);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 10, 10");
+                cvik22.PauzyMeziSériemi.Add(40);
+
+                cvik23.TypyTreninku.Add("RVVMHrTric");
+                cvik23.PočtySérií.Add(5);
+                cvik23.PočtyOpakování.Add("12, 12, 10, 10, 10");
+                cvik23.PauzyMeziSériemi.Add(40);
+
+                cvik24.TypyTreninku.Add("RVVMHrTric");
+                cvik24.PočtySérií.Add(4);
+                cvik24.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(50);
+
+                cvik25.TypyTreninku.Add("RVVMHrTric");
+                cvik25.PočtySérií.Add(4);
+                cvik25.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik25.PauzyMeziSériemi.Add(50);
+
+                cvik26.TypyTreninku.Add("RVVMHrTric");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 10");
+                cvik26.PauzyMeziSériemi.Add(30);
+
+                cvik27.TypyTreninku.Add("RVVMHrTric");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 10");
+                cvik27.PauzyMeziSériemi.Add(30);
+
+                ////Záda
+
+                cvik28.TypyTreninku.Add("RVVMZada");
+                cvik28.PočtySérií.Add(3);
+                cvik28.PočtyOpakování.Add("10, 10, 10");
+                cvik28.PauzyMeziSériemi.Add(40);
+                // cvik29
+                cvik29.TypyTreninku.Add("RVVMZada");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 10, 5, 5, 3");
+                cvik29.PauzyMeziSériemi.Add(60);
+
+                // cvik30
+                cvik30.TypyTreninku.Add("RVVMZada");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(40);
+
+                // cvik31
+                cvik31.TypyTreninku.Add("RVVMZada");
+                cvik31.PočtySérií.Add(5);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(40);
+
+                // cvik32
+                cvik32.TypyTreninku.Add("RVVMZada");
+                cvik32.PočtySérií.Add(5);
+                cvik32.PočtyOpakování.Add("10, 10, 10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(40);
+
+                // cvik33
+                cvik33.TypyTreninku.Add("RVVMZada");
+                cvik33.PočtySérií.Add(4);
+                cvik33.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik33.PauzyMeziSériemi.Add(40);
+
+                // cvik34
+                cvik34.TypyTreninku.Add("RVVMZada");
+                cvik34.PočtySérií.Add(4);
+                cvik34.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik34.PauzyMeziSériemi.Add(40);
+
+                // cvik36
+                cvik36.TypyTreninku.Add("RVVMZada");
+                cvik36.PočtySérií.Add(4);
+                cvik36.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik36.PauzyMeziSériemi.Add(30);
+
+                // cvik37
+                cvik37.TypyTreninku.Add("RVVMZada");
+                cvik37.PočtySérií.Add(4);
+                cvik37.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik37.PauzyMeziSériemi.Add(40);
+
+                //KR podhlavni
+
+                //Kruhový trénik 1
+                //Drep
+                cvik2.TypyTreninku.Add("RVKR1");
+                cvik2.PočtySérií.Add(6);
+                cvik2.PočtyOpakování.Add("10, 10, 10, 5, 5, 5");
+                cvik2.PauzyMeziSériemi.Add(60);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("RVKR1");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(40);
+
+                //Lýtka 
+                cvik9.TypyTreninku.Add("RVKR1");
+                cvik9.PočtySérií.Add(5);
+                cvik9.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik9.PauzyMeziSériemi.Add(40);
+
+                //Předkopy
+                cvik5.TypyTreninku.Add("RVKR1");
+                cvik5.PočtySérií.Add(5);
+                cvik5.PočtyOpakování.Add("10, 10, 12, 12, 12");
+                cvik5.PauzyMeziSériemi.Add(40);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("RVKR1");
+                cvik4.PočtySérií.Add(5);
+                cvik4.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(40);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("RVKR1");
+                cvik29.PočtySérií.Add(6);
+                cvik29.PočtyOpakování.Add("10, 10, 10, 5, 5, 5");
+                cvik29.PauzyMeziSériemi.Add(60);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("RVKR1");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(40);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("RVKR1");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("10, 10, 10, 8, 6");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("RVKR1");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(40);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("RVKR1");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(40);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("RVKR1");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(30);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("RVKR1");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(30);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("RVKR1");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(30);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("RVKR1");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(30);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("RVKR1");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik27.PauzyMeziSériemi.Add(30);
+
+
+                //Kruhový trénik 2
+                //Drep
+                cvik2.TypyTreninku.Add("RVKR2");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("10, 10, 10, 5, 5");
+                cvik2.PauzyMeziSériemi.Add(60);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("RVKR2");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(40);
+
+                //Rumunský mrtvý tah
+                cvik7.TypyTreninku.Add("RVKR2");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik7.PauzyMeziSériemi.Add(40);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("RVKR2");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 5, 3");
+                cvik29.PauzyMeziSériemi.Add(60);
+
+                //Shyby nadhmatem
+                cvik30.TypyTreninku.Add("RVKR2");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(40);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("RVKR2");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(40);
+
+                //Stahování tyče na stroji před hlavu - horizontálně
+                cvik32.TypyTreninku.Add("RVKR2");
+                cvik32.PočtySérií.Add(4);
+                cvik32.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(40);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("RVKR2");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 10, 5, 5");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("RVKR2");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(40);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("RVKR2");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(40);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("RVKR2");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(40);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("RVKR2");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(30);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("RVKR2");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(30);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("RVKR2");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(30);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("RVKR2");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik27.PauzyMeziSériemi.Add(30);
+
+                //Kruhový trénik 3
+                //Drep
+                cvik2.TypyTreninku.Add("RVKR3");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("10, 10, 5, 5, 3");
+                cvik2.PauzyMeziSériemi.Add(60);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("RVKR3");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(40);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("RVKR3");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(40);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("RVKR3");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 10, 5, 5, 3");
+                cvik29.PauzyMeziSériemi.Add(96);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("RVKR3");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(40);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("RVKR3");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 10, 5, 5");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("RVKR3");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(40);
+
+                //Peck deck
+                cvik23.TypyTreninku.Add("RVKR3");
+                cvik23.PočtySérií.Add(4);
+                cvik23.PočtyOpakování.Add("12, 12, 10, 10");
+                cvik23.PauzyMeziSériemi.Add(40);
+
+                //Stahování kladek na hrudník
+                cvik24.TypyTreninku.Add("RVKR3");
+                cvik24.PočtySérií.Add(3);
+                cvik24.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(40);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("RVKR3");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(40);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("RVKR3");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(40);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("RVKR3");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(30);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("RVKR3");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(30);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("RVKR3");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(30);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("RVKR3");
+                cvik27.PočtySérií.Add(4);
+                cvik27.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik27.PauzyMeziSériemi.Add(30);
+
+                //PPL podhlavni
+                // Push
+                //Kliky
+                cvik20.TypyTreninku.Add("RVPPLPush");
+                cvik20.PočtySérií.Add(4);
+                cvik20.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik20.PauzyMeziSériemi.Add(30);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("RVPPLPush");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("15, 10, 10, 5, 5");
+                cvik21.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena s jednoručnou činkou
+                cvik12.TypyTreninku.Add("RVPPLPush");
+                cvik12.PočtySérií.Add(5);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 10, 10");
+                cvik12.PauzyMeziSériemi.Add(50);
+
+                //Tlaky na stroji
+                cvik16.TypyTreninku.Add("RVPPLPush");
+                cvik16.PočtySérií.Add(4);
+                cvik16.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik16.PauzyMeziSériemi.Add(40);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("RVPPLPush");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 10");
+                cvik22.PauzyMeziSériemi.Add(40);
+
+                //Stahování kladek na hrudník
+                cvik24.TypyTreninku.Add("RVPPLPush");
+                cvik24.PočtySérií.Add(4);
+                cvik24.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(40);
+
+                //Upažování s jednoručnou činkou
+                cvik13.TypyTreninku.Add("RVPPLPush");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("12, 12, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(40);
+
+                //Stroj na zadky ramen
+                cvik14.TypyTreninku.Add("RVPPLPush");
+                cvik14.PočtySérií.Add(5);
+                cvik14.PočtyOpakování.Add("10, 10, 10, 10, 10");
+                cvik14.PauzyMeziSériemi.Add(40);
+
+                //Dipy na bradle
+                cvik25.TypyTreninku.Add("RVPPLPush");
+                cvik25.PočtySérií.Add(4);
+                cvik25.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik25.PauzyMeziSériemi.Add(40);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("RVPPLPush");
+                cvik26.PočtySérií.Add(5);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 10, 10");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //PULL
+                //Mrtvý tah bez závaží
+                cvik28.TypyTreninku.Add("RVPPLPull");
+                cvik28.PočtySérií.Add(3);
+                cvik28.PočtyOpakování.Add("10, 10, 10");
+                cvik28.PauzyMeziSériemi.Add(40);
+
+                // Mrtvý tah
+                cvik29.TypyTreninku.Add("RVPPLPull");
+                cvik29.PočtySérií.Add(5);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 5, 5");
+                cvik29.PauzyMeziSériemi.Add(70);
+
+                // Shyby nadhmatem
+                cvik30.TypyTreninku.Add("RVPPLPull");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(40);
+
+                // Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("RVPPLPull");
+                cvik31.PočtySérií.Add(5);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(40);
+
+                // Přitahování tyče na stroji - horizontálně
+                cvik32.TypyTreninku.Add("RVPPLPull");
+                cvik32.PočtySérií.Add(5);
+                cvik32.PočtyOpakování.Add("10, 10, 10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(40);
+
+                //Přitahování tyče ve stoje
+                cvik34.TypyTreninku.Add("RVPPLPull");
+                cvik34.PočtySérií.Add(4);
+                cvik34.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik34.PauzyMeziSériemi.Add(40);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("RVPPLPull");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 8");
+                cvik17.PauzyMeziSériemi.Add(40);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("RVPPLPull");
+                cvik18.PočtySérií.Add(4);
+                cvik18.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(40);
+
+                //Bicepsové přítahy na stroji
+                cvik19.TypyTreninku.Add("RVPPLPull");
+                cvik19.PočtySérií.Add(3);
+                cvik19.PočtyOpakování.Add("10, 10, 8");
+                cvik19.PauzyMeziSériemi.Add(30);
+
+
+                //LEGS 
+                //Dřepy s vlastní vahou
+                cvik1.TypyTreninku.Add("RVPPLLegs");
+                cvik1.PočtySérií.Add(3);
+                cvik1.PočtyOpakování.Add("10, 10, 10");
+                cvik1.PauzyMeziSériemi.Add(30);
+
+                cvik2.TypyTreninku.Add("RVPPLLegs");
+                cvik2.PočtySérií.Add(5);
+                cvik2.PočtyOpakování.Add("12, 10, 10, 8, 5");
+                cvik2.PauzyMeziSériemi.Add(60);
+
+                cvik3.TypyTreninku.Add("RVPPLLegs");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 12, 12");
+                cvik3.PauzyMeziSériemi.Add(40);
+
+                cvik4.TypyTreninku.Add("RVPPLLegs");
+                cvik4.PočtySérií.Add(5);
+                cvik4.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik4.PauzyMeziSériemi.Add(40);
+
+                cvik5.TypyTreninku.Add("RVPPLLegs");
+                cvik5.PočtySérií.Add(5);
+                cvik5.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik5.PauzyMeziSériemi.Add(40);
+
+                cvik6.TypyTreninku.Add("RVPPLLegs");
+                cvik6.PočtySérií.Add(5);
+                cvik6.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik6.PauzyMeziSériemi.Add(60);
+
+                cvik7.TypyTreninku.Add("RVPPLLegs");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik7.PauzyMeziSériemi.Add(40);
+
+                cvik8.TypyTreninku.Add("RVPPLLegs");
+                cvik8.PočtySérií.Add(6);
+                cvik8.PočtyOpakování.Add("10, 10, 10, 10, 10, 10");
+                cvik8.PauzyMeziSériemi.Add(60);
+
+                cvik9.TypyTreninku.Add("RVPPLLegs");
+                cvik9.PočtySérií.Add(5);
+                cvik9.PočtyOpakování.Add("10, 10, 10, 12, 12");
+                cvik9.PauzyMeziSériemi.Add(40);
+
+
+                //SR Hlavni
+
+                //VM podhlavni
+
+                cvik1.TypyTreninku.Add("SRVMNohy");
+                cvik1.PočtySérií.Add(3);
+                cvik1.PočtyOpakování.Add("10, 10, 10");
+                cvik1.PauzyMeziSériemi.Add(30);
+
+                cvik2.TypyTreninku.Add("SRVMNohy");
+                cvik2.PočtySérií.Add(6);
+                cvik2.PočtyOpakování.Add("10, 5, 2, 1, 1, 1");
+                cvik2.PauzyMeziSériemi.Add(90);
+
+                cvik3.TypyTreninku.Add("SRVMNohy");
+                cvik3.PočtySérií.Add(3);
+                cvik3.PočtyOpakování.Add("10, 8, 8");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                cvik4.TypyTreninku.Add("SRVMNohy");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                cvik5.TypyTreninku.Add("SRVMNohy");
+                cvik5.PočtySérií.Add(4);
+                cvik5.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik5.PauzyMeziSériemi.Add(60);
+
+                cvik6.TypyTreninku.Add("SRVMNohy");
+                cvik6.PočtySérií.Add(4);
+                cvik6.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik6.PauzyMeziSériemi.Add(60);
+
+                cvik7.TypyTreninku.Add("SRVMNohy");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik7.PauzyMeziSériemi.Add(60);
+
+                cvik8.TypyTreninku.Add("SRVMNohy");
+                cvik8.PočtySérií.Add(4);
+                cvik8.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik8.PauzyMeziSériemi.Add(60);
+
+                cvik9.TypyTreninku.Add("SRVMNohy");
+                cvik9.PočtySérií.Add(4);
+                cvik9.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik9.PauzyMeziSériemi.Add(60);
+
+                //Ramena + biceps
+
+                cvik11.TypyTreninku.Add("SRVMRamBic");
+                cvik11.PočtySérií.Add(2);
+                cvik11.PočtyOpakování.Add("10, 10");
+                cvik11.PauzyMeziSériemi.Add(30);
+
+                cvik12.TypyTreninku.Add("SRVMRamBic");
+                cvik12.PočtySérií.Add(5);
+                cvik12.PočtyOpakování.Add("10, 10, 8, 5, 5");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                cvik13.TypyTreninku.Add("SRVMRamBic");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                cvik14.TypyTreninku.Add("SRVMRamBic");
+                cvik14.PočtySérií.Add(4);
+                cvik14.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik14.PauzyMeziSériemi.Add(60);
+
+                cvik15.TypyTreninku.Add("SRVMRamBic");
+                cvik15.PočtySérií.Add(4);
+                cvik15.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik15.PauzyMeziSériemi.Add(60);
+
+                cvik16.TypyTreninku.Add("SRVMRamBic");
+                cvik16.PočtySérií.Add(4);
+                cvik16.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik16.PauzyMeziSériemi.Add(60);
+
+                cvik17.TypyTreninku.Add("SRVMRamBic");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                cvik18.TypyTreninku.Add("SRVMRamBic");
+                cvik18.PočtySérií.Add(3);
+                cvik18.PočtyOpakování.Add("10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(30);
+
+                cvik19.TypyTreninku.Add("SRVMRamBic");
+                cvik19.PočtySérií.Add(3);
+                cvik19.PočtyOpakování.Add("10, 10, 10");
+                cvik19.PauzyMeziSériemi.Add(60);
+
+                ////Hrudník + triceps
+
+                cvik20.TypyTreninku.Add("SRVMHrTric");
+                cvik20.PočtySérií.Add(3);
+                cvik20.PočtyOpakování.Add("10, 10, 10");
+                cvik20.PauzyMeziSériemi.Add(30);
+
+                cvik21.TypyTreninku.Add("SRVMHrTric");
+                cvik21.PočtySérií.Add(6);
+                cvik21.PočtyOpakování.Add("10, 5, 2, 1, 1, 1");
+                cvik21.PauzyMeziSériemi.Add(90);
+
+                cvik22.TypyTreninku.Add("SRVMHrTric");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                cvik23.TypyTreninku.Add("SRVMHrTric");
+                cvik23.PočtySérií.Add(3);
+                cvik23.PočtyOpakování.Add("10, 10, 10");
+                cvik23.PauzyMeziSériemi.Add(60);
+
+                cvik24.TypyTreninku.Add("SRVMHrTric");
+                cvik24.PočtySérií.Add(3);
+                cvik24.PočtyOpakování.Add("12, 10, 10");
+                cvik24.PauzyMeziSériemi.Add(60);
+
+                cvik25.TypyTreninku.Add("SRVMHrTric");
+                cvik25.PočtySérií.Add(4);
+                cvik25.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik25.PauzyMeziSériemi.Add(70);
+
+                cvik26.TypyTreninku.Add("SRVMHrTric");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 10");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                cvik27.TypyTreninku.Add("SRVMHrTric");
+                cvik27.PočtySérií.Add(3);
+                cvik27.PočtyOpakování.Add("12, 10, 10");
+                cvik27.PauzyMeziSériemi.Add(60);
+
+                ////Záda
+
+                cvik28.TypyTreninku.Add("SRVMZada");
+                cvik28.PočtySérií.Add(3);
+                cvik28.PočtyOpakování.Add("10, 10, 10");
+                cvik28.PauzyMeziSériemi.Add(40);
+                // cvik29
+                cvik29.TypyTreninku.Add("SRVMZada");
+                cvik29.PočtySérií.Add(6);
+                cvik29.PočtyOpakování.Add("10, 5, 3, 1, 1, 1");
+                cvik29.PauzyMeziSériemi.Add(120);
+
+                // cvik30
+                cvik30.TypyTreninku.Add("SRVMZada");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(60);
+
+                // cvik31
+                cvik31.TypyTreninku.Add("SRVMZada");
+                cvik31.PočtySérií.Add(3);
+                cvik31.PočtyOpakování.Add("10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                // cvik32
+                cvik32.TypyTreninku.Add("SRVMZada");
+                cvik32.PočtySérií.Add(4);
+                cvik32.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(60);
+
+                // cvik33
+                cvik33.TypyTreninku.Add("SRVMZada");
+                cvik33.PočtySérií.Add(4);
+                cvik33.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik33.PauzyMeziSériemi.Add(70);
+
+                // cvik34
+                cvik34.TypyTreninku.Add("SRVMZada");
+                cvik34.PočtySérií.Add(4);
+                cvik34.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik34.PauzyMeziSériemi.Add(70);
+
+                // cvik36
+                cvik36.TypyTreninku.Add("SRVMZada");
+                cvik36.PočtySérií.Add(4);
+                cvik36.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik36.PauzyMeziSériemi.Add(60);
+
+                // cvik37
+                cvik37.TypyTreninku.Add("SRVMZada");
+                cvik37.PočtySérií.Add(4);
+                cvik37.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik37.PauzyMeziSériemi.Add(60);
+
+                //KR podhlavni
+
+                //Kruhový trénik 1
+                //Drep
+                cvik2.TypyTreninku.Add("SRKR1");
+                cvik2.PočtySérií.Add(6);
+                cvik2.PočtyOpakování.Add("10, 5, 3, 1, 1, 1");
+                cvik2.PauzyMeziSériemi.Add(120);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("SRKR1");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Lýtka 
+                cvik9.TypyTreninku.Add("SRKR1");
+                cvik9.PočtySérií.Add(4);
+                cvik9.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik9.PauzyMeziSériemi.Add(60);
+
+                //Předkopy
+                cvik5.TypyTreninku.Add("SRKR1");
+                cvik5.PočtySérií.Add(4);
+                cvik5.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik5.PauzyMeziSériemi.Add(60);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("SRKR1");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("SRKR1");
+                cvik29.PočtySérií.Add(4);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 5");
+                cvik29.PauzyMeziSériemi.Add(80);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("SRKR1");
+                cvik31.PočtySérií.Add(3);
+                cvik31.PočtyOpakování.Add("10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("SRKR1");
+                cvik21.PočtySérií.Add(4);
+                cvik21.PočtyOpakování.Add("10, 5, 5, 3");
+                cvik21.PauzyMeziSériemi.Add(80);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("SRKR1");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("SRKR1");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("SRKR1");
+                cvik13.PočtySérií.Add(3);
+                cvik13.PočtyOpakování.Add("10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("SRKR1");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("SRKR1");
+                cvik18.PočtySérií.Add(3);
+                cvik18.PočtyOpakování.Add("10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("SRKR1");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("SRKR1");
+                cvik27.PočtySérií.Add(3);
+                cvik27.PočtyOpakování.Add("12, 10, 10");
+                cvik27.PauzyMeziSériemi.Add(50);
+
+
+                //Kruhový trénik 2
+                //Drep
+                cvik2.TypyTreninku.Add("SRKR2");
+                cvik2.PočtySérií.Add(4);
+                cvik2.PočtyOpakování.Add("10, 5, 5, 3");
+                cvik2.PauzyMeziSériemi.Add(80);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("SRKR2");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Rumunský mrtvý tah
+                cvik7.TypyTreninku.Add("SRKR2");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik7.PauzyMeziSériemi.Add(60);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("SRKR2");
+                cvik29.PočtySérií.Add(7);
+                cvik29.PočtyOpakování.Add("10, 5, 3, 1, 1, 1, 1");
+                cvik29.PauzyMeziSériemi.Add(150);
+
+                //Shyby nadhmatem
+                cvik30.TypyTreninku.Add("SRKR2");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(60);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("SRKR2");
+                cvik31.PočtySérií.Add(4);
+                cvik31.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                //Stahování tyče na stroji před hlavu - horizontálně
+                cvik32.TypyTreninku.Add("SRKR2");
+                cvik32.PočtySérií.Add(3);
+                cvik32.PočtyOpakování.Add("10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(60);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("SRKR2");
+                cvik21.PočtySérií.Add(5);
+                cvik21.PočtyOpakování.Add("10, 8, 5, 5, 5");
+                cvik21.PauzyMeziSériemi.Add(80);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("SRKR2");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("SRKR2");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("SRKR2");
+                cvik13.PočtySérií.Add(4);
+                cvik13.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("SRKR2");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("SRKR2");
+                cvik18.PočtySérií.Add(3);
+                cvik18.PočtyOpakování.Add("10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("SRKR2");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("SRKR2");
+                cvik27.PočtySérií.Add(3);
+                cvik27.PočtyOpakování.Add("12, 10, 10");
+                cvik27.PauzyMeziSériemi.Add(60);
+
+                //Kruhový trénik 3
+                //Drep
+                cvik2.TypyTreninku.Add("SRKR3");
+                cvik2.PočtySérií.Add(4);
+                cvik2.PočtyOpakování.Add("10, 5, 5, 5");
+                cvik2.PauzyMeziSériemi.Add(70);
+
+                //Legpress
+                cvik3.TypyTreninku.Add("RVKR3");
+                cvik3.PočtySérií.Add(4);
+                cvik3.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                //Zákopy
+                cvik4.TypyTreninku.Add("RVKR3");
+                cvik4.PočtySérií.Add(3);
+                cvik4.PočtyOpakování.Add("10, 10, 10");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                //Mrtvý tah
+                cvik29.TypyTreninku.Add("RVKR3");
+                cvik29.PočtySérií.Add(4);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 5");
+                cvik29.PauzyMeziSériemi.Add(70);
+
+                //Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("RVKR3");
+                cvik31.PočtySérií.Add(3);
+                cvik31.PočtyOpakování.Add("10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("RVKR3");
+                cvik21.PočtySérií.Add(6);
+                cvik21.PočtyOpakování.Add("10, 5, 3, 1, 1, 1");
+                cvik21.PauzyMeziSériemi.Add(80);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("RVKR3");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Peck deck
+                cvik23.TypyTreninku.Add("RVKR3");
+                cvik23.PočtySérií.Add(4);
+                cvik23.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik23.PauzyMeziSériemi.Add(60);
+
+                //Stahování kladek na hrudník
+                cvik24.TypyTreninku.Add("RVKR3");
+                cvik24.PočtySérií.Add(3);
+                cvik24.PočtyOpakování.Add("12, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na ramena
+                cvik12.TypyTreninku.Add("RVKR3");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("12, 12, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jedno
+                cvik13.TypyTreninku.Add("RVKR3");
+                cvik13.PočtySérií.Add(3);
+                cvik13.PočtyOpakování.Add("10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("RVKR3");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("RVKR3");
+                cvik18.PočtySérií.Add(3);
+                cvik18.PočtyOpakování.Add("10, 10, 10");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("RVKR3");
+                cvik26.PočtySérií.Add(4);
+                cvik26.PočtyOpakování.Add("12, 10, 10, 8");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky za hlavu
+                cvik27.TypyTreninku.Add("RVKR3");
+                cvik27.PočtySérií.Add(3);
+                cvik27.PočtyOpakování.Add("12, 10, 10");
+                cvik27.PauzyMeziSériemi.Add(60);
+
+
+                //PPL - podhlavni
+
+                // Push
+                //Kliky
+                cvik20.TypyTreninku.Add("SRPPLPush");
+                cvik20.PočtySérií.Add(3);
+                cvik20.PočtyOpakování.Add("10, 10, 10");
+                cvik20.PauzyMeziSériemi.Add(30);
+
+                //Benchpress
+                cvik21.TypyTreninku.Add("SRPPLPush");
+                cvik21.PočtySérií.Add(7);
+                cvik21.PočtyOpakování.Add("10, 5, 3, 2, 1, 1, 1");
+                cvik21.PauzyMeziSériemi.Add(90);
+
+                //Tlaky na ramena s jednoručnou činkou
+                cvik12.TypyTreninku.Add("SRPPLPush");
+                cvik12.PočtySérií.Add(4);
+                cvik12.PočtyOpakování.Add("10, 10, 10, 8");
+                cvik12.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na stroji
+                cvik16.TypyTreninku.Add("SRPPLPush");
+                cvik16.PočtySérií.Add(3);
+                cvik16.PočtyOpakování.Add("10, 10, 8");
+                cvik16.PauzyMeziSériemi.Add(60);
+
+                //Tlaky na hrudník na nakloněné lavici
+                cvik22.TypyTreninku.Add("SRPPLPush");
+                cvik22.PočtySérií.Add(4);
+                cvik22.PočtyOpakování.Add("10, 10, 10, 8");
+                cvik22.PauzyMeziSériemi.Add(60);
+
+                //Stahování kladek na hrudník
+                cvik24.TypyTreninku.Add("SRPPLPush");
+                cvik24.PočtySérií.Add(3);
+                cvik24.PočtyOpakování.Add("12, 10, 8");
+                cvik24.PauzyMeziSériemi.Add(60);
+
+                //Upažování s jednoručnou činkou
+                cvik13.TypyTreninku.Add("SRPPLPush");
+                cvik13.PočtySérií.Add(3);
+                cvik13.PočtyOpakování.Add("10, 10, 10");
+                cvik13.PauzyMeziSériemi.Add(60);
+
+                //Stroj na zadky ramen
+                cvik14.TypyTreninku.Add("SRPPLPush");
+                cvik14.PočtySérií.Add(3);
+                cvik14.PočtyOpakování.Add("10, 10, 10");
+                cvik14.PauzyMeziSériemi.Add(60);
+
+                //Dipy na bradle
+                cvik25.TypyTreninku.Add("SRPPLPush");
+                cvik25.PočtySérií.Add(3);
+                cvik25.PočtyOpakování.Add("10, 10, 10");
+                cvik25.PauzyMeziSériemi.Add(60);
+
+                //Tricepsové stahování kladky
+                cvik26.TypyTreninku.Add("SRPPLPush");
+                cvik26.PočtySérií.Add(3);
+                cvik26.PočtyOpakování.Add("10, 10, 10");
+                cvik26.PauzyMeziSériemi.Add(60);
+
+                //PULL
+                //Mrtvý tah bez závaží
+                cvik28.TypyTreninku.Add("SRPPLPull");
+                cvik28.PočtySérií.Add(3);
+                cvik28.PočtyOpakování.Add("10, 10, 10");
+                cvik28.PauzyMeziSériemi.Add(40);
+
+                // Mrtvý tah
+                cvik29.TypyTreninku.Add("SRPPLPull");
+                cvik29.PočtySérií.Add(7);
+                cvik29.PočtyOpakování.Add("10, 5, 5, 3, 1, 1, 1");
+                cvik29.PauzyMeziSériemi.Add(90);
+
+                // Shyby nadhmatem
+                cvik30.TypyTreninku.Add("SRPPLPull");
+                cvik30.PočtySérií.Add(4);
+                cvik30.PočtyOpakování.Add("10, 8, 6, 4");
+                cvik30.PauzyMeziSériemi.Add(60);
+
+                // Stahování tyče na stroji před hlavu - vertikálně
+                cvik31.TypyTreninku.Add("SRPPLPull");
+                cvik31.PočtySérií.Add(3);
+                cvik31.PočtyOpakování.Add("10, 10, 10");
+                cvik31.PauzyMeziSériemi.Add(60);
+
+                // Přitahování tyče na stroji - horizontálně
+                cvik32.TypyTreninku.Add("SRPPLPull");
+                cvik32.PočtySérií.Add(3);
+                cvik32.PočtyOpakování.Add("10, 10, 10");
+                cvik32.PauzyMeziSériemi.Add(60);
+
+                //Přitahování tyče ve stoje
+                cvik34.TypyTreninku.Add("SRPPLPull");
+                cvik34.PočtySérií.Add(3);
+                cvik34.PočtyOpakování.Add("10, 10, 10");
+                cvik34.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy jednoruček
+                cvik17.TypyTreninku.Add("SRPPLPull");
+                cvik17.PočtySérií.Add(4);
+                cvik17.PočtyOpakování.Add("10, 10, 10, 8");
+                cvik17.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy obouručky
+                cvik18.TypyTreninku.Add("SRPPLPull");
+                cvik18.PočtySérií.Add(3);
+                cvik18.PočtyOpakování.Add("10, 10, 8");
+                cvik18.PauzyMeziSériemi.Add(60);
+
+                //Bicepsové přítahy na stroji
+                cvik19.TypyTreninku.Add("SRPPLPull");
+                cvik19.PočtySérií.Add(3);
+                cvik19.PočtyOpakování.Add("10, 10, 8");
+                cvik19.PauzyMeziSériemi.Add(60);
+
+
+                //LEGS
+                cvik1.TypyTreninku.Add("SRPPLLegs");
+                cvik1.PočtySérií.Add(3);
+                cvik1.PočtyOpakování.Add("10, 10, 10");
+                cvik1.PauzyMeziSériemi.Add(30);
+
+                cvik2.TypyTreninku.Add("SRPPLLegs");
+                cvik2.PočtySérií.Add(6);
+                cvik2.PočtyOpakování.Add("10, 5, 2, 1, 1, 1");
+                cvik2.PauzyMeziSériemi.Add(90);
+
+                cvik3.TypyTreninku.Add("SRPPLLegs");
+                cvik3.PočtySérií.Add(3);
+                cvik3.PočtyOpakování.Add("10, 8, 8");
+                cvik3.PauzyMeziSériemi.Add(60);
+
+                cvik4.TypyTreninku.Add("SRPPLLegs");
+                cvik4.PočtySérií.Add(4);
+                cvik4.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik4.PauzyMeziSériemi.Add(60);
+
+                cvik5.TypyTreninku.Add("SRPPLLegs");
+                cvik5.PočtySérií.Add(4);
+                cvik5.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik5.PauzyMeziSériemi.Add(60);
+
+                cvik6.TypyTreninku.Add("SRPPLLegs");
+                cvik6.PočtySérií.Add(4);
+                cvik6.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik6.PauzyMeziSériemi.Add(60);
+
+                cvik7.TypyTreninku.Add("SRPPLLegs");
+                cvik7.PočtySérií.Add(4);
+                cvik7.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik7.PauzyMeziSériemi.Add(60);
+
+                cvik8.TypyTreninku.Add("SRPPLLegs");
+                cvik8.PočtySérií.Add(4);
+                cvik8.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik8.PauzyMeziSériemi.Add(60);
+
+                cvik9.TypyTreninku.Add("SRPPLLegs");
+                cvik9.PočtySérií.Add(4);
+                cvik9.PočtyOpakování.Add("10, 10, 10, 10");
+                cvik9.PauzyMeziSériemi.Add(60);
 
                 //vyhledat jeden cvik a podle toho v jakem je planu/treninku jej upravit
 
@@ -1082,7 +2771,7 @@ namespace BP_TPWA.Controllers
                 }
             }
             return View(data);
-        }    
+        }
 
         private string GetTypTreninkuZkratka(TP TP, string typTreninku)
         {
@@ -1106,24 +2795,141 @@ namespace BP_TPWA.Controllers
                     {
                         return "BSHVMHrTric";
                     }
-
                 }
                 else if (TP.StylTP == "PPL")
                 {
-                    return "Zatimnic";
+                    if (typTreninku == "Push")
+                    {
+                        return "BSHPPLPush";
+                    }
+                    else if (typTreninku == "Pull")
+                    {
+                        return "BSHPPLPull";
+                    }
+                    else if (typTreninku == "Legs")
+                    {
+                        return "BSHPPLLegs";
+                    }
                 }
                 else if (TP.StylTP == "KR")
                 {
-                    return "Zatimnic";
+                    if (typTreninku == "Kruhový trénink 1")
+                    {
+                        return "BSHKR1";
+                    }
+                    else if (typTreninku == "Kruhový trénink 2")
+                    {
+                        return "BSHKR2";
+                    }
+                    else if (typTreninku == "Kruhový trénink 3")
+                    {
+                        return "BSHKR3";
+                    }
                 }
             }
             else if (TP.DruhTP == "SR")
             {
-                return "Zatimnic";
+                if (TP.StylTP == "VM")
+                {
+                    if (typTreninku == "Nohy")
+                    {
+                        return "SRVMNohy";
+                    }
+                    else if (typTreninku == "Ramena + biceps")
+                    {
+                        return "SRVMRamBic";
+                    }
+                    else if (typTreninku == "Záda")
+                    {
+                        return "SRVMZada";
+                    }
+                    else if (typTreninku == "Hrudník + triceps")
+                    {
+                        return "SRVMHrTric";
+                    }
+                }
+                else if (TP.StylTP == "PPL")
+                {
+                    if (typTreninku == "Push")
+                    {
+                        return "SRPPLPush";
+                    }
+                    else if (typTreninku == "Pull")
+                    {
+                        return "SRPPLPull";
+                    }
+                    else if (typTreninku == "Legs")
+                    {
+                        return "SRPPLLegs";
+                    }
+                }
+                else if (TP.StylTP == "KR")
+                {
+                    if (typTreninku == "Kruhový trénink 1")
+                    {
+                        return "SRKR1";
+                    }
+                    else if (typTreninku == "Kruhový trénink 2")
+                    {
+                        return "SRKR2";
+                    }
+                    else if (typTreninku == "Kruhový trénink 3")
+                    {
+                        return "SRKR3";
+                    }
+                }
             }
             else if (TP.DruhTP == "RV")
             {
-                return "Zatimnic";
+                if (TP.StylTP == "VM")
+                {
+                    if (typTreninku == "Nohy")
+                    {
+                        return "RVVMNohy";
+                    }
+                    else if (typTreninku == "Ramena + biceps")
+                    {
+                        return "RVVMRamBic";
+                    }
+                    else if (typTreninku == "Záda")
+                    {
+                        return "RVVMZada";
+                    }
+                    else if (typTreninku == "Hrudník + triceps")
+                    {
+                        return "RVVMHrTric";
+                    }
+                }
+                else if (TP.StylTP == "PPL")
+                {
+                    if (typTreninku == "Push")
+                    {
+                        return "RVPPLPush";
+                    }
+                    else if (typTreninku == "Pull")
+                    {
+                        return "RVPPLPull";
+                    }
+                    else if (typTreninku == "Legs")
+                    {
+                        return "RVPPLLegs";
+                    }
+                }
+                else if (TP.StylTP == "KR")
+                {
+                    if (typTreninku == "Kruhový trénink 1")
+                    {
+                        return "RVKR1";
+                    }
+                    else if (typTreninku == "Kruhový trénink 2")
+                    {
+                        return "RVKR2";
+                    }
+                    else if (typTreninku == "Kruhový trénink 3")
+                    {
+                        return "RVKR3";
+                    }
+                }
             }
             return "CHYBA";
         }

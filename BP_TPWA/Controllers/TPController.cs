@@ -30,28 +30,6 @@ namespace BP_TPWA.Controllers
             _context = context;
         }
 
-       
-
-        //public void SetDenTréninku(string userId, DayOfWeek den, bool trénink)
-        //{
-        //    var tpRecord = _context.TP.FirstOrDefault(t => t.UzivatelID == userId);
-
-        //    if (tpRecord != null)
-        //    {
-        //        var konkrétníDen = tpRecord.DnyVTydnu.FirstOrDefault(d => d.Den == den);
-        //        if (konkrétníDen != null)
-        //        {
-        //            konkrétníDen.DenTréninku = trénink;
-        //            _context.SaveChanges(); // Uložení změn do databáze
-        //        }
-        //        else
-        //        {
-        //            // Případ, kdy den není nalezen
-        //            throw new Exception("Chyba, špatný den!");
-        //        }
-        //    }
-        //}
-
         public class GeneratorTréninkovýchDat
         {
             public static List<DateTime> VytvářeníDatumůTréninku(int tréninkyZaTýden, int týdny, DayOfWeek[] dnyTréninku)
@@ -112,24 +90,141 @@ namespace BP_TPWA.Controllers
                     {
                         return "BSHVMHrTric";
                     }
-                    
                 }
                 else if (TP.StylTP == "PPL")
                 {
-                    return "Zatimnic";
+                    if (typTreninku == "Push")
+                    {
+                        return "BSHPPLPush";
+                    }
+                    else if (typTreninku == "Pull")
+                    {
+                        return "BSHPPLPull";
+                    }
+                    else if (typTreninku == "Legs")
+                    {
+                        return "BSHPPLLegs";
+                    }
                 }
                 else if (TP.StylTP == "KR")
                 {
-                    return "Zatimnic";
+                    if (typTreninku == "Kruhový trénink 1")
+                    {
+                        return "BSHKR1";
+                    }
+                    else if (typTreninku == "Kruhový trénink 2")
+                    {
+                        return "BSHKR2";
+                    }
+                    else if (typTreninku == "Kruhový trénink 3")
+                    {
+                        return "BSHKR3";
+                    }
                 }
             }
             else if (TP.DruhTP == "SR")
             {
-                return "Zatimnic";
+                if (TP.StylTP == "VM")
+                {
+                    if (typTreninku == "Nohy")
+                    {
+                        return "SRVMNohy";
+                    }
+                    else if (typTreninku == "Ramena + biceps")
+                    {
+                        return "SRVMRamBic";
+                    }
+                    else if (typTreninku == "Záda")
+                    {
+                        return "SRVMZada";
+                    }
+                    else if (typTreninku == "Hrudník + triceps")
+                    {
+                        return "SRVMHrTric";
+                    }
+                }
+                else if (TP.StylTP == "PPL")
+                {
+                    if (typTreninku == "Push")
+                    {
+                        return "SRPPLPush";
+                    }
+                    else if (typTreninku == "Pull")
+                    {
+                        return "SRPPLPull";
+                    }
+                    else if (typTreninku == "Legs")
+                    {
+                        return "SRPPLLegs";
+                    }
+                }
+                else if (TP.StylTP == "KR")
+                {
+                    if (typTreninku == "Kruhový trénink 1")
+                    {
+                        return "SRKR1";
+                    }
+                    else if (typTreninku == "Kruhový trénink 2")
+                    {
+                        return "SRKR2";
+                    }
+                    else if (typTreninku == "Kruhový trénink 3")
+                    {
+                        return "SRKR3";
+                    }
+                }
             }
             else if (TP.DruhTP == "RV")
             {
-                return "Zatimnic";
+                if (TP.StylTP == "VM")
+                {
+                    if (typTreninku == "Nohy")
+                    {
+                        return "RVVMNohy";
+                    }
+                    else if (typTreninku == "Ramena + biceps")
+                    {
+                        return "RVVMRamBic";
+                    }
+                    else if (typTreninku == "Záda")
+                    {
+                        return "RVVMZada";
+                    }
+                    else if (typTreninku == "Hrudník + triceps")
+                    {
+                        return "RVVMHrTric";
+                    }
+                }
+                else if (TP.StylTP == "PPL")
+                {
+                    if (typTreninku == "Push")
+                    {
+                        return "RVPPLPush";
+                    }
+                    else if (typTreninku == "Pull")
+                    {
+                        return "RVPPLPull";
+                    }
+                    else if (typTreninku == "Legs")
+                    {
+                        return "RVPPLLegs";
+                    }
+                }
+                else if (TP.StylTP == "KR")
+                {
+                    if (typTreninku == "Kruhový trénink 1")
+                    {
+                        return "RVKR1";
+                    }
+                    else if (typTreninku == "Kruhový trénink 2")
+                    {
+                        return "RVKR2";
+                    }
+                    else if (typTreninku == "Kruhový trénink 3")
+                    {
+                        return "RVKR3";
+                    }
+                }
             }
             return "CHYBA";
        }
@@ -137,10 +232,7 @@ namespace BP_TPWA.Controllers
 
         private string GetTypTreninkuVM(int cislodne)
         {
-            // Implementujte logiku pro získání typu tréninku podle dne
-            // Můžete například mít nějakou metodu nebo seznam, kde mapujete den na konkrétní typ tréninku
-            // A vrátit odpovídající hodnotu pro daný den
-            // Tato metoda by měla být upravena podle vaší konkrétní implementace
+            
             if(cislodne == 0)
             {
 
@@ -163,10 +255,7 @@ namespace BP_TPWA.Controllers
         }
         private string GetTypTreninkuPPL(int cislodne)
         {
-            // Implementujte logiku pro získání typu tréninku podle dne
-            // Můžete například mít nějakou metodu nebo seznam, kde mapujete den na konkrétní typ tréninku
-            // A vrátit odpovídající hodnotu pro daný den
-            // Tato metoda by měla být upravena podle vaší konkrétní implementace
+            
             if (cislodne == 0)
             {
 
@@ -186,13 +275,9 @@ namespace BP_TPWA.Controllers
 
         private string GetTypTreninkuKR(int cislodne)
         {
-            // Implementujte logiku pro získání typu tréninku podle dne
-            // Můžete například mít nějakou metodu nebo seznam, kde mapujete den na konkrétní typ tréninku
-            // A vrátit odpovídající hodnotu pro daný den
-            // Tato metoda by měla být upravena podle vaší konkrétní implementace
+            
             if (cislodne == 0)
             {
-
                 return "Kruhový trénink 1";
             }
             else if (cislodne == 1)
@@ -203,10 +288,7 @@ namespace BP_TPWA.Controllers
             {
                 return "Kruhový trénink 3";
             }
-            else if (cislodne == 3)
-            {
-                return "Kruhový trénink 4";
-            }
+            
 
             return "Chyba";
         }
@@ -314,14 +396,29 @@ namespace BP_TPWA.Controllers
                                 typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
 
+                                var poradiCviku = GetPoradiCviku(typTreninkuZkratka);
+                                string[] poradiCvikuArray = poradiCviku.Split(',');
 
-                                var cviky =  _context.Cvik
+
+                                var cviky = _context.Cvik
                                             .Where(c => c.UzivatelId == userId)
                                             .AsEnumerable()
                                             .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
                                             .ToList();
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = cviky }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                List<Cvik> noveCviky = new List<Cvik>();
+                                for (int j = 0; j < cviky.Count; j++)
+                                {
+                                    noveCviky.Add(cviky[j]);
+                                }
+                                for (int j = 0; j < cviky.Count; j++)
+                                {
+                                    int index = Array.IndexOf(poradiCvikuArray, cviky[j].Název);
+                                    noveCviky.RemoveAt(index);
+                                    noveCviky.Insert(index, cviky[j]);
+                                }
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = noveCviky };
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                                 typTreninkuCislo++;
 
@@ -336,20 +433,36 @@ namespace BP_TPWA.Controllers
                                 typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
 
+                                var poradiCviku = GetPoradiCviku(typTreninkuZkratka);
+                                string[] poradiCvikuArray = poradiCviku.Split(',');
 
-                                var cviky = await _context.Cvik
-                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+
+                                var cviky = _context.Cvik
                                             .Where(c => c.UzivatelId == userId)
-                                            .ToListAsync();
+                                            .AsEnumerable()
+                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+                                            .ToList();
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = cviky }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                List<Cvik> noveCviky = new List<Cvik>();
+                                for (int j = 0; j < cviky.Count; j++)
+                                {
+                                    noveCviky.Add(cviky[j]);
+                                }
+                                for (int j = 0; j < cviky.Count; j++)
+                                {
+                                    int index = Array.IndexOf(poradiCvikuArray, cviky[j].Název);
+                                    noveCviky.RemoveAt(index);
+                                    noveCviky.Insert(index, cviky[j]);
+                                }
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = noveCviky };
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                                 typTreninkuCislo++;
 
                             }
                             else if (uzivatelIdZaznam.StylTP == "KR")
                             {
-                                if (typTreninkuCislo == 4)
+                                if (typTreninkuCislo == 3)
                                 {
                                     typTreninkuCislo = 0;
                                 }
@@ -357,14 +470,31 @@ namespace BP_TPWA.Controllers
                                 typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
 
+                                var poradiCviku = GetPoradiCviku(typTreninkuZkratka);
+                                string[] poradiCvikuArray = poradiCviku.Split(',');
 
-                                var cviky = await _context.Cvik
-                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+
+                                var cviky = _context.Cvik
                                             .Where(c => c.UzivatelId == userId)
-                                            .ToListAsync();
+                                            .AsEnumerable()
+                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
+                                            .ToList();
 
-                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = cviky }; //musím si někam uložit ty hodnoty někde tu to vytáhnout a davat jednu po druhe
+                                List<Cvik> noveCviky = new List<Cvik>();
+                                for (int j = 0; j < cviky.Count; j++)
+                                {
+                                    noveCviky.Add(cviky[j]);
+                                }
+                                for (int j = 0; j < cviky.Count; j++)
+                                {
+                                    int index = Array.IndexOf(poradiCvikuArray, cviky[j].Název);
+                                    noveCviky.RemoveAt(index);
+                                    noveCviky.Insert(index, cviky[j]);
+                                }
+
+                                var treninkoveDataEntita = new DenTreninku { DatumTreninku = datumTreninkovehoDne, TPId = uzivatelIdZaznam.Id, TypTreninku = typTreninku, Cviky = noveCviky };
                                 _context.DenTreninku.Add(treninkoveDataEntita);
+                                typTreninkuCislo++;
                             }
                             // Vytvořte nový záznam v databázi pro každé datum tréninku
                         }
@@ -447,13 +577,6 @@ namespace BP_TPWA.Controllers
             {
                 ModelState.Remove("User");
             }
-            //for(int i = 0; i < 7; i++)
-            //{
-            //    if (ModelState.ContainsKey("DnyVTydnu[" + i + "].TP"))
-            //    {
-            //        ModelState.Remove("DnyVTydnu[" + i + "].TP");
-            //    }
-            //}
 
             if (ModelState.IsValid)
             {
@@ -699,6 +822,138 @@ namespace BP_TPWA.Controllers
             return pdf;
         }
 
+        private string GetPoradiCviku(string typTreninkuZkratka)
+        {
+            if (typTreninkuZkratka == "BSHKR1")
+            {
+                return "Dřepy,Legpress,Lýtka ve stoje,Předkopy,Zákopy,Mrtvý tah,Stahování tyče na stroji před hlavu - vertikálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            } 
+            else if(typTreninkuZkratka == "BSHKR2")
+            {
+                return "Dřepy,Legpress,Rumunský mrtvý tah,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "BSHKR3")
+            {
+                return "Dřepy,Legpress,Zákopy,Mrtvý tah,Stahování tyče na stroji před hlavu - vertikálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Pec deck,Stahování kladek na hrudník,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "BSHVMNohy")
+            {
+                return "Dřepy s vlastní vahou,Dřepy,Legpress,Zákopy,Předkopy,Bulharský dřep,Rumunský mrtvý tah,Hiptrusty,Lýtka ve stoje";
+            }
+            else if (typTreninkuZkratka == "BSHVMRamBic")
+            {
+                return "Tlaky na ramena - rozcvička,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Stroj na zadky ramen,Upažování na kladce,Tlaky na stroji,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
+            }
+            else if (typTreninkuZkratka == "BSHVMHrTric")
+            {
+                return "Kliky,Benchpress,Tlaky na hrudník na nakloněné lavici,Pec deck,Stahování kladek na hrudník,Dipy na bradle,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "BSHVMZada")
+            {
+                return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování na stroji,Přitahování tyče ve stoje,Sklapovačky,Přitahování noh na bradlech";
+            }
+            else if (typTreninkuZkratka == "BSHPPLLegs")
+            {
+                return "Dřepy s vlastní vahou,Dřepy,Legpress,Zákopy,Předkopy,Bulharský dřep,Rumunský mrtvý tah,Hiptrusty,Lýtka ve stoje";
+            }
+            else if (typTreninkuZkratka == "BSHPPLPush")
+            {
+                return "Kliky,Benchpress,Tlaky na ramena s jednoručnou činkou,Tlaky na stroji,Tlaky na hrudník na nakloněné lavici,Stahování kladek na hrudník,Upažování s jednoručnou činkou,Stroj na zadky ramen,Dipy na bradle,Tricepsové stahování kladky";
+            }
+            else if (typTreninkuZkratka == "BSHPPLPull")
+            {
+                return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování tyče ve stoje,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
+            }
+
+
+
+
+            else if (typTreninkuZkratka == "RVKR1")
+            {
+                return "Dřepy,Legpress,Lýtka ve stoje,Předkopy,Zákopy,Mrtvý tah,Stahování tyče na stroji před hlavu - vertikálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "RVKR2")
+            {
+                return "Dřepy,Legpress,Rumunský mrtvý tah,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "RVKR3")
+            {
+                return "Dřepy,Legpress,Zákopy,Mrtvý tah,Stahování tyče na stroji před hlavu - vertikálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Pec deck,Stahování kladek na hrudník,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "RVVMNohy")
+            {
+                return "Dřepy s vlastní vahou,Dřepy,Legpress,Zákopy,Předkopy,Bulharský dřep,Rumunský mrtvý tah,Hiptrusty,Lýtka ve stoje";
+            }
+            else if (typTreninkuZkratka == "RVVMRamBic")
+            {
+                return "Tlaky na ramena - rozcvička,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Stroj na zadky ramen,Upažování na kladce,Tlaky na stroji,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
+            }
+            else if (typTreninkuZkratka == "RVVMHrTric")
+            {
+                return "Kliky,Benchpress,Tlaky na hrudník na nakloněné lavici,Pec deck,Stahování kladek na hrudník,Dipy na bradle,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "RVVMZada")
+            {
+                return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování na stroji,Přitahování tyče ve stoje,Sklapovačky,Přitahování noh na bradlech";
+            }
+            else if (typTreninkuZkratka == "RVPPLLegs")
+            {
+                return "Dřepy s vlastní vahou,Dřepy,Legpress,Zákopy,Předkopy,Bulharský dřep,Rumunský mrtvý tah,Hiptrusty,Lýtka ve stoje";
+            }
+            else if (typTreninkuZkratka == "RVPPLPush")
+            {
+                return "Kliky,Benchpress,Tlaky na ramena s jednoručnou činkou,Tlaky na stroji,Tlaky na hrudník na nakloněné lavici,Stahování kladek na hrudník,Upažování s jednoručnou činkou,Stroj na zadky ramen,Dipy na bradle,Tricepsové stahování kladky";
+            }
+            else if (typTreninkuZkratka == "RVPPLPull")
+            {
+                return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování tyče ve stoje,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
+            }
+
+
+            if (typTreninkuZkratka == "SRKR1")
+            {
+                return "Dřepy,Legpress,Lýtka ve stoje,Předkopy,Zákopy,Mrtvý tah,Stahování tyče na stroji před hlavu - vertikálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "SRKR2")
+            {
+                return "Dřepy,Legpress,Rumunský mrtvý tah,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "SRKR3")
+            {
+                return "Dřepy,Legpress,Zákopy,Mrtvý tah,Stahování tyče na stroji před hlavu - vertikálně,Benchpress,Tlaky na hrudník na nakloněné lavici,Pec deck,Stahování kladek na hrudník,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "SRVMNohy")
+            {
+                return "Dřepy s vlastní vahou,Dřepy,Legpress,Zákopy,Předkopy,Bulharský dřep,Rumunský mrtvý tah,Hiptrusty,Lýtka ve stoje";
+            }
+            else if (typTreninkuZkratka == "SRVMRamBic")
+            {
+                return "Tlaky na ramena - rozcvička,Tlaky na ramena s jednoručnou činkou,Upažování s jednoručnou činkou,Stroj na zadky ramen,Upažování na kladce,Tlaky na stroji,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
+            }
+            else if (typTreninkuZkratka == "SRVMHrTric")
+            {
+                return "Kliky,Benchpress,Tlaky na hrudník na nakloněné lavici,Pec deck,Stahování kladek na hrudník,Dipy na bradle,Tricepsové stahování kladky,Tricepsové stahování kladky za hlavu";
+            }
+            else if (typTreninkuZkratka == "SRVMZada")
+            {
+                return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování na stroji,Přitahování tyče ve stoje,Sklapovačky,Přitahování noh na bradlech";
+            }
+            else if (typTreninkuZkratka == "SRPPLLegs")
+            {
+                return "Dřepy s vlastní vahou,Dřepy,Legpress,Zákopy,Předkopy,Bulharský dřep,Rumunský mrtvý tah,Hiptrusty,Lýtka ve stoje";
+            }
+            else if (typTreninkuZkratka == "SRPPLPush")
+            {
+                return "Kliky,Benchpress,Tlaky na ramena s jednoručnou činkou,Tlaky na stroji,Tlaky na hrudník na nakloněné lavici,Stahování kladek na hrudník,Upažování s jednoručnou činkou,Stroj na zadky ramen,Dipy na bradle,Tricepsové stahování kladky";
+            }
+            else if (typTreninkuZkratka == "SRPPLPull")
+            {
+                return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování tyče ve stoje,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
+            }
+
+
+            return null;
+        }
 
     }
 }

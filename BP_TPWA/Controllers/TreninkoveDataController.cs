@@ -215,9 +215,12 @@ namespace BP_TPWA.Controllers
                 kUlozeni.PocetOpakovani = data.PocetOpakovani;
                 kUlozeni.CvicenaVaha = data.CvicenaVaha;
                 kUlozeni.CvikId = data.CvikId;
-                
-                
-                if(data.Vaha != null)
+
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                kUlozeni.UzivatelId = userId;
+
+
+                if (data.Vaha != null)
                 {
                     double cislo;
 
@@ -245,8 +248,6 @@ namespace BP_TPWA.Controllers
 
                 if (data.Vaha == null)
                 {
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    kUlozeni.UzivatelId = userId;
                     var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(tp => tp.Id == userId);
                     kUlozeni.VahaUzivatele = uzivatelIdZaznam.Váha;
                 }

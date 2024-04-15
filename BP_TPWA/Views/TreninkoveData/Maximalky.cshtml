@@ -37,11 +37,61 @@
         var grafy;
 
         if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "BSH") {
-            var bshvmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMNohy');
-            var bshvmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMRamBic');
-            var bshvmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMHrTric');
-            var bshvmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMZada');
-            grafy = { bshvmnohyData, bshvmramenaData, bshvmhrudnikData, bshvmzadaData };
+            var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMNohy');
+            var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMRamBic');
+            var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMHrTric');
+            var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMZada');
+            grafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
+        }
+        if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "RV") {
+            var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMNohy');
+            var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMRamBic');
+            var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMHrTric');
+            var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMZada');
+            grafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
+        }
+        if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "SR") {
+            var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMNohy');
+            var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMRamBic');
+            var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMHrTric');
+            var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMZada');
+            grafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
+        }
+        if (tpdata[0].stylTP === "KR" && tpdata[0].druhTP === "BSH") {
+            var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR1');
+            var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR2');
+            var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR3');
+            grafy = { kr1Data, kr2Data, kr3Data };
+        }
+        if (tpdata[0].stylTP === "KR" && tpdata[0].druhTP === "RV") {
+            var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR1');
+            var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR2');
+            var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR3');
+            grafy = { kr1Data, kr2Data, kr3Data };
+        }
+        if (tpdata[0].stylTP === "KR" && tpdata[0].druhTP === "SR") {
+            var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR1');
+            var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR2');
+            var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR3');
+            grafy = { kr1Data, kr2Data, kr3Data };
+        }
+        if (tpdata[0].stylTP === "PPL" && tpdata[0].druhTP === "BSH") {
+            var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLPush');
+            var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLPull');
+            var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLLegs');
+            grafy = { pplpushData, pplpullData, ppllegsData };
+        }
+        if (tpdata[0].stylTP === "PPL" && tpdata[0].druhTP === "RV") {
+            var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLPush');
+            var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLPull');
+            var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLLegs');
+            grafy = { pplpushData, pplpullData, ppllegsData };
+        }
+        if (tpdata[0].stylTP === "PPL" && tpdata[0].druhTP === "SR") {
+            var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLPush');
+            var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLPull');
+            var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLLegs');
+            grafy = { pplpushData, pplpullData, ppllegsData };
         }
 
         function filterDataPodleTypuTreninku(data, typTreninku) {
@@ -49,6 +99,9 @@
         }
 
         console.log(grafy);
+        var pocetVypisaniBench = 0;
+        var pocetVypisaniMrtvola = 0;
+        var pocetVypisaniDrep = 0;
         Object.keys(grafy).forEach(function (kategorie) {
             var dataKategorie = grafy[kategorie];
 
@@ -61,23 +114,39 @@
                 }
                 groupedByExercise[cvikName].push(cvikData);
             });
- 
+            
+            
             // Vytvoření grafu pro každý cvik
             Object.keys(groupedByExercise).forEach(function (cvikName) {
                 var cvikDataForExercise = groupedByExercise[cvikName];
 
-                // Zjistit, zda cvik odpovídá Benchpress, Mrtvý tah nebo Drep
-                var isBenchpress = cvikDataForExercise.some(function (cvikData) {
-                    return cvikData.cvik.název === 'Benchpress'; 
-                });
+                if (pocetVypisaniBench === 0) {
+                    console.log(pocetVypisaniBench);
+                    var isBenchpress = cvikDataForExercise.some(function (cvikData) {
+                        if (cvikData.cvik.název === 'Benchpress') {
+                            pocetVypisaniBench = 1;
+                        }
+                        return cvikData.cvik.název === 'Benchpress'; 
+                    });
+                }
 
-                var isDeadlift = cvikDataForExercise.some(function (cvikData) {
-                    return cvikData.cvik.název === 'Mrtvý tah'; 
-                });
+                if (pocetVypisaniMrtvola === 0){
+                    var isDeadlift = cvikDataForExercise.some(function (cvikData) {
+                        if (cvikData.cvik.název === 'Mrtvý tah') {
+                            pocetVypisaniMrtvola = 1;
+                        }
+                        return cvikData.cvik.název === 'Mrtvý tah'; 
+                    });
+                }
 
-                var isSquat = cvikDataForExercise.some(function (cvikData) {
-                    return cvikData.cvikId === 'Dřep'; 
-                });
+                if (pocetVypisaniDrep === 0) {
+                    var isSquat = cvikDataForExercise.some(function (cvikData) {
+                        if (cvikData.cvik.název === 'Dřepy') {
+                            pocetVypisaniDrep = 1;
+                        }
+                        return cvikData.cvik.název === 'Dřepy';
+                    });
+                }
 
                 if (isBenchpress || isDeadlift || isSquat) {
                     var maximalkyContainer = document.createElement('div');
@@ -107,7 +176,7 @@
                     infoContainer.id = cvikData.cvikId;
                     if (isBenchpress || isDeadlift || isSquat)
                     {
-                        maximalkyContainer.id = cvikData.cvikId;
+                        maximalkyContainer.id = cvikData.cvikId + "max";
                     }
 
                     if (!adjustedData[datum]) {
@@ -162,7 +231,7 @@
             button.classList.add('btn', 'btn-dark', 'btn-spacing');
             button.addEventListener('click', function () {
                 
-                 var kliknuteTlacitkoId = this.id;
+                var kliknuteTlacitkoId = this.id;
 
                 var ziskanaKategorie = ziskatKategorii(kliknuteTlacitkoId);
                 console.log(ziskanaKategorie);
@@ -203,26 +272,50 @@
 
         function ziskatKategorii(text) {
             if (text === "Nohy") {
-                return "bshvmnohyData";
+                return "vmnohyData";
             } else if (text === "Ramena + biceps") {
-                return "bshvmramenaData";
+                return "vmramenaData";
             } else if (text === "Hrudník + triceps") {
-                return "bshvmhrudnikData";
+                return "vmhrudnikData";
             } else if (text === "Záda") {
-                return "bshvmzadaData";
+                return "vmzadaData";
+            } else if (text === "Kruhový trénink 1") {
+                return "kr1Data";
+            } else if (text === "Kruhový trénink 2") {
+                return "kr2Data";
+            } else if (text === "Kruhový trénink 3") {
+                return "kr3Data";
+            } else if (text === "Push") {
+                return "pplpushData";
+            } else if (text === "Pull") {
+                return "pplpullData";
+            } else if (text === "Legs") {
+                return "ppllegsData";
             }
             return " ";
         }
 
         function tlacitkoText(kategorie) {
-            if (kategorie === "bshvmnohyData") {
+            if (kategorie === "vmnohyData") {
                 return "Nohy";
-            } else if (kategorie === "bshvmramenaData") {
+            } else if (kategorie === "vmramenaData") {
                 return "Ramena + biceps";
-            } else if (kategorie === "bshvmhrudnikData") {
+            } else if (kategorie === "vmhrudnikData") {
                 return "Hrudník + triceps";
-            } else if (kategorie === "bshvmzadaData") {
+            } else if (kategorie === "vmzadaData") {
                 return "Záda";
+            } else if (kategorie === "kr1Data") {
+                return "Kruhový trénink 1";
+            } else if (kategorie === "kr2Data") {
+                return "Kruhový trénink 2";
+            } else if (kategorie === "kr3Data") {
+                return "Kruhový trénink 3";
+            } else if (kategorie === "pplpushData") {
+                return "Push";
+            } else if (kategorie === "pplpullData") {
+                return "Pull";
+            } else if (kategorie === "ppllegsData") {
+                return "Legs";
             }
             return " ";
         }
