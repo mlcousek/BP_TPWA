@@ -23,20 +23,14 @@ namespace BP_TPWA.Controllers
         {
             var requestUrl = _httpContextAccessor.HttpContext.Request.GetDisplayUrl();
 
-            // Extrahování posledních 10 znaků z URL
             var last10Characters = requestUrl.Substring(Math.Max(0, requestUrl.Length - 10));
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var cviky = _context.Cvik
-            //            .Where(tt => tt.TypTreninku == "BSHVMNohy")
-            //            .Where(id => id.UzivatelId == userId)
-            //            .ToList();
 
             var uzivatel = _context.Users
                            .Where(id => id.Id == userId)
                            .ToList();
 
-            // Přesné načtení data ze zadaného řetězce s určeným formátem
             DateTime inputDate = DateTime.ParseExact(last10Characters, "yyyy-MM-dd", null);
 
             var denTreninku = _context.DenTreninku
@@ -60,186 +54,11 @@ namespace BP_TPWA.Controllers
             ViewBag.typTreninku = denTreninku[0].TypTreninku;
             ViewBag.cviky = cviky;
             ViewBag.datacviku = datacviku;
+            ViewBag.uzivatel = uzivatel;
 
             return View();
         }
 
-        //public IActionResult Nohy()
-        //{
-        //    var requestUrl = _httpContextAccessor.HttpContext.Request.GetDisplayUrl();
-
-        //    // Extrahování posledních 10 znaků z URL
-        //    var last10Characters = requestUrl.Substring(Math.Max(0, requestUrl.Length - 10));
-
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    //var cviky = _context.Cvik
-        //    //            .Where(tt => tt.TypTreninku == "BSHVMNohy")
-        //    //            .Where(id => id.UzivatelId == userId)
-        //    //            .ToList();
-
-        //    var uzivatel = _context.Users
-        //                   .Where(id => id.Id == userId)
-        //                   .ToList();
-
-        //    // Přesné načtení data ze zadaného řetězce s určeným formátem
-        //    DateTime inputDate = DateTime.ParseExact(last10Characters, "yyyy-MM-dd", null);
-
-        //    var denTreninku = _context.DenTreninku
-        //                      .Where(x => x.TPId == uzivatel[0].TPId)
-        //                      .Where(d => d.DatumTreninku == inputDate)
-        //                      .ToList();
-
-        //    var cviky = denTreninku[0].Cviky;
-
-        //    var datacviku = _context.TreninkoveData
-        //                .Where(id => id.UzivatelId == userId)
-        //                .ToList();
-
-        //    var TPUzivatele = _context.TP
-        //                      .Where(x => x.UzivatelID == userId)
-        //                       .ToList();
-
-        //    var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
-
-        //    ViewBag.typTreninkuZkratka = typTreninkuZkratka;
-        //    ViewBag.typTreninku = denTreninku[0].TypTreninku;
-        //    ViewBag.cviky = cviky;
-        //    ViewBag.datacviku = datacviku;
-
-        //    return View();
-        //}
-
-        //public IActionResult Hrudník_triceps()
-        //{
-        //    var requestUrl = _httpContextAccessor.HttpContext.Request.GetDisplayUrl();
-
-        //    // Extrahování posledních 10 znaků z URL
-        //    var last10Characters = requestUrl.Substring(Math.Max(0, requestUrl.Length - 10));
-
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    //var cviky = _context.Cvik
-        //    //            .Where(tt => tt.TypTreninku == "BSHVMNohy")
-        //    //            .Where(id => id.UzivatelId == userId)
-        //    //            .ToList();
-
-        //    var uzivatel = _context.Users
-        //                   .Where(id => id.Id == userId)
-        //                   .ToList();
-
-        //    // Přesné načtení data ze zadaného řetězce s určeným formátem
-        //    DateTime inputDate = DateTime.ParseExact(last10Characters, "yyyy-MM-dd", null);
-
-        //    var denTreninku = _context.DenTreninku
-        //                      .Where(x => x.TPId == uzivatel[0].TPId)
-        //                      .Where(d => d.DatumTreninku == inputDate)
-        //                      .ToList();
-
-        //    var cviky = denTreninku[0].Cviky;
-
-        //    var datacviku = _context.TreninkoveData
-        //                .Where(id => id.UzivatelId == userId)
-        //                .ToList();
-
-        //    var TPUzivatele = _context.TP
-        //                      .Where(x => x.UzivatelID == userId)
-        //                       .ToList();
-
-        //    var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
-
-        //    ViewBag.typTreninkuZkratka = typTreninkuZkratka;
-        //    ViewBag.cviky = cviky;
-        //    ViewBag.datacviku = datacviku;
-
-        //    return View();
-        //}
-
-        //public IActionResult Ramena_biceps()
-        //{
-        //    var requestUrl = _httpContextAccessor.HttpContext.Request.GetDisplayUrl();
-
-        //    // Extrahování posledních 10 znaků z URL
-        //    var last10Characters = requestUrl.Substring(Math.Max(0, requestUrl.Length - 10));
-
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    //var cviky = _context.Cvik
-        //    //            .Where(tt => tt.TypTreninku == "BSHVMNohy")
-        //    //            .Where(id => id.UzivatelId == userId)
-        //    //            .ToList();
-
-        //    var uzivatel = _context.Users
-        //                   .Where(id => id.Id == userId)
-        //                   .ToList();
-
-        //    // Přesné načtení data ze zadaného řetězce s určeným formátem
-        //    DateTime inputDate = DateTime.ParseExact(last10Characters, "yyyy-MM-dd", null);
-
-        //    var denTreninku = _context.DenTreninku
-        //                      .Where(x => x.TPId == uzivatel[0].TPId)
-        //                      .Where(d => d.DatumTreninku == inputDate)
-        //                      .ToList();
-
-        //    var cviky = denTreninku[0].Cviky;
-
-        //    var datacviku = _context.TreninkoveData
-        //                .Where(id => id.UzivatelId == userId)
-        //                .ToList();
-
-        //    var TPUzivatele = _context.TP
-        //                      .Where(x => x.UzivatelID == userId)
-        //                       .ToList();
-
-        //    var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
-
-        //    ViewBag.typTreninkuZkratka = typTreninkuZkratka;
-        //    ViewBag.cviky = cviky;
-        //    ViewBag.datacviku = datacviku;
-
-        //    return View();
-        //}
-
-        //public IActionResult Záda()
-        //{
-        //    var requestUrl = _httpContextAccessor.HttpContext.Request.GetDisplayUrl();
-
-        //    // Extrahování posledních 10 znaků z URL
-        //    var last10Characters = requestUrl.Substring(Math.Max(0, requestUrl.Length - 10));
-
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    //var cviky = _context.Cvik
-        //    //            .Where(tt => tt.TypTreninku == "BSHVMNohy")
-        //    //            .Where(id => id.UzivatelId == userId)
-        //    //            .ToList();
-
-        //    var uzivatel = _context.Users
-        //                   .Where(id => id.Id == userId)
-        //                   .ToList();
-
-        //    // Přesné načtení data ze zadaného řetězce s určeným formátem
-        //    DateTime inputDate = DateTime.ParseExact(last10Characters, "yyyy-MM-dd", null);
-
-        //    var denTreninku = _context.DenTreninku
-        //                      .Where(x => x.TPId == uzivatel[0].TPId)
-        //                      .Where(d => d.DatumTreninku == inputDate)
-        //                      .ToList();
-
-        //    var cviky = denTreninku[0].Cviky;
-
-        //    var datacviku = _context.TreninkoveData
-        //                .Where(id => id.UzivatelId == userId)
-        //                .ToList();
-
-        //    var TPUzivatele = _context.TP
-        //                      .Where(x => x.UzivatelID == userId)
-        //                       .ToList();
-
-        //    var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);
-
-        //    ViewBag.typTreninkuZkratka = typTreninkuZkratka;
-        //    ViewBag.cviky = cviky;
-        //    ViewBag.datacviku = datacviku;
-
-        //    return View();
-        //}
         private string GetTypTreninkuZkratka(TP TP, string typTreninku)
         {
             if (TP.DruhTP == "BSH")

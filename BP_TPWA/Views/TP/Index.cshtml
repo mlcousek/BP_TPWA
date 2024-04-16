@@ -21,51 +21,6 @@
 
 
 <button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
-@* <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Délka)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DruhTP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StylTP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Délka)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DruhTP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StylTP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table> *@
-
-
-
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -78,7 +33,7 @@
                 <p id="modalContent">Zadejte aktuální váhu (kg) (př.: 82,3)</p>
                 <div id="serieFormular" class="form-group">
                   @*   <label for="series">Zadejte aktuální váhu:</label> *@
-                    <input type="number" class="form-control" id="vaha" min="0" max="0">
+                    <input type="number" class="form-control" id="vaha" min="0" max="0" value="0">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="feedbackButton" onclick="odeslatZpetnouVazbu()">Odeslat zpětnou vazbu</button>

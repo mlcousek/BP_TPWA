@@ -6,6 +6,6 @@ namespace BP_TPWA.Models
     public class NahledPlanuModel
     {
         public List<DenTreninku> Treninky { get; set; }
-        public List<Cvik> Cviky { get; set; }
+        public TP TP { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿@model NahledPlanuModel
 
-@{
-    var typyTreninku = Model.Cviky.SelectMany(c => c.TypyTreninku).Distinct().ToList();
-}
+
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -86,57 +84,204 @@
 
 <h2>Konkrétní tréninky</h2>
 
-@foreach (var typTreninku in typyTreninku)
+@foreach (var trenink in Model.Treninky)
 {
-    @if (@typTreninku == "BSHVMNohy")
-    {
-        <h3>Nohy</h3>
-    }
-    @if (@typTreninku == "BSHVMRamBic")
-    {
-        <h3>Ramena + biceps</h3>
-    }
-    @if (@typTreninku == "BSHVMHrTric")
-    {
-        <h3>Hrudník + Triceps </h3>
-    }
-    @if (@typTreninku == "BSHVMZada")
-    {
-        <h3>Záda</h3>
-    }
-
+    <h3>@trenink.TypTreninku (@trenink.DatumTreninku.ToShortDateString() @trenink.DatumTreninku.ToString("dddd", new System.Globalization.CultureInfo("cs-CZ")))</h3>
     <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Název</th>
-                    <th>Počet sérií</th>
-                    <th>Počet opakování</th>
-                    <th>Pauza mezi sériemi</th>
-                    <th>Partie</th>
-                    <th>Popis cviku</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var cvik in Model.Cviky)
-                {
-                    if (cvik.TypyTreninku.Contains(typTreninku))
-                    {
-                        var index = cvik.TypyTreninku.IndexOf(typTreninku);
-                        <tr>
-                            <td>@cvik.Název</td>
-                            <td>@cvik.PočtySérií[index]</td>
-                            <td>@cvik.PočtyOpakování[index]</td>
-                            <td>@cvik.PauzyMeziSériemi[index]</td>
-                            <td>@cvik.Partie</td>
-                            <td>@cvik.PopisCviku</td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Počet sérií</th>
+                        <th>Počet opakování</th>
+                        <th>Pauza mezi sériemi</th>
+                        <th>Partie</th>
+                        <th>Popis cviku</th>
+                    </tr>
+                </thead>
+                <tbody>
 
+    @foreach (var cvik in trenink.Cviky)
+    {
+        var indexTTP = 0;
+        @if (Model.TP.DruhTP == "BSH")
+        {
+            @if (Model.TP.StylTP == "VM")
+            {
+                @if (@trenink.TypTreninku == "Nohy")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHVMNohy");
+                }
+                else if (@trenink.TypTreninku == "Ramena + biceps")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHVMRamBic");
+                }
+                else if (@trenink.TypTreninku == "Záda")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHVMZada");
+                }
+                else if (@trenink.TypTreninku == "Hrudník + triceps")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHVMHrTric");
+                }
+
+            }
+            else if (Model.TP.StylTP == "PPL")
+            {
+                if (@trenink.TypTreninku == "Push")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHPPLPush");
+                }
+                else if (@trenink.TypTreninku == "Pull")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHPPLPull");
+                }
+                else if (@trenink.TypTreninku == "Legs")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHPPLLegs");
+                }
+            }
+            else if (Model.TP.StylTP == "KR")
+            {
+                if (@trenink.TypTreninku == "Kruhový trénink 1")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHKR1");
+                }
+                else if (@trenink.TypTreninku == "Kruhový trénink 2")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHKR2");
+                }
+                else if (@trenink.TypTreninku == "Kruhový trénink 3")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("BSHKR3");
+                }
+            }
+
+        }
+        else if (Model.TP.DruhTP == "SR")
+        {
+            if (Model.TP.StylTP == "VM")
+            {
+                if (@trenink.TypTreninku == "Nohy")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRVMNohy");
+                }
+                else if (@trenink.TypTreninku == "Ramena + biceps")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRVMRamBic");
+                }
+                else if (@trenink.TypTreninku == "Záda")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRVMZada");
+                }
+                else if (@trenink.TypTreninku == "Hrudník + triceps")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRVMHrTric");
+                }
+            }
+            else if (Model.TP.StylTP == "PPL")
+            {
+                if (@trenink.TypTreninku == "Push")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRPPLPush");
+                }
+                else if (@trenink.TypTreninku == "Pull")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRPPLPull");
+                }
+                else if (@trenink.TypTreninku == "Legs")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRPPLLegs");
+                }
+            }
+            else if (Model.TP.StylTP == "KR")
+            {
+                if (@trenink.TypTreninku == "Kruhový trénink 1")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRKR1");
+                }
+                else if (@trenink.TypTreninku == "Kruhový trénink 2")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRKR2");
+                }
+                else if (@trenink.TypTreninku == "Kruhový trénink 3")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("SRKR3");
+                }
+            }
+        }
+        else if (Model.TP.DruhTP == "RV")
+        {
+            if (Model.TP.StylTP == "VM")
+            {
+                if (@trenink.TypTreninku == "Nohy")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVVMNohy");
+                }
+                else if (@trenink.TypTreninku == "Ramena + biceps")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVVMRamBic");
+                }
+                else if (@trenink.TypTreninku == "Záda")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVVMZada");
+                }
+                else if (@trenink.TypTreninku == "Hrudník + triceps")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVVMHrTric");
+                }
+            }
+            else if (Model.TP.StylTP == "PPL")
+            {
+                if (@trenink.TypTreninku == "Push")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVPPLPush");
+                }
+                else if (@trenink.TypTreninku == "Pull")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVPPLPull");
+                }
+                else if (@trenink.TypTreninku == "Legs")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVPPLLegs");
+                }
+            }
+            else if (Model.TP.StylTP == "KR")
+            {
+                if (@trenink.TypTreninku == "Kruhový trénink 1")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVKR1");
+                }
+                else if (@trenink.TypTreninku == "Kruhový trénink 2")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVKR2");
+                }
+                else if (@trenink.TypTreninku == "Kruhový trénink 3")
+                {
+                    indexTTP = cvik.TypyTreninku.IndexOf("RVKR3");
+                }
+            }
+        }
+       
+                    
+                    <tr>
+                        <td>@cvik.Název</td>
+                        <td>@cvik.PočtySérií[indexTTP]</td>
+                        <td>@cvik.PočtyOpakování[indexTTP]</td>
+                        <td>@cvik.PauzyMeziSériemi[indexTTP]</td>
+                        <td>@cvik.Partie</td>
+                        <td>@cvik.PopisCviku</td>
+                    </tr>
+                        
+                    
+    }
+        </tbody>
+    </table>
+</div>
 }
+
+
+
+
 
 

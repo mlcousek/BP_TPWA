@@ -4,8 +4,31 @@
     <div class="BSHVMNohy BSHVMRamBic BSHVMZada BSHVMHrTric" style="display: none;">
         <h2>Budování svalové hmoty - Velká/malá partie</h2>
     </div>
+    <div class="BSHPPLPush BSHPPLPull BSHPPLLegs" style="display: none;">
+        <h2>Budování svalové hmoty - PPL</h2>
+    </div>
+    <div class="RVPPLPush RVPPLPull RVPPLLegs" style="display: none;">
+        <h2>Redukce váhy - PPL</h2>
+    </div>
+    <div class="SRPPLPush SRPPLPull SRPPLLegs" style="display: none;">
+        <h2>Silový rozvoj - PPL</h2>
+    </div>
+    <div class="RVVMNohy RVVMRamBic RVVMZada RVVMHrTric" style="display: none;">
+        <h2>Redukce váhy - Velká/malá partie</h2>
+    </div>
+    <div class="SRVMNohy SRVMRamBic SRVMZada SRVMHrTric" style="display: none;">
+        <h2>Silový rozvoj - Velká/malá partie</h2>
+    </div>
     <div class="BSHKR1 BSHKR2 BSHKR3" style="display: none;">
         <h2>Budování svalové hmoty - Kruhový trénink</h2>
+        <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
+    </div>
+    <div class="RVKR1 RVKR2 RVKR3" style="display: none;">
+        <h2>Redukce váhy - Kruhový trénink</h2>
+        <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
+    </div>
+    <div class="SRKR1 SRKR2 SRKR3" style="display: none;">
+        <h2>Silový rozvoj - Kruhový trénink</h2>
         <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
     </div>
 </div>
@@ -14,7 +37,10 @@
 
 <div id="kontejner-cviku"></div>
 
-<p>Po odcvičení doporučuji alespoň lehce protáhnout cvičenou svalovou skupinu.</p>
+<div class="BSHKR11 BSHKR21 BSHKR31 RVKR11 RVKR21 RVKR31 SRKR11 SRKR21 SRKR31" style="display: none;">
+    <p>Po dokončení tréninku, cvičit alespoň 5-10 minut core (např plank nebo různé cviky na core)</p>
+</div>
+<p>Po odcvičení doporučuji alespoň lehce protáhnout cvičené svalové skupiny.</p>
 
 <button type="button" class="btn btn-dark float-right-custom mb-3" id="pridatCvikButton">Přidat cvik</button>
 <button type="button" class="btn btn-secondary mb-3" id="zpetNaPlanButton">Zpět na plán</button>
@@ -37,7 +63,7 @@
                 <div id="seriesFields"></div>
                 <div id="uzivatelVahaFormular" class="form-group">
                     <label style="margin-top: 10px;" for="uzivatelVaha">Váha při cvičení cviku:</label>
-                    <input type="number" class="form-control" id="uzivatelVaha" min="20" max="300">
+                    <input type="number" class="form-control" id="uzivatelVaha" min="20" max="300" value="0">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary mb-3" id="feedbackButton" onclick="submitFeedback()">Odeslat zpětnou vazbu</button>
@@ -75,10 +101,15 @@
 <script>
     
     var element = document.querySelector('.@ViewBag.typTreninkuZkratka');
+    var element1 = document.querySelector('.@ViewBag.typTreninkuZkratka' + 1);
     console.log(element);
     if (element) {
 
         element.style.display = 'block';
+    }
+    if (element1) {
+
+        element1.style.display = 'block';
     }
     // Získání dnešního data
     var dnes = new Date();
@@ -99,7 +130,7 @@
     var dateStringShort = dateString.substring(0, 10);
 
 
-    if (dnesDatum <= dateStringShort) {
+    if (dnesDatum <= dateStringShort) {      ////////////////////////// <=
         document.getElementById('uzivatelVahaFormular').style.display = 'none';
     }
 
@@ -118,6 +149,25 @@
     var cviky = @Html.Raw(Json.Serialize(ViewBag.cviky));
     var datacviku = @Html.Raw(Json.Serialize(ViewBag.datacviku));
     var typTreninkuZkratka = @Html.Raw(Json.Serialize(ViewBag.typTreninkuZkratka));
+    var aktualniUzivatel = @Html.Raw(Json.Serialize(ViewBag.uzivatel));
+
+    var filteredData = datacviku.filter(function (entry) {
+        var cvikDate = new Date(entry.datum); // Převést řetězec na datum
+
+        return cvikDate.getFullYear() === dateFromUrl.getFullYear() &&
+            cvikDate.getMonth() === dateFromUrl.getMonth() &&
+            cvikDate.getDate() === dateFromUrl.getDate();
+    });
+
+    var uzivatelVaha = document.getElementById("uzivatelVaha");
+    if (filteredData[0] !== undefined) {
+        uzivatelVaha.value = filteredData[0].vahaUzivatele;
+    } else {
+        uzivatelVaha.value = aktualniUzivatel[0].váha;
+    }
+    console.log("filtrData");
+    console.log(filteredData[0]);
+    console.log(aktualniUzivatel);
 
     function naplnitCvicebniSablonu() {
         var kontejnerCviku = document.getElementById("kontejner-cviku");

@@ -590,12 +590,6 @@ namespace BP_TPWA.Controllers
 
                 tP.User = currentUser;
                 tP.AktualniVaha = true;
-
-                //for (int i = 0; i < 7; i++)
-                //{
-                //    tP.DnyVTydnu[i].TP = tP;
-                //    tP.DnyVTydnu[i].TP.Id = tP.Id;
-                //}
                 
                 tP.DatumPoslednihoUlozeniVahy = DateTime.Now;
 
@@ -753,14 +747,11 @@ namespace BP_TPWA.Controllers
             var treninky = await _context.DenTreninku
                                 .Where(d => d.TPId == uzivatelIdZaznam.Id)  
                                 .ToListAsync();
-            var cviky = await _context.Cvik
-                                .Where(d => d.UzivatelId == userId)
-                                .ToListAsync();
 
             var model = new NahledPlanuModel
             {
                 Treninky = treninky,
-                Cviky = cviky,
+                TP = uzivatelIdZaznam,
             };
 
             var viewName = "NahledPlanu";
@@ -769,6 +760,8 @@ namespace BP_TPWA.Controllers
 
             return pdf;
         }
+
+    
 
         public async Task<IActionResult> NahledPlanuDny()
         {
@@ -779,14 +772,11 @@ namespace BP_TPWA.Controllers
             var treninky = await _context.DenTreninku
                                 .Where(d => d.TPId == uzivatelIdZaznam.Id)
                                 .ToListAsync();
-            var cviky = await _context.Cvik
-                                .Where(d => d.UzivatelId == userId)
-                                .ToListAsync();
 
             var model = new NahledPlanuModel
             {
                 Treninky = treninky,
-                Cviky = cviky,
+                TP = uzivatelIdZaznam,
             };
 
             var viewName = "NahledPlanuDny";
@@ -805,14 +795,11 @@ namespace BP_TPWA.Controllers
             var treninky = await _context.DenTreninku
                                 .Where(d => d.TPId == uzivatelIdZaznam.Id)
                                 .ToListAsync();
-            var cviky = await _context.Cvik
-                                .Where(d => d.UzivatelId == userId)
-                                .ToListAsync();
 
             var model = new NahledPlanuModel
             {
                 Treninky = treninky,
-                Cviky = cviky,
+                TP = uzivatelIdZaznam,
             };
 
             var viewName = "NahledPlanuTreninky";

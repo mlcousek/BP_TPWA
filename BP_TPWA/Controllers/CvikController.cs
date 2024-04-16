@@ -2773,7 +2773,7 @@ namespace BP_TPWA.Controllers
             return View(data);
         }
 
-        private string GetTypTreninkuZkratka(TP TP, string typTreninku)
+        public static string GetTypTreninkuZkratka(TP TP, string typTreninku)
         {
             if (TP.DruhTP == "BSH")
             {

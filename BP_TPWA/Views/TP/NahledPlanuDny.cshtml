@@ -1,8 +1,6 @@
 ﻿@model NahledPlanuModel
 
-@{
-    var typyTreninku = Model.Cviky.SelectMany(c => c.TypyTreninku).Distinct().ToList();
-}
+
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -84,59 +82,5 @@
     </table>
 </div>
 
-@* <h2>Konkrétní tréninky</h2>
 
-@foreach (var typTreninku in typyTreninku)
-{
-    @if (@typTreninku == "BSHVMNohy")
-    {
-        <h3>Nohy</h3>
-    }
-    @if (@typTreninku == "BSHVMRamBic")
-    {
-        <h3>Ramena + biceps</h3>
-    }
-    @if (@typTreninku == "BSHVMHrTric")
-    {
-        <h3>Hrudník + Triceps </h3>
-    }
-    @if (@typTreninku == "BSHVMZada")
-    {
-        <h3>Záda</h3>
-    }
-
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Název</th>
-                    <th>Počet sérií</th>
-                    <th>Počet opakování</th>
-                    <th>Pauza mezi sériemi</th>
-                    <th>Partie</th>
-                    <th>Popis cviku</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var cvik in Model.Cviky)
-                {
-                    @if(cvik.TypTreninku == typTreninku)
-                    {
-                        <tr>
-                            <td>@cvik.Název</td>
-                            <td>@cvik.PočetSérií</td>
-                            <td>@cvik.PočetOpakování</td>
-                            <td>@cvik.PauzaMeziSériemi</td>
-                            <td>@cvik.Partie</td>
-                            <td>@cvik.PopisCviku</td>
-                        </tr>
-                        
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-
-}
- *@
 
