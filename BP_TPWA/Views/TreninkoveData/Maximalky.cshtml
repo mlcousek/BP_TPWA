@@ -34,64 +34,139 @@
     if (treninkovedata.length !== 0) {
         document.querySelector('.pridejData').style.display = 'none'
     
-        var grafy;
+        var grafy = {};
 
-        if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "BSH") {
-            var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMNohy');
-            var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMRamBic');
-            var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMHrTric');
-            var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMZada');
-            grafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
-        }
-        if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "RV") {
-            var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMNohy');
-            var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMRamBic');
-            var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMHrTric');
-            var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMZada');
-            grafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
-        }
-        if (tpdata[0].stylTP === "VM" && tpdata[0].druhTP === "SR") {
-            var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMNohy');
-            var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMRamBic');
-            var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMHrTric');
-            var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMZada');
-            grafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
-        }
-        if (tpdata[0].stylTP === "KR" && tpdata[0].druhTP === "BSH") {
-            var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR1');
-            var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR2');
-            var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR3');
-            grafy = { kr1Data, kr2Data, kr3Data };
-        }
-        if (tpdata[0].stylTP === "KR" && tpdata[0].druhTP === "RV") {
-            var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR1');
-            var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR2');
-            var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR3');
-            grafy = { kr1Data, kr2Data, kr3Data };
-        }
-        if (tpdata[0].stylTP === "KR" && tpdata[0].druhTP === "SR") {
-            var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR1');
-            var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR2');
-            var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR3');
-            grafy = { kr1Data, kr2Data, kr3Data };
-        }
-        if (tpdata[0].stylTP === "PPL" && tpdata[0].druhTP === "BSH") {
-            var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLPush');
-            var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLPull');
-            var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLLegs');
-            grafy = { pplpushData, pplpullData, ppllegsData };
-        }
-        if (tpdata[0].stylTP === "PPL" && tpdata[0].druhTP === "RV") {
-            var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLPush');
-            var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLPull');
-            var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLLegs');
-            grafy = { pplpushData, pplpullData, ppllegsData };
-        }
-        if (tpdata[0].stylTP === "PPL" && tpdata[0].druhTP === "SR") {
-            var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLPush');
-            var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLPull');
-            var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLLegs');
-            grafy = { pplpushData, pplpullData, ppllegsData };
+        for (var i = 0; i < tpdata.length; i++) {
+
+            if (tpdata[i].stylTP === "VM" && tpdata[i].druhTP === "BSH") {
+                var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMNohy');
+                var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMRamBic');
+                var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMHrTric');
+                var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'BSHVMZada');
+                var noveGrafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "VM" && tpdata[i].druhTP === "RV") {
+                var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMNohy');
+                var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMRamBic');
+                var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMHrTric');
+                var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'RVVMZada');
+                var noveGrafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "VM" && tpdata[i].druhTP === "SR") {
+                var vmnohyData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMNohy');
+                var vmramenaData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMRamBic');
+                var vmhrudnikData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMHrTric');
+                var vmzadaData = filterDataPodleTypuTreninku(treninkovedata, 'SRVMZada');
+                var noveGrafy = { vmnohyData, vmramenaData, vmhrudnikData, vmzadaData };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "KR" && tpdata[i].druhTP === "BSH") {
+                var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR1');
+                var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR2');
+                var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'BSHKR3');
+                var noveGrafy = { kr1Data, kr2Data, kr3Data };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "KR" && tpdata[i].druhTP === "RV") {
+                var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR1');
+                var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR2');
+                var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'RVKR3');
+                var noveGrafy = { kr1Data, kr2Data, kr3Data };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "KR" && tpdata[i].druhTP === "SR") {
+                var kr1Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR1');
+                var kr2Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR2');
+                var kr3Data = filterDataPodleTypuTreninku(treninkovedata, 'SRKR3');
+                var noveGrafy = { kr1Data, kr2Data, kr3Data };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "PPL" && tpdata[i].druhTP === "BSH") {
+                var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLPush');
+                var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLPull');
+                var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'BSHPPLLegs');
+                var noveGrafy = { pplpushData, pplpullData, ppllegsData };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "PPL" && tpdata[i].druhTP === "RV") {
+                var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLPush');
+                var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLPull');
+                var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'RVPPLLegs');
+                var noveGrafy = { pplpushData, pplpullData, ppllegsData };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
+            if (tpdata[i].stylTP === "PPL" && tpdata[i].druhTP === "SR") {
+                var pplpushData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLPush');
+                var pplpullData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLPull');
+                var ppllegsData = filterDataPodleTypuTreninku(treninkovedata, 'SRPPLLegs');
+                var noveGrafy = { pplpushData, pplpullData, ppllegsData };
+                for (var graf in noveGrafy) {
+                    if (grafy.hasOwnProperty(graf)) {
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
+                    }
+                    else {
+                        grafy[graf] = noveGrafy[graf];
+                    }
+                }
+            }
         }
 
         function filterDataPodleTypuTreninku(data, typTreninku) {

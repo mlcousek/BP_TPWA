@@ -45,7 +45,7 @@ namespace BP_TPWA.Controllers
                         .ToList();
 
             var TPUzivatele = _context.TP
-                              .Where(x => x.UzivatelID == userId)
+                              .Where(x => x.Id == uzivatel[0].TPId)
                                .ToList();
 
             var typTreninkuZkratka = GetTypTreninkuZkratka(TPUzivatele[0], denTreninku[0].TypTreninku);

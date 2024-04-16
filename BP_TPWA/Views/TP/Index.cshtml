@@ -15,12 +15,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
 
-<script src="./js/cs.js"></script>
+<script src="~/js/cs.js"></script>
 
 <h1>Tréninkový plán</h1>
 
 
-<button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
+<button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark mb-3">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -44,12 +44,31 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Více o TP</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <button type="button" class="btn btn-danger mb-3" id="smazatButton" onclick="smazatTP()">Smazat aktuální tréninkový plán</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="calendar"></div>
 
 <div id="generovaniTlacitka" style="text-align: center; display: none;">
     <button type="button" class="btn btn-outline-dark" onclick="generovatTP()" style="margin: 20px;">Vygenerovat celý náhled tréninkového plánu</button>
     <button type="button" class="btn btn-outline-dark" onclick="generovatTPdny()" style="margin: 20px;">Vygenerovat pouze dny tréninků</button>
     <button type="button" class="btn btn-outline-dark" onclick="generovatTPtreninky()" style="margin: 20px;">Vygenerovat pouze tréninky</button>
+    <button type="button" class="btn btn-outline-warning" onclick="viceTP()" style="margin: 20px;">...</button>
 </div>
 
 @section scripts{
@@ -73,19 +92,51 @@
     function generovatTPtreninky() {
         window.location.href = "/TP/NahledPlanuTreninky";
     }
+     function viceTP() {
+            var modal1 = document.getElementById("myModal1");
+            modal1.style.display = "block";
+            var myModal1 = new bootstrap.Modal(document.getElementById('myModal1'), {
+                keyboard: false
+            });
+            myModal1.show();
+     }
 
     var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
     var datacviku = @Html.Raw(Json.Serialize(ViewBag.Datacviku));
 
     var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
     var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
-    
+
+
+    var nejpozdejsiDatum = null;
+
+    for (var i = 0; i < treninkoveData.length; i++) {
+        var datum = new Date(treninkoveData[i].datumTreninku);
+        if (!nejpozdejsiDatum || datum > nejpozdejsiDatum) {
+            nejpozdejsiDatum = datum; 
+        }
+    }
+
+       
+
+
+    function smazatTP() {
+        window.location.href = "/TP/Delete1?id=" + uzivatelData[0].tpId;
+        $('#myModal1').modal('hide');
+    }
+
     var element = document.getElementById('generovaniTlacitka');
     var vytvoritTP = document.getElementById('vytvoritTP');
     if (uzivatelData[0].tpId !== null) {
 
         element.style.display = 'block';
         vytvoritTP.style.display = 'none';
+
+        var dnes = new Date();
+
+        if (dnes >= nejpozdejsiDatum) {     ///////////////// MUSI BYT >=
+                vytvoritTP.style.display = 'block';
+        }
 
         var staraVaha = uzivatelData[0].váha;
         var inputVaha = document.getElementById('vaha');

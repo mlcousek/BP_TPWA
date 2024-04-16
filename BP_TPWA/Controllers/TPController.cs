@@ -298,16 +298,9 @@ namespace BP_TPWA.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.TP.Include(t => t.User);
-            //var tpRecords = await applicationDbContext.ToListAsync();
-
-
-            // Získání ID aktuálně přihlášeného uživatele
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-
-
-            // Dotaz do databáze pro nalezení záznamů podle UživatelId
-            var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == userId);
+            var uzivatel = _context.Users.Where(t => t.Id == userId).ToList();
+            var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.Id == uzivatel[0].TPId);
             
             if(uzivatelIdZaznam != null)
             {
@@ -321,9 +314,6 @@ namespace BP_TPWA.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                //foreach (var tpRecord in tpRecords)
-                //{
-                    // Zde můžete pracovat s každým záznamem TP a přistupovat k jeho vlastnostem, včetně User.
                     var ZkontrolovaneDny = uzivatelIdZaznam.ZkontrolovaneDny;
                     if (ZkontrolovaneDny == false)
                     {
@@ -337,9 +327,6 @@ namespace BP_TPWA.Controllers
                             // Přistupujte k vlastnostem záznamu DenVTydnu podle potřeby.
                             denVTydnuRecord.Den = (DayOfWeek)i;
 
-                            //var DenTreninkuVal = denVTydnuRecord.DenTréninku;
-                            //var usrId = tpRecord.User.Id;
-                            //SetDenTréninku(usrId, (DayOfWeek)i, DenTreninkuVal);
                             i++;
                             if (i == 7)
                             {
@@ -513,7 +500,6 @@ namespace BP_TPWA.Controllers
                     }
                 }
                 //mám data tréninkových dnů v listu a teď si budu chctí ten list někam uložit do databáze a vytvořit z něj ty eventy
-                //var treninkoveData = _context.DenTreninku.ToList();
                 var treninkoveData = await _context.DenTreninku
                                 .Where(dt => dt.TPId == uzivatelIdZaznam.Id)
                                 .ToListAsync();
@@ -524,9 +510,9 @@ namespace BP_TPWA.Controllers
                 ViewBag.DenTreninku = treninkoveData;
                 ViewBag.TP = tpInfo;
             }
-                var uzivatel = await _context.Users
-                                .Where(dt => dt.Id == userId)
-                                .ToListAsync();
+                //var uzivatel = await _context.Users
+                //                .Where(dt => dt.Id == userId)
+                //                .ToListAsync();
                 var datacviku = _context.TreninkoveData
                             .Where(id => id.UzivatelId == userId)
                             .ToList();
@@ -586,7 +572,12 @@ namespace BP_TPWA.Controllers
                 // Aktualizace záznamu v tabulce AspNetUsers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Získání ID aktuálně přihlášeného uživatele
                 var currentUser = await _context.Users.FindAsync(userId); // Načtení aktuálního uživatele z databáze
-                currentUser.TPId = tP.Id; // Předpokládá se, že máte v modelu AspNetUsers vlastnost TPId
+                currentUser.TPId = tP.Id;
+                if(currentUser.TreninkovePlany == null)
+                {
+                    currentUser.TreninkovePlany = new List<int>();
+                }
+                currentUser.TreninkovePlany.Add(tP.Id);
 
                 tP.User = currentUser;
                 tP.AktualniVaha = true;
@@ -660,7 +651,7 @@ namespace BP_TPWA.Controllers
         }
 
         // GET: TP/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete1(int? id)
         {
             if (id == null)
             {
@@ -685,12 +676,15 @@ namespace BP_TPWA.Controllers
         {
             var tP = await _context.TP.FindAsync(id);
             
+           
             if (tP != null)
             {
-                _context.TP.Remove(tP);
-            }
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
 
-            await _context.SaveChangesAsync();
+                uzivatelIdZaznam.TPId = null;
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

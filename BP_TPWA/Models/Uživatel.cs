@@ -16,6 +16,21 @@ namespace BP_TPWA.Models
         public int Pohlaví { get; set; }
         public bool PridaneData { get; set; }
         public int? TPId { get; set; }
+        [NotMapped]
+        public List<int>? TreninkovePlany { get; set; }
+
+        [Column("TreninkovyPlany")]
+        public string? TreninkovyPlanySerialized
+        {
+            get => TreninkovePlany != null ? string.Join(",", TreninkovePlany) : null;
+            set
+            {
+                if (value != null && value != "")
+                {
+                    TreninkovePlany = value?.Split(',').Select(int.Parse).ToList();
+                }
+            }
+        }
 
     }
 }
