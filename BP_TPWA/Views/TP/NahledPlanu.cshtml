@@ -8,51 +8,46 @@
 
 <style>
     /* Vlastní CSS styly pro vylepšení vzhledu */
-
-    /* Import Roboto písma z Google Fonts */
-
     /* Základní styly pro tabulku */
     table {
         width: 100%;
         border-collapse: collapse;
         border: 1px solid #ddd;
-        margin: auto; /* Centrování horizontálně */
-        font-family: 'Roboto', sans-serif; /* Použití písma Roboto */
+        margin: auto; 
+        font-family: 'Roboto', sans-serif; 
     }
 
     th, td {
         padding: 8px;
         border: 1px solid #ddd;
-        text-align: center; /* Centrování obsahu v buňkách */
+        text-align: center; 
     }
 
     th {
         background-color: #f2f2f2;
     }
 
-    /* Styly pro zvýraznění hlavičky tabulky */
     h2 {
         font-size: 24px;
         margin-top: 20px;
         margin-bottom: 16px;
-        text-align: center; /* Centrování nadpisu */
-        font-family: 'Roboto', sans-serif; /* Použití písma Roboto */
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
     }
 
     h3 {
         font-size: 18px;
         margin-top: 20px;
         margin-bottom: 12px;
-        text-align: center; /* Centrování nadpisu */
-        font-family: 'Roboto', sans-serif; /* Použití písma Roboto */
+        text-align: center; /
+        font-family: 'Roboto', sans-serif; 
     }
 
-    /* Centrování tabulky vertikálně */
     .table-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Výška obrazovky */
+        height: 100vh; 
     }
 </style>
 
@@ -262,18 +257,14 @@
                 }
             }
         }
-       
-                    
-                    <tr>
-                        <td>@cvik.Název</td>
-                        <td>@cvik.PočtySérií[indexTTP]</td>
-                        <td>@cvik.PočtyOpakování[indexTTP]</td>
-                        <td>@cvik.PauzyMeziSériemi[indexTTP]</td>
-                        <td>@cvik.Partie</td>
-                        <td>@cvik.PopisCviku</td>
-                    </tr>
-                        
-                    
+            <tr>
+                <td>@cvik.Název</td>
+                <td>@cvik.PočtySérií[indexTTP]</td>
+                <td>@cvik.PočtyOpakování[indexTTP]</td>
+                <td>@cvik.PauzyMeziSériemi[indexTTP]</td>
+                <td>@cvik.Partie</td>
+                <td>@cvik.PopisCviku</td>
+            </tr>
     }
         </tbody>
     </table>

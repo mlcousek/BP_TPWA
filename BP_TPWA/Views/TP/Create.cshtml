@@ -10,10 +10,7 @@
 
 
 @{
-    // Získání aktuálně přihlášeného uživatele
     var currentUser = await UserManager.GetUserAsync(User);
-
-    // Získání hodnoty Úroveň
     var uroven = currentUser?.Úroveň;
 }
 
@@ -114,7 +111,6 @@
     <button class="btn btn-dark" onclick="zpetNaVytvorit()">
         Zpět
     </button>
-    @* <a asp-action="Index">Zpět</a> *@
 </div>
 
 @section Scripts {
@@ -125,7 +121,6 @@
             window.location.href = "/TP/Index";
         }
 
-        // Funkce pro automatické zaškrtnutí prvních x checkboxů
         function automatickyZaskrtnoutPrvniCheckboxy(pocet) {
             var checkboxy = document.querySelectorAll('input[type="checkbox"]');
 
@@ -134,22 +129,16 @@
             }
         }
 
-        // Funkce pro automatické zaškrtnutí checkboxů podle vybraného počtu tréninků za týden
         function automatickyZaskrtnoutCheckboxy() {
             var pocetTreninku = parseInt(document.getElementById("PocetTreninkuZaTyden").value);
             var checkboxy = document.querySelectorAll('input[type="checkbox"]');
-
-            // Počet již zaškrtnutých checkboxů
             var pocetZaskrtnutych = 0;
-
-            // Spočítat počet zaškrtnutých checkboxů
             checkboxy.forEach(function (checkbox) {
                 if (checkbox.checked) {
                     pocetZaskrtnutych++;
                 }
             });
 
-            // Zabránit zaškrtnutí dalších checkboxů, pokud je již maximální počet zaškrtnutých
             for (var i = 0; i < checkboxy.length; i++) {
                 if (pocetZaskrtnutych >= pocetTreninku) {
                     checkboxy[i].disabled = !checkboxy[i].checked;
@@ -157,8 +146,6 @@
                     checkboxy[i].disabled = false;
                 }
             }
-
-            // Skrýt tlačítko "Vytvořit", pokud počet zaškrtnutých checkboxů neodpovídá počtu tréninků za týden
             var tlacitkoVytvorit = document.getElementById("tlacitko-vytvorit");
             if (pocetZaskrtnutych !== pocetTreninku) {
                 tlacitkoVytvorit.style.display = "none";
@@ -166,13 +153,10 @@
                 tlacitkoVytvorit.style.display = "block";
             }
         }
-
-        // Nastavení události, která se spustí při změně výběru počtu tréninků za týden
         document.getElementById("PocetTreninkuZaTyden").addEventListener("change", function () {
             automatickyZaskrtnoutCheckboxy();
         });
 
-        // Nastavení události pro checkboxy, které se spustí při jejich změně
         var checkboxy = document.querySelectorAll('input[type="checkbox"]');
         checkboxy.forEach(function (checkbox) {
             checkbox.addEventListener("change", function () {
@@ -180,7 +164,6 @@
             });
         });
 
-        // Automaticky zaškrtnout prvních x checkboxů po načtení stránky
         window.onload = function () {
             var pocetTreninkuZaTyden = parseInt(document.getElementById("PocetTreninkuZaTyden").value);
             automatickyZaskrtnoutPrvniCheckboxy(pocetTreninkuZaTyden);

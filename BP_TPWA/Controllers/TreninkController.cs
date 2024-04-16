@@ -4,10 +4,12 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using BP_TPWA.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace BP_TPWA.Controllers
 {
+    [Authorize]
     public class TreninkController : Controller
     {
         private readonly ApplicationDbContext _context;

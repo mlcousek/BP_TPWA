@@ -10,22 +10,22 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" onsubmit="return validovatFormular()">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CvikId" />
             <div class="form-group">
                 <label asp-for="Název" class="control-label"></label>
-                <input asp-for="Název" class="form-control" />
+                <input asp-for="Název" id="nazevcviku" class="form-control" />
                 <span asp-validation-for="Název" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PopisCviku" class="control-label">Popis cviku</label>
-                <input asp-for="PopisCviku" class="form-control" />
+                <input asp-for="PopisCviku" id="popisek" class="form-control" />
                 <span asp-validation-for="PopisCviku" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
                 <label asp-for="Partie" class="control-label">Partie</label>
-                <input asp-for="Partie" class="form-control" />
+                <input asp-for="Partie" id="partiecviku" class="form-control" />
                 <span asp-validation-for="Partie" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,5 +40,31 @@
 </form>
 
 @section Scripts {
+
+    <script>
+        function validovatFormular() {
+            var nazevcviku = document.getElementById("nazevcviku").value;
+            var partiecviku = document.getElementById("partiecviku").value;
+            var popisek = document.getElementById("popisek").value;
+
+            if (nazevcviku.length < 1 || nazevcviku.length > 200) {
+                alert("Zadejte platný název cviku");
+                return false;
+            }
+
+            if (partiecviku.length < 1 || partiecviku.length > 100) {
+                alert("Zadejte platný název partie cviku");
+                return false;
+            }
+
+            if (popisek.length < 1 || popisek.length > 5000) {
+                alert("Zadejte platný popisek s který má maximálně 5000 znaků.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

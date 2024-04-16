@@ -13,6 +13,5 @@
         monthNamesShort: ['led', 'úno', 'bře', 'dub', 'kvě', 'čer', 'čvc', 'srp', 'zář', 'říj', 'lis', 'pro'],
         dayNames: ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'],
         dayNamesShort: ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'],
-        // Další překlady...
     });
 });

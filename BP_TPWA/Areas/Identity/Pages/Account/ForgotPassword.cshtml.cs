@@ -46,7 +46,8 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Toto pole je povinné.")]
-            [EmailAddress]
+            [StringLength(100, ErrorMessage = "{0} musí být alespoň {2} znaků dlouhé a maximálně {1} znaků dlouhé.", MinimumLength = 5)]
+            [EmailAddress(ErrorMessage = "Zadejte platnou emailovou adresu.")]
             public string Email { get; set; }
         }
 

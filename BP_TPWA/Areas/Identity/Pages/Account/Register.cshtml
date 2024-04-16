@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-md-6">
                     <label asp-for="Input.Věk">Věk</label>
-                    <input asp-for="Input.Věk" class="form-control" autocomplete="věk" aria-required="true" placeholder="Věk" />
+                    <input asp-for="Input.Věk" class="form-control" autocomplete="věk" min="6" max="120" aria-required="true" placeholder="Věk" />
                     <span asp-validation-for="Input.Věk" class="text-danger"></span>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-6">
                     <label asp-for="Input.Výška">Výška (př. 170) (cm)</label>
-                    <input asp-for="Input.Výška" class="form-control" autocomplete="výška" aria-required="true" />
+                    <input asp-for="Input.Výška" class="form-control" autocomplete="výška" aria-required="true" min="100" max="300"/>
                     <span asp-validation-for="Input.Výška" class="text-danger"></span>
                 </div>
             </div>

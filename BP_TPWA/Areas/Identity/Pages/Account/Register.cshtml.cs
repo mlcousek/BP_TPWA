@@ -78,8 +78,9 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [StringLength(100, ErrorMessage = "{0} musí být alespoň {2} znaků dlouhé a maximálně {1} znaků dlouhé.", MinimumLength = 5)]
             [Required (ErrorMessage = "Toto pole je povinné.")]
-            [EmailAddress]
+            [EmailAddress (ErrorMessage = "Zadejte prosím platnou emailovou adresu.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -102,18 +103,24 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Hesla se liší.")]
             public string ConfirmPassword { get; set; }
 
+            [StringLength(100, ErrorMessage = "{0} musí být alespoň {2} znaků dlouhé a maximálně {1} znaků dlouhé.", MinimumLength = 1)]
             [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Jméno")]
             public string Jméno { get; set; }
+            [StringLength(100, ErrorMessage = "{0} musí být alespoň {2} znaků dlouhé a maximálně {1} znaků dlouhé.", MinimumLength = 1)]
             [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Příjmení")]
             public string Příjmení { get; set; }
+            [Range(6, 110, ErrorMessage = "Zadejte platný věk.")]
             [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Věk")]
             public int Věk { get; set; }
+            [Range(100, 300, ErrorMessage = "Zadejte platnou výšku.")]
             [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Výška")]
             public int Výška { get; set; }
+            [RegularExpression(@"^\d+([.]\d+)?$", ErrorMessage = "Zadejte platnou váhu.")]
+            [StringLength(5, ErrorMessage = "Zadejte platnou váhu.")]
             [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Váha")]
             public string Váha { get; set; }

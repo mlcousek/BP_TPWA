@@ -37,14 +37,6 @@ namespace BP_TPWA.Controllers
 
         }
 
-        //public IActionResult Privacy()
-        //{
-        //    var viewName = "Privacy"; // Název pohledu, který chcete renderovat do PDF
-        //    var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName);
-        //    pdf.FileName = "Privacy.pdf";
-        //    return pdf;
-        //}
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

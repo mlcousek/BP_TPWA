@@ -12,15 +12,15 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
-//using Rotativa;
 using Rotativa.AspNetCore;
 using System.Threading.Tasks;
 using Rotativa;
-//using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace BP_TPWA.Controllers
 {
+    [Authorize]
     public class TPController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -41,7 +41,7 @@ namespace BP_TPWA.Controllers
 
                 List<DateTime> dataTréninků = new List<DateTime>();
 
-                DateTime startovacíDatum = DateTime.Now.Date; // Zde nastavte počáteční datum podle potřeby
+                DateTime startovacíDatum = DateTime.Now.Date; 
                 DayOfWeek dnes = startovacíDatum.DayOfWeek;
                 int dnyDoPondeli = (7 + (int)DayOfWeek.Monday - (int)dnes) % 7;
                 startovacíDatum = startovacíDatum.AddDays(dnyDoPondeli);
@@ -57,13 +57,11 @@ namespace BP_TPWA.Controllers
                         }
                         else
                         {
-
                             DateTime datumTréninku = startovacíDatum.AddDays((týden * 7) + (int)denTréninku -1);
                             dataTréninků.Add(datumTréninku);
                         }
                     }
                 }
-
                 return dataTréninků;
             }
         }
@@ -232,7 +230,6 @@ namespace BP_TPWA.Controllers
 
         private string GetTypTreninkuVM(int cislodne)
         {
-            
             if(cislodne == 0)
             {
 
@@ -255,10 +252,8 @@ namespace BP_TPWA.Controllers
         }
         private string GetTypTreninkuPPL(int cislodne)
         {
-            
             if (cislodne == 0)
             {
-
                 return "Push";
             }
             else if (cislodne == 1)
@@ -275,7 +270,6 @@ namespace BP_TPWA.Controllers
 
         private string GetTypTreninkuKR(int cislodne)
         {
-            
             if (cislodne == 0)
             {
                 return "Kruhový trénink 1";
@@ -289,7 +283,6 @@ namespace BP_TPWA.Controllers
                 return "Kruhový trénink 3";
             }
             
-
             return "Chyba";
         }
 
@@ -314,30 +307,28 @@ namespace BP_TPWA.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                    var ZkontrolovaneDny = uzivatelIdZaznam.ZkontrolovaneDny;
-                    if (ZkontrolovaneDny == false)
+                var ZkontrolovaneDny = uzivatelIdZaznam.ZkontrolovaneDny;
+                if (ZkontrolovaneDny == false)
+                {
+                    var denVTydnuRecords = await _context.TP
+                            .Where(tp => tp.Id == uzivatelIdZaznam.Id)
+                            .SelectMany(tp => tp.DnyVTydnu)
+                            .ToListAsync();
+                    var i = 1;
+                    foreach (var denVTydnuRecord in denVTydnuRecords)
                     {
-                        var denVTydnuRecords = await _context.TP
-                                .Where(tp => tp.Id == uzivatelIdZaznam.Id)
-                                .SelectMany(tp => tp.DnyVTydnu)
-                                .ToListAsync();
-                        var i = 1;
-                        foreach (var denVTydnuRecord in denVTydnuRecords)
-                        {
-                            // Přistupujte k vlastnostem záznamu DenVTydnu podle potřeby.
-                            denVTydnuRecord.Den = (DayOfWeek)i;
+                        denVTydnuRecord.Den = (DayOfWeek)i;
 
-                            i++;
-                            if (i == 7)
-                            {
-                                i = 0;
-                            }
+                        i++;
+                        if (i == 7)
+                        {
+                            i = 0;
                         }
-                         uzivatelIdZaznam.ZkontrolovaneDny = true;
                     }
+                        uzivatelIdZaznam.ZkontrolovaneDny = true;
+                }
                 
-                    await _context.SaveChangesAsync();
-               // }
+                await _context.SaveChangesAsync();
             }
 
             if(uzivatelIdZaznam != null)
@@ -346,7 +337,6 @@ namespace BP_TPWA.Controllers
                             .Where(tp => tp.Id == uzivatelIdZaznam.Id)
                             .SelectMany(tp => tp.DnyVTydnu)
                             .ToListAsync();
-                //  var denVTydnuRecords = await _context.DenVTydnu.ToListAsync();
                 DayOfWeek[] dnyTréninku = new DayOfWeek[uzivatelIdZaznam.PocetTreninkuZaTyden];
                 int i = 0;
                 foreach (var denVTydnuRecord in denVTydnuRecords)
@@ -358,10 +348,7 @@ namespace BP_TPWA.Controllers
                     }
                 }
 
-                
-
                 List<DateTime> dataTréninkovýchDnů = GeneratorTréninkovýchDat.VytvářeníDatumůTréninku(uzivatelIdZaznam.PocetTreninkuZaTyden, uzivatelIdZaznam.Délka * 4, dnyTréninku);
-                //Model.DataTreninkovychDnu = dataTréninkovýchDnů;
                 var typTreninku = "";
                 var typTreninkuZkratka = "";
 
@@ -483,10 +470,8 @@ namespace BP_TPWA.Controllers
                                 _context.DenTreninku.Add(treninkoveDataEntita);
                                 typTreninkuCislo++;
                             }
-                            // Vytvořte nový záznam v databázi pro každé datum tréninku
                         }
 
-                        // Uložte změny do databáze
                         await _context.SaveChangesAsync();
                         uzivatelIdZaznam.UlozenaDataDnu = true;
                         await _context.SaveChangesAsync();
@@ -499,7 +484,6 @@ namespace BP_TPWA.Controllers
                          BadRequest($"Chyba při ukládání dat: {ex.Message}");
                     }
                 }
-                //mám data tréninkových dnů v listu a teď si budu chctí ten list někam uložit do databáze a vytvořit z něj ty eventy
                 var treninkoveData = await _context.DenTreninku
                                 .Where(dt => dt.TPId == uzivatelIdZaznam.Id)
                                 .ToListAsync();
@@ -510,39 +494,14 @@ namespace BP_TPWA.Controllers
                 ViewBag.DenTreninku = treninkoveData;
                 ViewBag.TP = tpInfo;
             }
-                //var uzivatel = await _context.Users
-                //                .Where(dt => dt.Id == userId)
-                //                .ToListAsync();
                 var datacviku = _context.TreninkoveData
                             .Where(id => id.UzivatelId == userId)
                             .ToList();
 
-            // var tpInfo = _context.TP.ToList();
             ViewBag.Uzivatel = uzivatel;
             ViewBag.Datacviku = datacviku;
 
             return View(await applicationDbContext.ToListAsync());
-        }
-
-       
-
-        // GET: TP/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tP = await _context.TP
-                .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tP == null)
-            {
-                return NotFound();
-            }
-
-            return View(tP);
         }
 
         // GET: TP/Create
@@ -570,8 +529,8 @@ namespace BP_TPWA.Controllers
                 await _context.SaveChangesAsync();
 
                 // Aktualizace záznamu v tabulce AspNetUsers
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Získání ID aktuálně přihlášeného uživatele
-                var currentUser = await _context.Users.FindAsync(userId); // Načtení aktuálního uživatele z databáze
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+                var currentUser = await _context.Users.FindAsync(userId); 
                 currentUser.TPId = tP.Id;
                 if(currentUser.TreninkovePlany == null)
                 {
@@ -589,63 +548,6 @@ namespace BP_TPWA.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["UzivatelID"] = new SelectList(_context.Users, "Id", "Id", tP.UzivatelID);
-            return View(tP);
-        }
-
-        // GET: TP/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tP = await _context.TP.FindAsync(id);
-            if (tP == null)
-            {
-                return NotFound();
-            }
-            ViewData["UzivatelID"] = new SelectList(_context.Users, "Id", "Id", tP.UzivatelID);
-            return View(tP);
-        }
-
-        // POST: TP/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Délka,DruhTP,StylTP,PocetTreninkuZaTyden,DnyVTydnu,UzivatelID")] TP tP)
-        {
-            if (id != tP.Id)
-            {
-                return NotFound();
-            }
-            if (ModelState.ContainsKey("User"))
-            {
-                ModelState.Remove("User");
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tP);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TPExists(tP.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
             ViewData["UzivatelID"] = new SelectList(_context.Users, "Id", "Id", tP.UzivatelID);
             return View(tP);
         }
@@ -718,10 +620,8 @@ namespace BP_TPWA.Controllers
                 }
                 else
                 {
-                    // Něco provedete, když se nepodaří převést řetězec na double
                     return BadRequest("Nepodařilo se převést váhu na desetinné číslo.");
                 }
-
             }
 
             return View(vaha);
@@ -754,8 +654,6 @@ namespace BP_TPWA.Controllers
 
             return pdf;
         }
-
-    
 
         public async Task<IActionResult> NahledPlanuDny()
         {
@@ -931,7 +829,6 @@ namespace BP_TPWA.Controllers
             {
                 return "Mrtvý tah bez závaží,Mrtvý tah,Shyby nadhmatem,Stahování tyče na stroji před hlavu - vertikálně,Přitahování tyče na stroji - horizontálně,Přitahování tyče ve stoje,Bicepsové přítahy jednoruček,Bicepsové přítahy obouručky,Bicepsové přítahy na stroji";
             }
-
 
             return null;
         }

@@ -34,6 +34,7 @@
 </div>
 
 <p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
+<p>(Hodnoty odpočinku brát orientačně.)</p>
 
 <div id="kontejner-cviku"></div>
 
@@ -114,10 +115,9 @@
     // Získání dnešního data
     var dnes = new Date();
     var dd = String(dnes.getDate()).padStart(2, '0');
-    var mm = String(dnes.getMonth() + 1).padStart(2, '0'); // Leden je 0!
+    var mm = String(dnes.getMonth() + 1).padStart(2, '0'); 
     var yyyy = dnes.getFullYear();
     var dnesDatum = yyyy + '-' + mm + '-' + dd;
-
 
     var cvikId;
 
@@ -130,7 +130,7 @@
     var dateStringShort = dateString.substring(0, 10);
 
 
-    if (dnesDatum <= dateStringShort) {      ////////////////////////// <=
+    if (dnesDatum <= dateStringShort) {      
         document.getElementById('uzivatelVahaFormular').style.display = 'none';
     }
 
@@ -152,7 +152,7 @@
     var aktualniUzivatel = @Html.Raw(Json.Serialize(ViewBag.uzivatel));
 
     var filteredData = datacviku.filter(function (entry) {
-        var cvikDate = new Date(entry.datum); // Převést řetězec na datum
+        var cvikDate = new Date(entry.datum); 
 
         return cvikDate.getFullYear() === dateFromUrl.getFullYear() &&
             cvikDate.getMonth() === dateFromUrl.getMonth() &&
@@ -612,7 +612,6 @@ function submitFeedback() {
                                 location.reload(true);
                     },
                     error: function (xhr, status, error) {
-                        console.log("chyba");
                     }
                 });
             }
@@ -646,7 +645,6 @@ function submitFeedback() {
                     location.reload(true);
                 },
                 error: function (xhr, status, error) {
-                    console.log("chyba");
                 }
             });
         } else {
@@ -691,7 +689,6 @@ function submitFeedback() {
 
         // KONEC CASTI CO FUNGUJE A TESTUJU JI
 
-// Zobrazení počátečních polí pro sérii při načtení stránky
         renderSeriesFields();
 </script> 
 

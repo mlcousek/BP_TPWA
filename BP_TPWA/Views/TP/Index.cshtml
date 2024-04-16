@@ -2,10 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-
-
 }
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -19,7 +16,6 @@
 
 <h1>Tréninkový plán</h1>
 
-
 <button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark mb-3">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,7 +28,6 @@
             <div class="modal-body">
                 <p id="modalContent">Zadejte aktuální váhu (kg) (př.: 82,3)</p>
                 <div id="serieFormular" class="form-group">
-                  @*   <label for="series">Zadejte aktuální váhu:</label> *@
                     <input type="number" class="form-control" id="vaha" min="0" max="0" value="0">
                 </div>
                 <div class="modal-footer">
@@ -107,7 +102,6 @@
     var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
     var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
 
-
     var nejpozdejsiDatum = null;
 
     for (var i = 0; i < treninkoveData.length; i++) {
@@ -116,9 +110,6 @@
             nejpozdejsiDatum = datum; 
         }
     }
-
-       
-
 
     function smazatTP() {
         window.location.href = "/TP/Delete1?id=" + uzivatelData[0].tpId;
@@ -134,7 +125,7 @@
 
         var dnes = new Date();
 
-        if (dnes >= nejpozdejsiDatum) {     ///////////////// MUSI BYT >=
+        if (dnes >= nejpozdejsiDatum) {     
                 vytvoritTP.style.display = 'block';
         }
 
@@ -152,15 +143,13 @@
                 var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
                     keyboard: false
                 });
-                myModal.show(); // Zobrazení modálního okna pomocí Bootstrap
+                myModal.show(); 
 
-                // Zavřít modální okno při kliknutí na ikonu zavřít (X)
                 var closeBtn = modal.querySelector(".btn-close");
                 closeBtn.onclick = function () {
                     $('#myModal').modal('hide')
                 }
 
-                // Zavřít modální okno při kliknutí mimo modální okno
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         $('#myModal').modal('hide');
@@ -169,219 +158,187 @@
          }
 
 
-            console.log(tpInfo);
-            console.log(treninkoveData);
-            var delkaTD = treninkoveData.length;
-            var eventy = [];
+        var delkaTD = treninkoveData.length;
+        var eventy = [];
 
 
 
-            // Přidání dat do pole events
-            for (var i = 0; i < delkaTD; i++) {
-                var barva;
-                switch (treninkoveData[i].typTreninku) {
-                    case "Nohy":
-                        barva = "#333333";
-                        break;
-                    case "Ramena + Biceps":
-                        barva = "#555555";
-                        break;
-                    case "Záda":
-                        barva = "#777777";
-                        break;
-                    case "Hrudník + triceps":
-                        barva = "#999999";
-                        break;
-                    case "Kruhový trénink 1":
-                        barva = "#333333";
-                        break;
-                    case "Kruhový trénink 2":
-                        barva = "#555555";
-                        break;
-                    case "Kruhový trénink 3":
-                        barva = "#777777";
-                        break;
-                    case "Kruhový trénink 4":
-                        barva = "#999999";
-                        break;
-                    case "Legs":
-                        barva = "#333333";
-                        break;
-                    case "Push":
-                        barva = "#555555";
-                        break;
-                    case "Pull":
-                        barva = "#777777";
-                        break;
-                    // Přidat další případy pro další typy tréninků a jejich barvy
-                    default:
-                        barva = "gray"; // Výchozí barva pro ostatní typy tréninků
+        // Přidání dat do pole events
+        for (var i = 0; i < delkaTD; i++) {
+            var barva;
+            switch (treninkoveData[i].typTreninku) {
+                case "Nohy":
+                    barva = "#555555";
+                    break;
+                case "Ramena + Biceps":
+                    barva = "#333333"; 
+                    break;
+                case "Záda":
+                    barva = "#999999";
+                    break;
+                case "Hrudník + triceps": 
+                    barva = "#777777";
+                break;
+                case "Kruhový trénink 1":
+                    barva = "#333333";
+                    break;
+                case "Kruhový trénink 2":
+                    barva = "#555555";
+                    break;
+                case "Kruhový trénink 3":
+                    barva = "#777777";
+                    break;
+                case "Kruhový trénink 4":
+                    barva = "#999999";
+                    break;
+                case "Legs":
+                    barva = "#333333";
+                    break;
+                case "Push":
+                    barva = "#555555";
+                    break;
+                case "Pull":
+                    barva = "#777777";
+                    break;
+                default:
+                    barva = "gray"; 
 
-                }
-                    var idCvikuVPlanu = []; // Pole pro uchování cviků plánovaných pro tento trénink
-                    var dobre = 1;
-                    // Získání všech cviků plánovaných pro tento trénink
-                    datacviku.forEach(function (zaznam) {
-                        if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) {
-                            if (!idCvikuVPlanu.includes(zaznam.cvikId)) {
-                                idCvikuVPlanu.push(zaznam.cvikId);
-                            }
-                        }
-                    });
-                    var cvikIdecka = treninkoveData[i].cviky.map(cvik => cvik.cvikId);
-                    cvikIdecka = cvikIdecka.sort((a, b) => a - b);
-                    idCvikuVPlanu = idCvikuVPlanu.sort((a, b) => a - b);
-
-                    if (idCvikuVPlanu.length === cvikIdecka.length) {
-                        // Provést požadovanou akci
-                        for (let i = 0; i < idCvikuVPlanu.length; i++) {
-                            if (idCvikuVPlanu[i] === cvikIdecka[i]) {
-
-                            } else {
-                                dobre = 0;
-                            }
-                        }
-                        if (dobre === 1) {
-                            barva = "#17E683";
-                        }
-                    }
-
-                    eventy[i] = {
-                        title: treninkoveData[i].typTreninku,
-                        start: treninkoveData[i].datumTreninku,
-                        allDay: true,
-                        color: barva,
-                        className: moment(treninkoveData[i].datumTreninku).format("YYYY-MM-DD")
-                    };
             }
-    
-    $(document).ready(function () {
+            var idCvikuVPlanu = []; 
+            var dobre = 1;
+            datacviku.forEach(function (zaznam) {
+                if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) {
+                    if (!idCvikuVPlanu.includes(zaznam.cvikId)) {
+                        idCvikuVPlanu.push(zaznam.cvikId);
+                    }
+                }
+            });
+            var cvikIdecka = treninkoveData[i].cviky.map(cvik => cvik.cvikId);
+            cvikIdecka = cvikIdecka.sort((a, b) => a - b);
+            idCvikuVPlanu = idCvikuVPlanu.sort((a, b) => a - b);
 
-   
+            if (idCvikuVPlanu.length === cvikIdecka.length) {
+                for (let i = 0; i < idCvikuVPlanu.length; i++) {
+                    if (idCvikuVPlanu[i] === cvikIdecka[i]) {
 
-        function changeEventColor(event, color) {
-            event.css("background-color", color);
+                    } else {
+                        dobre = 0;
+                    }
+                }
+                if (dobre === 1) {
+                    barva = "#17E683";
+                }
+            }
+
+            eventy[i] = {
+                title: treninkoveData[i].typTreninku,
+                start: treninkoveData[i].datumTreninku,
+                allDay: true,
+                color: barva,
+                className: moment(treninkoveData[i].datumTreninku).format("YYYY-MM-DD")
+            };
         }
+    
+        $(document).ready(function () {
+            function changeEventColor(event, color) {
+                event.css("background-color", color);
+            }
 
-        $('#calendar').fullCalendar({
-            locale: 'cs',
-            header: {
-                left: 'prev, next today',
-                center: 'title',
-                right: 'month, basicWeek, basicDay'
-            },
-            defaultView: 'month',
-            eventClick: function (event) {
-                // Přesměrování na jinou stránku po kliknutí na událost
-                        var viewName = event.title.replace(' + ', '_').replace(' ', '_')
-                        var dateParam = moment(event.start).format("YYYY-MM-DD");
-                        window.location.href = '/Trenink/Trenink?date=' + dateParam; // Změňte URL podle vašich potřeb
-                        // window.location.href = '/' + tpInfo[0].druhTP + tpInfo[0].stylTP + '/Trenink?date=' + dateParam; // Změňte URL podle vašich potřeb
-                        // window.location.href = '/' + tpInfo[0].druhTP + tpInfo[0].stylTP + '/' + viewName + '?date=' + dateParam; // Změňte URL podle vašich potřeb
-            },
-            eventMouseover: function (event, jsEvent, view) {
-                // Změna barvy při najetí myši
-                        changeEventColor($(this), "#859199"); // Změňte barvu podle potřeby
-            },
-            eventMouseout: function (event, jsEvent, view) {
-                // Vrácení původní barvy po opuštění myši
-                changeEventColor($(this), event.color); // Vrácení původní barvy
-            },
-            events: eventy,
-            firstDay: 1
-        
+            $('#calendar').fullCalendar({
+                locale: 'cs',
+                header: {
+                    left: 'prev, next today',
+                    center: 'title',
+                    right: 'month, basicWeek, basicDay'
+                },
+                defaultView: 'month',
+                eventClick: function (event) {
+                            var viewName = event.title.replace(' + ', '_').replace(' ', '_')
+                            var dateParam = moment(event.start).format("YYYY-MM-DD");
+                            window.location.href = '/Trenink/Trenink?date=' + dateParam; 
+                },
+                eventMouseover: function (event, jsEvent, view) {
+                            changeEventColor($(this), "#859199"); 
+                },
+                eventMouseout: function (event, jsEvent, view) {
+                    changeEventColor($(this), event.color); 
+                },
+                events: eventy,
+                firstDay: 1
+            }
+            )
         }
         )
-    }
-    )
 
-    function odeslatZpetnouVazbu() {
-        var novaVaha = document.getElementById("vaha").value;
-        console.log(novaVaha);
-        console.log(staraVaha);
-        var dataVPohode = 1;
-        if (novaVaha >= staraVaha) {
-            if (novaVaha - 11 > staraVaha) {
-                dataVPohode = 0;
+        function odeslatZpetnouVazbu() {
+            var novaVaha = document.getElementById("vaha").value;
+            console.log(novaVaha);
+            console.log(staraVaha);
+            var dataVPohode = 1;
+            if (novaVaha >= staraVaha) {
+                if (novaVaha - 11 > staraVaha) {
+                    dataVPohode = 0;
+                }
+            } else {
+                if (novaVaha + 11 > staraVaha) {
+                    dataVPohode = 0;
+                }
             }
-        } else {
-            if (novaVaha + 11 > staraVaha) {
-                dataVPohode = 0;
+            if (dataVPohode === 0) {
+                alert("Zadejte prosím pravdivé údaje.");
+            }
+
+            if (dataVPohode === 1) {
+
+                var vahaData = [];
+                vahaData.push({
+                            Váha: novaVaha.toString()
+                });
+
+                console.log(vahaData[0].Váha);
+
+                $.ajax({
+                    url: '/TP/AktualizaceVahy',
+                    type: 'POST',
+                    data: vahaData[0],
+
+                    success: function (response) {
+                        location.reload(true);
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
             }
         }
-        if (dataVPohode === 0) {
-            alert("Zadejte prosím pravdivé údaje.");
-        }
 
-        if (dataVPohode === 1) {
-
-            var vahaData = [];
-            vahaData.push({
-                        Váha: novaVaha.toString()
-            });
-
-            console.log(vahaData[0].Váha);
-
+        function generovatPDF1() {
             $.ajax({
-                url: '/TP/AktualizaceVahy',
-                type: 'POST',
-                // contentType: 'application/json',
-                data: vahaData[0],
-
+                url: '/TP/PDFView',
+                type: 'GET',
                 success: function (response) {
-                    // Zde můžete zpracovat odpověď od serveru, pokud je to potřeba
-                    console.log("osssss");
-                    location.reload(true);
                 },
                 error: function (xhr, status, error) {
-                    // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-                    console.log("chyba");
                 }
             });
         }
-    }
 
-    function generovatPDF1() {
-        $.ajax({
-            url: '/TP/PDFView',
-            type: 'GET',
-            success: function (response) {
-                console.log("oss");
-            },
-            error: function (xhr, status, error) {
-                // Zde můžete zpracovat chyby, které se vyskytnou při odesílání dat na server
-                console.log("chyba p5i generovani ");
-            }
-        });
-    }
+        function generovatPDF() {
+                    window.location.href = "/TP/PDFView";
+        }
 
-    function generovatPDF() {
-                window.location.href = "/TP/PDFView";
-    }
+        function downloadPDF(pdfData) {
+            var blob = new Blob([pdfData], { type: 'application/pdf' });
+            var url = window.URL.createObjectURL(blob);
 
-    // Funkce pro stahování PDF
-    function downloadPDF(pdfData) {
-        // Vytvoříme nový objekt Blob ze získaných dat PDF
-        var blob = new Blob([pdfData], { type: 'application/pdf' });
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Tréninkový_plán.pdf'; 
+            document.body.appendChild(a);
 
-        // Vytvoříme URL objektu Blob
-        var url = window.URL.createObjectURL(blob);
-
-        // Vytvoříme nový odkaz na URL objektu Blob
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = 'Tréninkový_plán.pdf'; // Nastavíme jméno souboru pro stahování
-        document.body.appendChild(a);
-
-        // Simulujeme kliknutí na odkaz pro spuštění stahování
-        a.click();
-
-        // Po dokončení stahování odstraníme odkaz
-        window.URL.revokeObjectURL(url);
-    }
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
     }
 
 </script> 
-
-
 }

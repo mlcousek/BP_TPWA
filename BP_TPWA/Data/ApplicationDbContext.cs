@@ -25,13 +25,6 @@ namespace BP_TPWA.Data
                 .HasMany(tp => tp.DnyVTydnu)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
-
-            //modelBuilder.Entity<Cvik>()
-            //            .HasOne(c => c.Uzivatel)
-            //            .WithOne()
-            //            //.HasForeignKey(c => c.UzivatelId) // Specifikace cizího klíče
-            //            .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

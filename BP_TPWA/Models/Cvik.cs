@@ -19,7 +19,6 @@ namespace BP_TPWA.Models
             get => PočtyOpakování != null ? string.Join(".", PočtyOpakování) : null;
             set => PočtyOpakování = value?.Split('.').ToList();
         }
-        //public string PočetOpakování { get; set; }
         [NotMapped]
         public List<int>? PočtySérií { get; set; }
 
@@ -27,7 +26,6 @@ namespace BP_TPWA.Models
         public string? PočetSériíSerialized
         {
             get => PočtySérií != null ? string.Join(",", PočtySérií) : null;
-            //set => PočtySérií = value?.Split(',').Select(int.Parse).ToList();
             set
             {
                 if (value != null && value != "")
@@ -36,7 +34,6 @@ namespace BP_TPWA.Models
                 }
             }
         }
-        //public int PočetSérií { get; set; }
         [NotMapped]
         public List<int>? PauzyMeziSériemi { get; set; }
 
@@ -44,7 +41,6 @@ namespace BP_TPWA.Models
         public string? PauzaMeziSériemiSerialized
         {
             get => PauzyMeziSériemi != null ? string.Join(",", PauzyMeziSériemi) : null;
-            //set => PauzyMeziSériemi = value?.Split(',').Select(int.Parse).ToList();
             set
             {
                 if (value != null && value != "")
@@ -53,14 +49,13 @@ namespace BP_TPWA.Models
                 }
             }
         }
-        //public int PauzaMeziSériemi { get; set; }
+
         public string Partie {  get; set; }
 
         public string? PopisCviku { get; set; }
         [NotMapped]
         public List<string>? TypyTreninku { get; set; }
 
-        // Sloupec pro ukládání JSON reprezentace seznamu typů tréninků
         [Column("TypTreninku")]
         public string? TypTreninkuSerialized
         {

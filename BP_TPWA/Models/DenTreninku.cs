@@ -10,25 +10,21 @@ namespace BP_TPWA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         [Display(Name = "Datum tréninku")]
         public DateTime DatumTreninku { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         public string TypTreninku { get; set; }
 
-        // Cizí klíč od TP
         public int TPId { get; set; }
 
-        // Navigační vlastnost pro vztah s TP
         [ForeignKey("TPId")]
         public TP TP { get; set; }
 
-        // Seznam cviků pro tento den tréninku (serializovaný jako JSON)
         [NotMapped]
         public List<Cvik> Cviky { get; set; }
 
-        // Sloupec pro ukládání JSON reprezentace seznamu cviků
         [Column("Cviky")]
         public string CvikySerialized
         {

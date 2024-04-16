@@ -14,19 +14,19 @@ namespace BP_TPWA.Models
         public string DruhTP { get; set; }
         public string StylTP { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         [Display(Name = "Počet tréninků za týden")]
         public int PocetTreninkuZaTyden { get; set; }
 
         [JsonIgnore]
-        [Required]
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         [Display(Name = "Dny v týdnu")]
         public List<DenVTydnu> DnyVTydnu { get; set; }
 
         [ForeignKey("UzivatelID")]
         public Uzivatel User { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         public string UzivatelID { get; set; }
 
         public bool ZkontrolovaneDny {  get; set; }

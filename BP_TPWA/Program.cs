@@ -16,11 +16,6 @@ builder.Services.AddDefaultIdentity<Uzivatel>(options => options.SignIn.RequireC
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddRotativa();
-//var rotativaPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages", "rotativa", "1.7.3", "content");
-//RotativaConfiguration.Setup(rotativaPath);
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

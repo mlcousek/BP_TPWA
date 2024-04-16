@@ -10,15 +10,9 @@ namespace BP_TPWA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         public DayOfWeek Den { get; set; }
         public Boolean DenTréninku { get; set; }
-        //[ForeignKey("TP")]
-        //public int TPId { get; set; }
-        //[JsonIgnore]
-        //public TP TP { get; set; }
-
-
     }
     public static class PomocnikSDaty
     {

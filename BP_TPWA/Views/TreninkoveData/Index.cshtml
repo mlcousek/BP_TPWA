@@ -9,19 +9,15 @@
 <h1>Přehled odcvičených dat</h1>
 <p class="pridejData">Zatím jsi nezapsal žádné data!</p>
 
-
-
-<div id="buttons"></div> <!-- Kontejner pro tlačítka -->
+<div id="buttons"></div> 
 <div id="tlacitka"></div>
 <div id="info"></div>
-
-
-<div id="charts"></div> <!-- Kontejner pro grafy -->
-<div id="chartswsum"></div> <!-- Kontejner pro grafy -->
+<div id="charts"></div> 
+<div id="chartswsum"></div> 
 
 <style>
     .btn-spacing {
-        margin-right: 1em; /* Pravá mezera mezi tlačítky */
+        margin-right: 1em; 
         margin-bottom: 1em;
     }
 </style>
@@ -247,7 +243,6 @@
                 var prumernaVaha = (prumVahy.reduce((acc, val) => acc + val, 0) / prumVahy.length).toFixed(2);
                 var sumaVsechVah = sumaVah.reduce((acc, val) => acc + val, 0);
 
-            
                 // Vytvoření HTML obsahu informačního kontejneru s přidanými daty
                 infoContainer.innerHTML = `
                     <p>Nejvyšší cvičená váha: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</p>
@@ -356,13 +351,11 @@
 
         //vytvoření tech divu
         Object.keys(grafy).forEach(function (kategorie) {
-            //var containerId = 'buttons' + index; // Vytvoření id pro každý kontejner
             var container = document.createElement('div');
             container.id = tlacitkoText(kategorie) + 'butt';
 
             existingContainer.appendChild(container);
         });
-
 
         // Vytvoření tlačítek pro každý prvek v objektu grafy
         Object.keys(grafy).forEach(function (kategorie) {
@@ -371,7 +364,6 @@
             button.textContent = tlacitkoText(kategorie);
             button.classList.add('btn', 'btn-dark', 'btn-spacing');
             button.addEventListener('click', function () {
-                // Zde můžete přidat kód pro zobrazení příslušného grafu
                 var kliknuteTlacitkoId = this.id;
                 Object.keys(grafy).forEach(function (kategorie) {
                     var containerId = tlacitkoText(kategorie) + 'butt';
@@ -382,7 +374,6 @@
                         container.style.display = 'none';
                     }
                 });
-                //idtlacitka nak tere kliknul 
             });
             document.getElementById('buttons').appendChild(button);
         });
@@ -413,35 +404,28 @@
         }
 
         var i = 0;
-        //var uniqueCviky = []; // Pole pro uchování unikátních cviků
-
         Object.keys(grafy).forEach(function (kategorie) {
             var uniqueCviky = [];
             Object.keys(grafy[kategorie]).forEach(function (cvik) {
                 var nazevCviku = grafy[kategorie][cvik].cvik.název;
                 var idCviku = grafy[kategorie][cvik].cvikId;
 
-                // Zkontrolovat, zda cvik již není v poli uniqueCviky
                 if (!uniqueCviky.includes(nazevCviku)) {
-                    uniqueCviky.push(nazevCviku); // Přidat cvik do pole unikátních cviků
+                    uniqueCviky.push(nazevCviku); 
 
                     var button = document.createElement('button');
                     button.id = tlacitkoText(kategorie);
                     button.textContent = nazevCviku;
                     button.classList.add('btn', 'btn-light', 'btn-spacing');
                     button.addEventListener('click', function () {
-                        // Zde můžete přidat kód pro zobrazení příslušného grafu
-                        console.log('Graf pro cvik: ' + nazevCviku + ' a id:' + idCviku);
                         var chartsDiv1 = document.getElementById('charts');
                         var chartsDivwsum1 = document.getElementById('chartswsum');
                         var infoDiv1 = document.getElementById('info');
 
-                        // Najděte všechny prvky s třídou 'chart-container' v rámci <div id="charts">
                         var chartContainers1 = chartsDiv1.getElementsByClassName('chart-container');
                         var chartContainerswsum1 = chartsDivwsum1.getElementsByClassName('chart-containerwsum');
                         var infoContainers1 = infoDiv1.getElementsByClassName('info-container');
 
-                        // Projděte všechny nalezené prvky a nastavte jejich styl display na 'none'
                         for (var i = 0; i < chartContainers.length; i++) {
                             chartContainers1[i].style.display = 'none';
                             chartContainerswsum1[i].style.display = 'none';
@@ -453,8 +437,6 @@
                         graf.style.display = 'block';
                         grafwsum.style.display = 'block';
                         info.style.display = 'block';
-
-
                     });
                     document.getElementById(tlacitkoText(kategorie) + 'butt').appendChild(button);
                 }
@@ -470,22 +452,18 @@
             }
         });
 
-        // Najděte element <div id="charts">
         var chartsDiv = document.getElementById('charts');
         var chartsDivwsum = document.getElementById('chartswsum');
         var infoDiv = document.getElementById('info');
 
-        // Najděte všechny prvky s třídou 'chart-container' v rámci <div id="charts">
         var chartContainers = chartsDiv.getElementsByClassName('chart-container');
         var chartContainerswsum = chartsDivwsum.getElementsByClassName('chart-containerwsum');
         var infoContainers = infoDiv.getElementsByClassName('info-container');
 
-        // Projděte všechny nalezené prvky a nastavte jejich styl display na 'none'
         for (var i = 0; i < chartContainers.length; i++) {
             chartContainers[i].style.display = 'none';
             chartContainerswsum[i].style.display = 'none';
             infoContainers[i].style.display = 'none';
         }
     }
-
 </script>

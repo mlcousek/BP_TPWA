@@ -17,11 +17,6 @@ namespace BP_TPWA.Models
         public int PocetOpakovani { get; set; }
         public int CvicenaVaha { get; set; }
 
-        //// Kaskádové mazání pro vztah s tabulkou Uzivatel
-        //[ForeignKey("UzivatelId")]
-        //public virtual Uzivatel Uzivatel { get; set; }
-
-       // Kaskádové mazání pro vztah s tabulkou Cvik
        [ForeignKey("CvikId")]
         public virtual Cvik Cvik { get; set; }
     }

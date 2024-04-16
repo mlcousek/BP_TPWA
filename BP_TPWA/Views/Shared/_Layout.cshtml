@@ -8,7 +8,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BP_TPWA</title>
-@*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css" media="print" />
     <link rel="stylesheet" href="~/css/MojeCSSSablona.css"/>
@@ -19,10 +18,7 @@
 </head>
 
 @{
-    // Získání aktuálního controlleru
     string controllerName = ViewContext.RouteData.Values["controller"]?.ToString();
-
-    // Získání aktuální akce (action)
     string actionName = ViewContext.RouteData.Values["action"]?.ToString();
 }
 
@@ -69,14 +65,12 @@
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TreninkoveData" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="TreninkoveData" asp-action="Index">Přehled dat</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TreninkoveData" && ViewContext.RouteData.Values["Action"].ToString() == "Maximalky" ? "active" : "")" asp-area="" asp-controller="TreninkoveData" asp-action="Maximalky">Maximálky</a>
                                     </li>
-                                    @* <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
-                        </li> *@
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
+                                    </li>
+                                    
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                         <div class="dropdown-menu">
@@ -106,14 +100,10 @@
                             <div class="collapse navbar-collapse" id="navbarColor02">
                                 <ul class="navbar-nav me-auto">
                                     <li class="nav-item">
-                                       @*  <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                            Domů
-                                            <span class="visually-hidden">(current)</span>
-                                        </a> *@
+                                      
                                     </li>
 
                                     <li class="nav-item">
-                                       @*  <a class="nav-link" href="#">Features</a> *@
                                     </li>
                                 </ul>
                                 <partial name="_LoginPartial" />
@@ -151,14 +141,12 @@
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TreninkoveData" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="TreninkoveData" asp-action="Index">Přehled dat</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TreninkoveData" && ViewContext.RouteData.Values["Action"].ToString() == "Maximalky" ? "active" : "")" asp-area="" asp-controller="TreninkoveData" asp-action="Maximalky">Maximálky</a>
                                     </li>
-                                    @* <li class="nav-item">
-                                        <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
-                                    </li> *@
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
+                                    </li>
+                                    
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                         <div class="dropdown-menu">
@@ -188,14 +176,10 @@
                             <div class="collapse navbar-collapse" id="navbarColor02">
                                 <ul class="navbar-nav me-auto">
                                     <li class="nav-item">
-                                        @* <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                            Domů
-                                            <span class="visually-hidden">(current)</span>
-                                        </a> *@
+                                        
                                     </li>
 
                                     <li class="nav-item">
-                                        @* <a class="nav-link" href="#">Features</a> *@
                                     </li>
                                 </ul>
                                 <partial name="_LoginPartial" />
@@ -233,14 +217,12 @@
                                 <a class="nav-link" asp-area="" asp-controller="TreninkoveData" asp-action="Index">Přehled dat</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="TreninkoveData" asp-action="Maximalky">Maximálky</a>
                             </li>
-                            @* <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
-                    </li> *@
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
+                            </li>
+                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                 <div class="dropdown-menu">
@@ -270,14 +252,10 @@
                     <div class="collapse navbar-collapse" id="navbarColor02">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                @* <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                    Domů
-                                    <span class="visually-hidden">(current)</span>
-                                </a> *@
+                               
                             </li>
 
                             <li class="nav-item">
-                                @* <a class="nav-link" href="#">Features</a> *@
                             </li>
                         </ul>
                         <partial name="_LoginPartial" />
@@ -287,89 +265,6 @@
         }
     </header>
 }
-
-
-
-
-
-
-@*     <header>
-        @if (SignInManager.IsSignedIn(User)){
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                Domů
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="TP" asp-action="Index">Tréninkový plán</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="TreninkoveData" asp-action="Index">Přehled dat</a>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="TP" asp-action="OfflineNahled">Získat oflline náhled</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-        } else{
-            <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarColor02">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                    Domů
-                                    <span class="visually-hidden">(current)</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
-                            </li>
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </nav>
-        }
-    </header> *@
-@*     @{
-        // Získání aktuálního controlleru
-        string controllerName = ViewContext.RouteData.Values["controller"]?.ToString();
-
-        // Získání aktuální akce (action)
-        string actionName = ViewContext.RouteData.Values["action"]?.ToString();
-    } *@
-
     @if (!string.IsNullOrEmpty(controllerName) && !string.IsNullOrEmpty(actionName))
     {
         if (controllerName == "Home" && actionName == "Index" && SignInManager.IsSignedIn(User))
@@ -436,10 +331,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @* <script src="~/lib/jquery-validation/dist/messages_cs.js" ></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
