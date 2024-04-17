@@ -66,167 +66,169 @@ namespace BP_TPWA.Controllers
             }
         }
 
-       private string GetTypTreninkuZkratka(TP TP, string typTreninku)
-       {
-            if (TP.DruhTP == "BSH")
+        public static class TypTreninkuHelper
+        {
+            public static string GetTypTreninkuZkratka(TP TP, string typTreninku)
             {
-                if (TP.StylTP == "VM")
+                if (TP.DruhTP == "BSH")
                 {
-                    if (typTreninku == "Nohy")
+                    if (TP.StylTP == "VM")
                     {
-                        return "BSHVMNohy";
+                        if (typTreninku == "Nohy")
+                        {
+                            return "BSHVMNohy";
+                        }
+                        else if (typTreninku == "Ramena + biceps")
+                        {
+                            return "BSHVMRamBic";
+                        }
+                        else if (typTreninku == "Záda")
+                        {
+                            return "BSHVMZada";
+                        }
+                        else if (typTreninku == "Hrudník + triceps")
+                        {
+                            return "BSHVMHrTric";
+                        }
                     }
-                    else if (typTreninku == "Ramena + biceps")
+                    else if (TP.StylTP == "PPL")
                     {
-                        return "BSHVMRamBic";
+                        if (typTreninku == "Push")
+                        {
+                            return "BSHPPLPush";
+                        }
+                        else if (typTreninku == "Pull")
+                        {
+                            return "BSHPPLPull";
+                        }
+                        else if (typTreninku == "Legs")
+                        {
+                            return "BSHPPLLegs";
+                        }
                     }
-                    else if (typTreninku == "Záda")
+                    else if (TP.StylTP == "KR")
                     {
-                        return "BSHVMZada";
-                    }
-                    else if (typTreninku == "Hrudník + triceps")
-                    {
-                        return "BSHVMHrTric";
+                        if (typTreninku == "Kruhový trénink 1")
+                        {
+                            return "BSHKR1";
+                        }
+                        else if (typTreninku == "Kruhový trénink 2")
+                        {
+                            return "BSHKR2";
+                        }
+                        else if (typTreninku == "Kruhový trénink 3")
+                        {
+                            return "BSHKR3";
+                        }
                     }
                 }
-                else if (TP.StylTP == "PPL")
+                else if (TP.DruhTP == "SR")
                 {
-                    if (typTreninku == "Push")
+                    if (TP.StylTP == "VM")
                     {
-                        return "BSHPPLPush";
+                        if (typTreninku == "Nohy")
+                        {
+                            return "SRVMNohy";
+                        }
+                        else if (typTreninku == "Ramena + biceps")
+                        {
+                            return "SRVMRamBic";
+                        }
+                        else if (typTreninku == "Záda")
+                        {
+                            return "SRVMZada";
+                        }
+                        else if (typTreninku == "Hrudník + triceps")
+                        {
+                            return "SRVMHrTric";
+                        }
                     }
-                    else if (typTreninku == "Pull")
+                    else if (TP.StylTP == "PPL")
                     {
-                        return "BSHPPLPull";
+                        if (typTreninku == "Push")
+                        {
+                            return "SRPPLPush";
+                        }
+                        else if (typTreninku == "Pull")
+                        {
+                            return "SRPPLPull";
+                        }
+                        else if (typTreninku == "Legs")
+                        {
+                            return "SRPPLLegs";
+                        }
                     }
-                    else if (typTreninku == "Legs")
+                    else if (TP.StylTP == "KR")
                     {
-                        return "BSHPPLLegs";
+                        if (typTreninku == "Kruhový trénink 1")
+                        {
+                            return "SRKR1";
+                        }
+                        else if (typTreninku == "Kruhový trénink 2")
+                        {
+                            return "SRKR2";
+                        }
+                        else if (typTreninku == "Kruhový trénink 3")
+                        {
+                            return "SRKR3";
+                        }
                     }
                 }
-                else if (TP.StylTP == "KR")
+                else if (TP.DruhTP == "RV")
                 {
-                    if (typTreninku == "Kruhový trénink 1")
+                    if (TP.StylTP == "VM")
                     {
-                        return "BSHKR1";
+                        if (typTreninku == "Nohy")
+                        {
+                            return "RVVMNohy";
+                        }
+                        else if (typTreninku == "Ramena + biceps")
+                        {
+                            return "RVVMRamBic";
+                        }
+                        else if (typTreninku == "Záda")
+                        {
+                            return "RVVMZada";
+                        }
+                        else if (typTreninku == "Hrudník + triceps")
+                        {
+                            return "RVVMHrTric";
+                        }
                     }
-                    else if (typTreninku == "Kruhový trénink 2")
+                    else if (TP.StylTP == "PPL")
                     {
-                        return "BSHKR2";
+                        if (typTreninku == "Push")
+                        {
+                            return "RVPPLPush";
+                        }
+                        else if (typTreninku == "Pull")
+                        {
+                            return "RVPPLPull";
+                        }
+                        else if (typTreninku == "Legs")
+                        {
+                            return "RVPPLLegs";
+                        }
                     }
-                    else if (typTreninku == "Kruhový trénink 3")
+                    else if (TP.StylTP == "KR")
                     {
-                        return "BSHKR3";
+                        if (typTreninku == "Kruhový trénink 1")
+                        {
+                            return "RVKR1";
+                        }
+                        else if (typTreninku == "Kruhový trénink 2")
+                        {
+                            return "RVKR2";
+                        }
+                        else if (typTreninku == "Kruhový trénink 3")
+                        {
+                            return "RVKR3";
+                        }
                     }
                 }
+                return "CHYBA";
             }
-            else if (TP.DruhTP == "SR")
-            {
-                if (TP.StylTP == "VM")
-                {
-                    if (typTreninku == "Nohy")
-                    {
-                        return "SRVMNohy";
-                    }
-                    else if (typTreninku == "Ramena + biceps")
-                    {
-                        return "SRVMRamBic";
-                    }
-                    else if (typTreninku == "Záda")
-                    {
-                        return "SRVMZada";
-                    }
-                    else if (typTreninku == "Hrudník + triceps")
-                    {
-                        return "SRVMHrTric";
-                    }
-                }
-                else if (TP.StylTP == "PPL")
-                {
-                    if (typTreninku == "Push")
-                    {
-                        return "SRPPLPush";
-                    }
-                    else if (typTreninku == "Pull")
-                    {
-                        return "SRPPLPull";
-                    }
-                    else if (typTreninku == "Legs")
-                    {
-                        return "SRPPLLegs";
-                    }
-                }
-                else if (TP.StylTP == "KR")
-                {
-                    if (typTreninku == "Kruhový trénink 1")
-                    {
-                        return "SRKR1";
-                    }
-                    else if (typTreninku == "Kruhový trénink 2")
-                    {
-                        return "SRKR2";
-                    }
-                    else if (typTreninku == "Kruhový trénink 3")
-                    {
-                        return "SRKR3";
-                    }
-                }
-            }
-            else if (TP.DruhTP == "RV")
-            {
-                if (TP.StylTP == "VM")
-                {
-                    if (typTreninku == "Nohy")
-                    {
-                        return "RVVMNohy";
-                    }
-                    else if (typTreninku == "Ramena + biceps")
-                    {
-                        return "RVVMRamBic";
-                    }
-                    else if (typTreninku == "Záda")
-                    {
-                        return "RVVMZada";
-                    }
-                    else if (typTreninku == "Hrudník + triceps")
-                    {
-                        return "RVVMHrTric";
-                    }
-                }
-                else if (TP.StylTP == "PPL")
-                {
-                    if (typTreninku == "Push")
-                    {
-                        return "RVPPLPush";
-                    }
-                    else if (typTreninku == "Pull")
-                    {
-                        return "RVPPLPull";
-                    }
-                    else if (typTreninku == "Legs")
-                    {
-                        return "RVPPLLegs";
-                    }
-                }
-                else if (TP.StylTP == "KR")
-                {
-                    if (typTreninku == "Kruhový trénink 1")
-                    {
-                        return "RVKR1";
-                    }
-                    else if (typTreninku == "Kruhový trénink 2")
-                    {
-                        return "RVKR2";
-                    }
-                    else if (typTreninku == "Kruhový trénink 3")
-                    {
-                        return "RVKR3";
-                    }
-                }
-            }
-            return "CHYBA";
-       }
-
+        }
 
         private string GetTypTreninkuVM(int cislodne)
         {
@@ -367,7 +369,7 @@ namespace BP_TPWA.Controllers
                                 }
 
                                 typTreninku = GetTypTreninkuVM(typTreninkuCislo);
-                                typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
+                                typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
 
                                 var poradiCviku = GetPoradiCviku(typTreninkuZkratka);
@@ -404,7 +406,7 @@ namespace BP_TPWA.Controllers
                                 }
 
                                 typTreninku = GetTypTreninkuPPL(typTreninkuCislo);
-                                typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
+                                typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
 
                                 var poradiCviku = GetPoradiCviku(typTreninkuZkratka);
@@ -441,8 +443,7 @@ namespace BP_TPWA.Controllers
                                     typTreninkuCislo = 0;
                                 }
                                 typTreninku = GetTypTreninkuKR(typTreninkuCislo);
-                                typTreninkuZkratka = GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
-
+                                typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(uzivatelIdZaznam, typTreninku);
 
                                 var poradiCviku = GetPoradiCviku(typTreninkuZkratka);
                                 string[] poradiCvikuArray = poradiCviku.Split(',');
@@ -625,6 +626,18 @@ namespace BP_TPWA.Controllers
             }
 
             return View(vaha);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AktualizaceUrovne()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+               
+            uzivatelIdZaznam.Úroveň = 2;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult OfflineNahled()

@@ -34,7 +34,13 @@
 </div>
 
 <p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
-<p>(Hodnoty odpočinku brát orientačně.)</p>
+<div class="button-container-cus">
+
+    <p>(Hodnoty odpočinku brát orientačně.)</p>
+    <form action="/Cvik/VolbaVah" method="get">
+        <button class="btn btn-outline-dark btn-sm" type="submit">Informace o volbě vah</button>
+    </form>
+</div>
 
 <div id="kontejner-cviku"></div>
 
@@ -165,9 +171,6 @@
     } else {
         uzivatelVaha.value = aktualniUzivatel[0].váha;
     }
-    console.log("filtrData");
-    console.log(filteredData[0]);
-    console.log(aktualniUzivatel);
 
     function naplnitCvicebniSablonu() {
         var kontejnerCviku = document.getElementById("kontejner-cviku");

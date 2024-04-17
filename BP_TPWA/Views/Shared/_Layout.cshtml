@@ -70,15 +70,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
                                     </li>
-                                    
+                                    @* <li class="nav-item">
+                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "VolbaVah" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="VolbaVah">Volba vah</a>
+                                    </li> *@
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="" asp-action="">Další</a>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Cvik" asp-action="VolbaVah">Volba vah</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Cvik" asp-action="Playlisty">Playlisty</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -146,17 +145,16 @@
                                     <li class="nav-item">
                                         <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
                                     </li>
-                                    
+                                    @* <li class="nav-item">
+                                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Cvik" && ViewContext.RouteData.Values["Action"].ToString() == "VolbaVah" ? "active" : "")" asp-area="" asp-controller="Cvik" asp-action="VolbaVah">Volba vah</a>
+                                    </li> *@
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="" asp-action="">Další</a>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Cvik" asp-action="VolbaVah">Volba vah</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Cvik" asp-action="Playlisty">Playlisty</a>
                                         </div>
-                                    </li>
+                                    </li> 
                                 </ul>
                                 <partial name="_LoginPartial" />
                             </div>
@@ -222,15 +220,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="Index">Databáze cviků</a>
                             </li>
-                            
+                            @* <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Cvik" asp-action="VolbaVah">Volba vah</a>
+                            </li> *@
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" asp-area="" asp-controller="" asp-action="">Další</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Separated link</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Cvik" asp-action="VolbaVah">Volba vah</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Cvik" asp-action="Playlisty">Playlisty</a>
                                 </div>
                             </li>
                         </ul>

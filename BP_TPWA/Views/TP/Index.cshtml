@@ -102,14 +102,6 @@
     var treninkoveData = @Html.Raw(Json.Serialize(ViewBag.DenTreninku));
     var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
 
-    var nejpozdejsiDatum = null;
-
-    for (var i = 0; i < treninkoveData.length; i++) {
-        var datum = new Date(treninkoveData[i].datumTreninku);
-        if (!nejpozdejsiDatum || datum > nejpozdejsiDatum) {
-            nejpozdejsiDatum = datum; 
-        }
-    }
 
     function smazatTP() {
         window.location.href = "/TP/Delete1?id=" + uzivatelData[0].tpId;
@@ -119,6 +111,14 @@
     var element = document.getElementById('generovaniTlacitka');
     var vytvoritTP = document.getElementById('vytvoritTP');
     if (uzivatelData[0].tpId !== null) {
+        var nejpozdejsiDatum = null;
+
+        for (var i = 0; i < treninkoveData.length; i++) {
+            var datum = new Date(treninkoveData[i].datumTreninku);
+            if (!nejpozdejsiDatum || datum > nejpozdejsiDatum) {
+                nejpozdejsiDatum = datum; 
+            }
+        }
 
         element.style.display = 'block';
         vytvoritTP.style.display = 'none';
@@ -126,7 +126,17 @@
         var dnes = new Date();
 
         if (dnes >= nejpozdejsiDatum) {     
-                vytvoritTP.style.display = 'block';
+            vytvoritTP.style.display = 'block';
+            if (uzivatelData[0].úroveň === 1) {
+                $.ajax({
+                    url: '/TP/AktualizaceUrovne',
+                    type: 'POST',
+                    success: function (response) {
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
         }
 
         var staraVaha = uzivatelData[0].váha;

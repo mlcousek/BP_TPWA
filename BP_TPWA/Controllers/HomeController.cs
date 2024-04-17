@@ -42,5 +42,16 @@ namespace BP_TPWA.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Route("/StatusCodeError/{statusCode}")]
+        public IActionResult Errors(int statusCode)
+        {
+            if(statusCode == 404) 
+            {
+                ViewBag.ErrorMessage = "404 Strátka nebyla nalezena";
+            }
+
+            return View();
+        }
     }
 }

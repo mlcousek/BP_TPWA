@@ -11,6 +11,7 @@ using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using static BP_TPWA.Controllers.TPController;
 
 namespace BP_TPWA.Controllers
 {
@@ -2284,11 +2285,58 @@ namespace BP_TPWA.Controllers
                 cvik9.PočtyOpakování.Add("10, 10, 10, 10");
                 cvik9.PauzyMeziSériemi.Add(60);
 
+
+
+                ////// PRIDAT CVIKY
+                ///
+
+                var cvik38 = new Cvik { Název = "Mrtvý tah sumo", PopisCviku = "Mrtvý tah  - sumo", Partie = "Záda", UzivatelId = userId };
+                if (cvik38.TypyTreninku == null)
+                {
+                    cvik38.TypyTreninku = new List<string>();
+                    cvik38.PočtySérií = new List<int>();
+                    cvik38.PočtyOpakování = new List<string>();
+                    cvik38.PauzyMeziSériemi = new List<int>();
+                }
+                var cvik39 = new Cvik { Název = "Mrtvý tah hexabar osa", PopisCviku = "Mrtvý tah  - hexabar osa", Partie = "Záda", UzivatelId = userId };
+                if (cvik39.TypyTreninku == null)
+                {
+                    cvik39.TypyTreninku = new List<string>();
+                    cvik39.PočtySérií = new List<int>();
+                    cvik39.PočtyOpakování = new List<string>();
+                    cvik39.PauzyMeziSériemi = new List<int>();
+                }
+                var cvik40 = new Cvik { Název = "Shyby podhmatem", PopisCviku = "Shyby podhmatem popis", Partie = "Záda", UzivatelId = userId };
+                if (cvik40.TypyTreninku == null)
+                {
+                    cvik40.TypyTreninku = new List<string>();
+                    cvik40.PočtySérií = new List<int>();
+                    cvik40.PočtyOpakování = new List<string>();
+                    cvik40.PauzyMeziSériemi = new List<int>();
+                }
+                var cvik41 = new Cvik { Název = "Overheadpress", PopisCviku = "Tlaky nad hlavu s obouručnou činkou", Partie = "Ramena", UzivatelId = userId };
+                if (cvik41.TypyTreninku == null)
+                {
+                    cvik41.TypyTreninku = new List<string>();
+                    cvik41.PočtySérií = new List<int>();
+                    cvik41.PočtyOpakování = new List<string>();
+                    cvik41.PauzyMeziSériemi = new List<int>();
+                }
+                var cvik42 = new Cvik { Název = "Přítahy obouručky k bradě", PopisCviku = "Přítahy obouručky k bradě", Partie = "Ramena", UzivatelId = userId };
+                if (cvik42.TypyTreninku == null)
+                {
+                    cvik42.TypyTreninku = new List<string>();
+                    cvik42.PočtySérií = new List<int>();
+                    cvik42.PočtyOpakování = new List<string>();
+                    cvik42.PauzyMeziSériemi = new List<int>();
+                }
+
                 var cviky = new List<Cvik> {
                         cvik1, cvik2, cvik3, cvik4, cvik5, cvik6, cvik7, cvik8, cvik9,
                         cvik11, cvik12, cvik13, cvik14, cvik15, cvik16, cvik17, cvik18, cvik19,
                         cvik20, cvik21, cvik22, cvik23, cvik24, cvik25, cvik26, cvik27,
-                        cvik28, cvik29, cvik30, cvik31, cvik32, cvik33, cvik34, cvik36, cvik37
+                        cvik28, cvik29, cvik30, cvik31, cvik32, cvik33, cvik34, cvik36, cvik37,
+                        cvik38, cvik39, cvik40, cvik41, cvik42
                     };
 
                 foreach (var cvik in cviky)
@@ -2312,6 +2360,18 @@ namespace BP_TPWA.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.uzivatelId = userId;
             return View(await _context.Cvik.ToListAsync());
+        }
+
+        // GET: VolbaVah
+        public IActionResult VolbaVah()
+        {
+            return View();
+        }
+
+        // GET: Playlisty
+        public IActionResult Playlisty()
+        {
+            return View();
         }
 
         // GET: Cvik/Create
@@ -2370,7 +2430,7 @@ namespace BP_TPWA.Controllers
                     var uzivatelTPZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == uzivatelId);
                     var denTreninku = await _context.DenTreninku.SingleOrDefaultAsync(tp => tp.TPId == uzivatelTPZaznam.Id && tp.DatumTreninku == parsedDate);
 
-                    var zkratkaTreninku = GetTypTreninkuZkratka(uzivatelTPZaznam, denTreninku.TypTreninku);
+                    var zkratkaTreninku = TypTreninkuHelper.GetTypTreninkuZkratka(uzivatelTPZaznam, denTreninku.TypTreninku);
                     cvik.TypyTreninku.Add(zkratkaTreninku);
 
                     _context.Add(cvik);
@@ -2558,7 +2618,7 @@ namespace BP_TPWA.Controllers
                 datum = datum.Replace(".", "-");
                 DateTime parsedDate = DateTime.ParseExact(datum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 var DenTrenikuSTPaDnem = _context.DenTreninku.FirstOrDefault(dt => dt.DatumTreninku == parsedDate && dt.TPId == idTP);
-                var TypTreninkuKratke = GetTypTreninkuZkratka(treninkovyPlan[0], DenTrenikuSTPaDnem.TypTreninku);
+                var TypTreninkuKratke = TypTreninkuHelper.GetTypTreninkuZkratka(treninkovyPlan[0], DenTrenikuSTPaDnem.TypTreninku);
 
                 if (cvik.PočtySérií == null)
                 {
@@ -2599,7 +2659,7 @@ namespace BP_TPWA.Controllers
                 datum = datum.Replace(".", "-");
                 DateTime parsedDate = DateTime.ParseExact(datum, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 var DenTrenikuSTPaDnem = _context.DenTreninku.FirstOrDefault(dt => dt.DatumTreninku == parsedDate && dt.TPId == idTP);
-                var TypTreninkuKratke = GetTypTreninkuZkratka(treninkovyPlan[0], DenTrenikuSTPaDnem.TypTreninku);
+                var TypTreninkuKratke = TypTreninkuHelper.GetTypTreninkuZkratka(treninkovyPlan[0], DenTrenikuSTPaDnem.TypTreninku);
 
                 int index = cvik.TypyTreninku.IndexOf(TypTreninkuKratke);
 
@@ -2646,7 +2706,7 @@ namespace BP_TPWA.Controllers
                         .ToListAsync();
                     denTreninkuSCvikem[0].Cviky.RemoveAll(c => c.CvikId == cvikCoJePotrebaUpravit[0].CvikId);
 
-                    var typTreninkuZkratka = GetTypTreninkuZkratka(TP[0], denTreninkuSCvikem[0].TypTreninku);
+                    var typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(TP[0], denTreninkuSCvikem[0].TypTreninku);
                     int indexUpravy = cvikCoJePotrebaUpravit[0].TypyTreninku.IndexOf(typTreninkuZkratka);
 
                     if (indexUpravy != -1)
@@ -2721,167 +2781,6 @@ namespace BP_TPWA.Controllers
                 }
             }
             return View(data);
-        }
-
-        public static string GetTypTreninkuZkratka(TP TP, string typTreninku)
-        {
-            if (TP.DruhTP == "BSH")
-            {
-                if (TP.StylTP == "VM")
-                {
-                    if (typTreninku == "Nohy")
-                    {
-                        return "BSHVMNohy";
-                    }
-                    else if (typTreninku == "Ramena + biceps")
-                    {
-                        return "BSHVMRamBic";
-                    }
-                    else if (typTreninku == "Záda")
-                    {
-                        return "BSHVMZada";
-                    }
-                    else if (typTreninku == "Hrudník + triceps")
-                    {
-                        return "BSHVMHrTric";
-                    }
-                }
-                else if (TP.StylTP == "PPL")
-                {
-                    if (typTreninku == "Push")
-                    {
-                        return "BSHPPLPush";
-                    }
-                    else if (typTreninku == "Pull")
-                    {
-                        return "BSHPPLPull";
-                    }
-                    else if (typTreninku == "Legs")
-                    {
-                        return "BSHPPLLegs";
-                    }
-                }
-                else if (TP.StylTP == "KR")
-                {
-                    if (typTreninku == "Kruhový trénink 1")
-                    {
-                        return "BSHKR1";
-                    }
-                    else if (typTreninku == "Kruhový trénink 2")
-                    {
-                        return "BSHKR2";
-                    }
-                    else if (typTreninku == "Kruhový trénink 3")
-                    {
-                        return "BSHKR3";
-                    }
-                }
-            }
-            else if (TP.DruhTP == "SR")
-            {
-                if (TP.StylTP == "VM")
-                {
-                    if (typTreninku == "Nohy")
-                    {
-                        return "SRVMNohy";
-                    }
-                    else if (typTreninku == "Ramena + biceps")
-                    {
-                        return "SRVMRamBic";
-                    }
-                    else if (typTreninku == "Záda")
-                    {
-                        return "SRVMZada";
-                    }
-                    else if (typTreninku == "Hrudník + triceps")
-                    {
-                        return "SRVMHrTric";
-                    }
-                }
-                else if (TP.StylTP == "PPL")
-                {
-                    if (typTreninku == "Push")
-                    {
-                        return "SRPPLPush";
-                    }
-                    else if (typTreninku == "Pull")
-                    {
-                        return "SRPPLPull";
-                    }
-                    else if (typTreninku == "Legs")
-                    {
-                        return "SRPPLLegs";
-                    }
-                }
-                else if (TP.StylTP == "KR")
-                {
-                    if (typTreninku == "Kruhový trénink 1")
-                    {
-                        return "SRKR1";
-                    }
-                    else if (typTreninku == "Kruhový trénink 2")
-                    {
-                        return "SRKR2";
-                    }
-                    else if (typTreninku == "Kruhový trénink 3")
-                    {
-                        return "SRKR3";
-                    }
-                }
-            }
-            else if (TP.DruhTP == "RV")
-            {
-                if (TP.StylTP == "VM")
-                {
-                    if (typTreninku == "Nohy")
-                    {
-                        return "RVVMNohy";
-                    }
-                    else if (typTreninku == "Ramena + biceps")
-                    {
-                        return "RVVMRamBic";
-                    }
-                    else if (typTreninku == "Záda")
-                    {
-                        return "RVVMZada";
-                    }
-                    else if (typTreninku == "Hrudník + triceps")
-                    {
-                        return "RVVMHrTric";
-                    }
-                }
-                else if (TP.StylTP == "PPL")
-                {
-                    if (typTreninku == "Push")
-                    {
-                        return "RVPPLPush";
-                    }
-                    else if (typTreninku == "Pull")
-                    {
-                        return "RVPPLPull";
-                    }
-                    else if (typTreninku == "Legs")
-                    {
-                        return "RVPPLLegs";
-                    }
-                }
-                else if (TP.StylTP == "KR")
-                {
-                    if (typTreninku == "Kruhový trénink 1")
-                    {
-                        return "RVKR1";
-                    }
-                    else if (typTreninku == "Kruhový trénink 2")
-                    {
-                        return "RVKR2";
-                    }
-                    else if (typTreninku == "Kruhový trénink 3")
-                    {
-                        return "RVKR3";
-                    }
-                }
-            }
-            return "CHYBA";
         }
     }
 }

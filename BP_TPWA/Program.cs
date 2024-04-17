@@ -40,6 +40,8 @@ app.UseAuthorization();
 
 app.UseRotativa();
 
+app.UseStatusCodePagesWithReExecute("/StatusCodeError/{0}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
