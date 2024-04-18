@@ -1,0 +1,29 @@
+version: '3.4'
+
+networks:
+  bp_tpwa_app:
+
+services:
+  bp_tpwa_db:
+    container_name: bp-tpwa-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+     - 8002:1433
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=myStong_Password123#
+    networks:
+     - bp_tpwa_app
+
+  bp_tpwa:
+    container_name: bp-tpwa
+    image: ${DOCKER_REGISTRY-}bptpwa
+    build:
+      context: .
+      dockerfile: BP_TPWA/Dockerfile
+    ports:
+     - 8001:8080
+    depends_on: 
+     - bp_tpwa_db
+    networks:
+     - bp_tpwa_app
