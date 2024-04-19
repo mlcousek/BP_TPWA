@@ -2377,11 +2377,24 @@ namespace BP_TPWA.Controllers
         // GET: Cvik/Create
         public IActionResult Create()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var vsechnyCviky = _context.Cvik
+                      .Where(id => id.UzivatelId == userId)
+                      .ToList();
+
+            ViewBag.vsechnyCviky = vsechnyCviky;
+
             return View();
         }
         // GET: Cvik/Create1
         public IActionResult Create1(string datum)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var vsechnyCviky = _context.Cvik
+                      .Where(id => id.UzivatelId == userId)
+                      .ToList();
+
+            ViewBag.vsechnyCviky = vsechnyCviky;
             ViewBag.datum = datum;
             return View();
         }
@@ -2401,6 +2414,14 @@ namespace BP_TPWA.Controllers
             {
                 ModelState.Remove("Uzivatel");
             }
+            if (ModelState.ContainsKey("PočtySérií"))
+            {
+                ModelState.Remove("PočtySérií");
+            }
+            if (ModelState.ContainsKey("PauzyMeziSériemi"))
+            {
+                ModelState.Remove("PauzyMeziSériemi");
+            }
             if (ModelState.IsValid)
             {
                 
@@ -2412,19 +2433,23 @@ namespace BP_TPWA.Controllers
                     cvik.PauzyMeziSériemi = null;
                     cvik.PočtyOpakování = null;
                     cvik.PočtySérií = null;
+                    cvik.cvikVytvorenUzivatelem = true;
                     _context.Add(cvik);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index", "TP");
                 }
                 else
                 {
-
+                    cvik.cvikVytvorenUzivatelem = true;
                     cvik.TypyTreninku = new List<string>();
                     var uzivatelId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     cvik.UzivatelId = uzivatelId;
                     datum = datum.Substring(0, 10);
-                    datum = datum.Replace(".", "-");
-                    DateTime parsedDate = DateTime.ParseExact(datum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    //datum = datum.Replace(".", "-");
+                    datum = datum.Replace("/", "-");
+                    string[] casti = datum.Split('-');
+                    string prevedeneDatum = $"{casti[1]}-{casti[0]}-{casti[2]}";
+                    DateTime parsedDate = DateTime.ParseExact(prevedeneDatum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
 
                     var uzivatelTPZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.UzivatelID == uzivatelId);
@@ -2450,6 +2475,13 @@ namespace BP_TPWA.Controllers
             {
                 return NotFound();
             }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var vsechnyCviky = _context.Cvik
+                      .Where(id => id.UzivatelId == userId)
+                      .ToList();
+
+            ViewBag.vsechnyCviky = vsechnyCviky;
 
             var cvik = await _context.Cvik.FindAsync(id);
             if (cvik == null)
@@ -2615,8 +2647,11 @@ namespace BP_TPWA.Controllers
                 var idTP = treninkovyPlan[0].Id;
 
                 
-                datum = datum.Replace(".", "-");
-                DateTime parsedDate = DateTime.ParseExact(datum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                datum = datum.Replace("/", "-");
+                string[] casti = datum.Split('-'); 
+                string prevedeneDatum = $"{casti[1]}-{casti[0]}-{casti[2]}";
+
+                DateTime parsedDate = DateTime.ParseExact(prevedeneDatum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 var DenTrenikuSTPaDnem = _context.DenTreninku.FirstOrDefault(dt => dt.DatumTreninku == parsedDate && dt.TPId == idTP);
                 var TypTreninkuKratke = TypTreninkuHelper.GetTypTreninkuZkratka(treninkovyPlan[0], DenTrenikuSTPaDnem.TypTreninku);
 
@@ -2657,6 +2692,8 @@ namespace BP_TPWA.Controllers
                 var idTP = treninkovyPlan[0].Id;
 
                 datum = datum.Replace(".", "-");
+
+
                 DateTime parsedDate = DateTime.ParseExact(datum, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 var DenTrenikuSTPaDnem = _context.DenTreninku.FirstOrDefault(dt => dt.DatumTreninku == parsedDate && dt.TPId == idTP);
                 var TypTreninkuKratke = TypTreninkuHelper.GetTypTreninkuZkratka(treninkovyPlan[0], DenTrenikuSTPaDnem.TypTreninku);

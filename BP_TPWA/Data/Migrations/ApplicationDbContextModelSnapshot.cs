@@ -32,7 +32,7 @@ namespace BP_TPWA.Data.Migrations
 
                     b.Property<string>("Název")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Partie")
                         .IsRequired()
@@ -61,9 +61,15 @@ namespace BP_TPWA.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("cvikVytvorenUzivatelem")
+                        .HasColumnType("bit");
+
                     b.HasKey("CvikId");
 
                     b.HasIndex("UzivatelId");
+
+                    b.HasIndex("Název", "UzivatelId")
+                        .IsUnique();
 
                     b.ToTable("Cvik");
                 });

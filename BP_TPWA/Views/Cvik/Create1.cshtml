@@ -23,7 +23,7 @@
             </div>
             <div class="form-group mb-3">
                 <label asp-for="PočtySérií" class="control-label">Počet sérií (př. 4)</label>
-                <input asp-for="PočtySérií" id="pocetSerií" min="1" max="15" class="form-control" />
+                <input asp-for="PočtySérií" id="pocetSerií" type="number" min="1" max="15" class="form-control" />
                 <span asp-validation-for="PočtySérií" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
@@ -32,8 +32,8 @@
                 <span asp-validation-for="PočtyOpakování" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="PauzyMeziSériemi" class="control-label">Pauza mezi sériemi (s) (př. 60)</label>
-                <input asp-for="PauzyMeziSériemi" min="0" max="300" class="form-control" id="pauza1" />
+                <label asp-for="PauzyMeziSériemi" id="pauzaText" class="control-label">Pauza mezi sériemi (s) (př. 60)</label>
+                <input asp-for="PauzyMeziSériemi" type="number" min="0" max="300" class="form-control" id="pauza1" />
                 <span asp-validation-for="PauzyMeziSériemi" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
@@ -72,12 +72,18 @@
 
 
         function validovatFormular() {
+            var vsechnyCviky = @Html.Raw(Json.Serialize(ViewBag.vsechnyCviky));
             var pocetSerií = parseInt(document.getElementById("pocetSerií").value);
             var nazevcviku = document.getElementById("nazevcviku").value;
             var partiecviku = document.getElementById("partiecviku").value;
             var opakování = document.getElementById("opakování").value;
             var popisek = document.getElementById("popisek").value;
             var pauza = parseInt(document.getElementById("pauza1").value);
+
+            if (vsechnyCviky.some(cvik => cvik.Název === nazevcviku.value)) {
+                alert("Tento cvik už je vytvořen");
+                return false;
+            }
 
             if (pocetSerií < 1 || pocetSerií > 15) {
                 alert("Zadejte platný počet sérií");

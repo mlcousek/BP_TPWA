@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BP_TPWA.Models
 {
@@ -66,5 +68,6 @@ namespace BP_TPWA.Models
 
         [ForeignKey("UzivatelId")]
         public virtual Uzivatel Uzivatel { get; set; }
+        public bool cvikVytvorenUzivatelem { get; set; }
     }
 }

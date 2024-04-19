@@ -38,6 +38,9 @@ namespace BP_TPWA.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Cvik>()
+                .HasIndex(c => new { c.Název, c.UzivatelId })
+                .IsUnique();
 
             modelBuilder.Entity<TP>()
                 .HasMany(tp => tp.DnyVTydnu)

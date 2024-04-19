@@ -43,9 +43,15 @@
 
     <script>
         function validovatFormular() {
+            var vsechnyCviky = @Html.Raw(Json.Serialize(ViewBag.vsechnyCviky));
             var nazevcviku = document.getElementById("nazevcviku").value;
             var partiecviku = document.getElementById("partiecviku").value;
             var popisek = document.getElementById("popisek").value;
+
+            if (vsechnyCviky.some(cvik => cvik.Název === nazevcviku.value)) {
+                alert("Tento cvik už je vytvořen");
+                return false;
+            }
 
             if (nazevcviku.length < 1 || nazevcviku.length > 200) {
                 alert("Zadejte platný název cviku");

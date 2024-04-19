@@ -11,6 +11,7 @@
 
 <div id="buttons"></div> 
 <div id="tlacitka"></div>
+<p class="vyber">Vyber trénink a cvik!</p>
 <div id="info"></div>
 <div id="charts"></div> 
 <div id="chartswsum"></div> 
@@ -25,12 +26,10 @@
 <script>
     var treninkovedata = @Html.Raw(Json.Serialize(ViewBag.treninkovedata));
     var tpdata = @Html.Raw(Json.Serialize(ViewBag.tpdata));
-    console.log(treninkovedata);
-    console.log(tpdata);
 
     if (treninkovedata.length !== 0) {
         document.querySelector('.pridejData').style.display = 'none'
-    
+
         var grafy = {};
 
         for (var i = 0; i < tpdata.length; i++) {
@@ -129,7 +128,7 @@
                 var noveGrafy = { pplpushData, pplpullData, ppllegsData };
                 for (var graf in noveGrafy) {
                     if (grafy.hasOwnProperty(graf)) {
-                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]); 
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
                     }
                     else {
                         grafy[graf] = noveGrafy[graf];
@@ -157,7 +156,7 @@
                 var noveGrafy = { pplpushData, pplpullData, ppllegsData };
                 for (var graf in noveGrafy) {
                     if (grafy.hasOwnProperty(graf)) {
-                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]); 
+                        grafy[graf] = grafy[graf].concat(noveGrafy[graf]);
                     }
                     else {
                         grafy[graf] = noveGrafy[graf];
@@ -182,7 +181,7 @@
                 }
                 groupedByExercise[cvikName].push(cvikData);
             });
- 
+
             // Vytvoření grafu pro každý cvik
             Object.keys(groupedByExercise).forEach(function (cvikName) {
                 var cvikDataForExercise = groupedByExercise[cvikName];
@@ -245,11 +244,11 @@
 
                 // Vytvoření HTML obsahu informačního kontejneru s přidanými daty
                 infoContainer.innerHTML = `
-                    <p>Nejvyšší cvičená váha: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</p>
-                    <p>Celková nejvyšší nazvedaná váha za trénink: ${nejvetsiVahaZaTrenink}kg (Tělesná váha: ${vahaUzivatelePriMaxVazeZaTrenink}kg, Datum: ${datumMaxVahyZaTrenink})</p>
-                    <p>Průměrná váha ze všech tréninků: ${prumernaVaha}kg</p>
-                    <p>Celková nazvedaná váha na tento cvik: ${sumaVsechVah}kg</p>
-                `;
+                        <p>Nejvyšší cvičená váha: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</p>
+                        <p>Celková nejvyšší nazvedaná váha za trénink: ${nejvetsiVahaZaTrenink}kg (Tělesná váha: ${vahaUzivatelePriMaxVazeZaTrenink}kg, Datum: ${datumMaxVahyZaTrenink})</p>
+                        <p>Průměrná váha ze všech tréninků: ${prumernaVaha}kg</p>
+                        <p>Celková nazvedaná váha na tento cvik: ${sumaVsechVah}kg</p>
+                    `;
 
                 for (var i = 0; i < dates.length; i++) {
                     dates[i] = dates[i].slice(0, 10);
@@ -280,7 +279,7 @@
                             borderWidth: 1
                         }, {
                             label: 'Aktuální váha uživatele (kg)',
-                            data: vahyUzivatele, 
+                            data: vahyUzivatele,
                             backgroundColor: 'rgba(255, 206, 86, 0.2)',
                             borderColor: 'rgba(255, 206, 86, 1)',
                             borderWidth: 1
@@ -295,7 +294,7 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: cvikName 
+                                text: cvikName
                             }
                         }
                     }
@@ -339,7 +338,7 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: cvikName 
+                                text: cvikName
                             }
                         }
                     }
@@ -411,7 +410,7 @@
                 var idCviku = grafy[kategorie][cvik].cvikId;
 
                 if (!uniqueCviky.includes(nazevCviku)) {
-                    uniqueCviky.push(nazevCviku); 
+                    uniqueCviky.push(nazevCviku);
 
                     var button = document.createElement('button');
                     button.id = tlacitkoText(kategorie);
@@ -437,6 +436,7 @@
                         graf.style.display = 'block';
                         grafwsum.style.display = 'block';
                         info.style.display = 'block';
+                        document.querySelector('.vyber').style.display = 'none'
                     });
                     document.getElementById(tlacitkoText(kategorie) + 'butt').appendChild(button);
                 }
@@ -465,5 +465,7 @@
             chartContainerswsum[i].style.display = 'none';
             infoContainers[i].style.display = 'none';
         }
+    } else {
+        document.querySelector('.vyber').style.display = 'none'
     }
 </script>

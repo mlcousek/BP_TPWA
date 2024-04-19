@@ -12,6 +12,7 @@
 
 <div id="maximalky"></div>
 <div id="buttons"></div> 
+<p class="vyber">Vyber trénink!</p>
 <div id="info"></div>
 
 <style>
@@ -309,6 +310,7 @@
 
                     info.style.display = 'block';
                 }
+                document.querySelector('.vyber').style.display = 'none'
             });
              document.getElementById('buttons').appendChild(button);
         });
@@ -422,6 +424,8 @@
             
             infoContainers[i].style.display = 'none';
         }
+    } else {
+        document.querySelector('.vyber').style.display = 'none'
     }
 
 </script>
