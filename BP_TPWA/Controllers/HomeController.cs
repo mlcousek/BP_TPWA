@@ -1,7 +1,6 @@
 using BP_TPWA.Data;
 using BP_TPWA.Models;
 using Microsoft.AspNetCore.Mvc;
-using Rotativa;
 using System.Diagnostics;
 using System.Security.Claims;
 

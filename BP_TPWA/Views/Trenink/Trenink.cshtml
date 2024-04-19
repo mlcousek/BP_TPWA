@@ -1,56 +1,64 @@
-﻿<h1>Trénink @ViewBag.typTreninku</h1>
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
-<div class="texty">
-    <div class="BSHVMNohy BSHVMRamBic BSHVMZada BSHVMHrTric" style="display: none;">
-        <h2>Budování svalové hmoty - Velká/malá partie</h2>
+
+<div id="vsechno">
+
+    <h1>Trénink @ViewBag.typTreninku</h1>
+
+    <div class="texty">
+        <div class="BSHVMNohy BSHVMRamBic BSHVMZada BSHVMHrTric" style="display: none;">
+            <h2>Budování svalové hmoty - Velká/malá partie</h2>
+        </div>
+        <div class="BSHPPLPush BSHPPLPull BSHPPLLegs" style="display: none;">
+            <h2>Budování svalové hmoty - PPL</h2>
+        </div>
+        <div class="RVPPLPush RVPPLPull RVPPLLegs" style="display: none;">
+            <h2>Redukce váhy - PPL</h2>
+        </div>
+        <div class="SRPPLPush SRPPLPull SRPPLLegs" style="display: none;">
+            <h2>Silový rozvoj - PPL</h2>
+        </div>
+        <div class="RVVMNohy RVVMRamBic RVVMZada RVVMHrTric" style="display: none;">
+            <h2>Redukce váhy - Velká/malá partie</h2>
+        </div>
+        <div class="SRVMNohy SRVMRamBic SRVMZada SRVMHrTric" style="display: none;">
+            <h2>Silový rozvoj - Velká/malá partie</h2>
+        </div>
+        <div class="BSHKR1 BSHKR2 BSHKR3" style="display: none;">
+            <h2>Budování svalové hmoty - Kruhový trénink</h2>
+            <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
+        </div>
+        <div class="RVKR1 RVKR2 RVKR3" style="display: none;">
+            <h2>Redukce váhy - Kruhový trénink</h2>
+            <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
+        </div>
+        <div class="SRKR1 SRKR2 SRKR3" style="display: none;">
+            <h2>Silový rozvoj - Kruhový trénink</h2>
+            <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
+        </div>
     </div>
-    <div class="BSHPPLPush BSHPPLPull BSHPPLLegs" style="display: none;">
-        <h2>Budování svalové hmoty - PPL</h2>
+
+    <p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
+    <div class="button-container-cus">
+
+        <p>(Hodnoty odpočinku brát orientačně.)</p>
+        <form action="/Cvik/VolbaVah" method="get">
+            <button class="btn btn-outline-dark btn-sm" type="submit">Informace o volbě vah</button>
+        </form>
     </div>
-    <div class="RVPPLPush RVPPLPull RVPPLLegs" style="display: none;">
-        <h2>Redukce váhy - PPL</h2>
+
+    <div id="kontejner-cviku"></div>
+
+    <div class="BSHKR11 BSHKR21 BSHKR31 RVKR11 RVKR21 RVKR31 SRKR11 SRKR21 SRKR31" style="display: none;">
+        <p>Po dokončení tréninku, cvičit alespoň 5-10 minut core (např plank nebo různé cviky na core)</p>
     </div>
-    <div class="SRPPLPush SRPPLPull SRPPLLegs" style="display: none;">
-        <h2>Silový rozvoj - PPL</h2>
-    </div>
-    <div class="RVVMNohy RVVMRamBic RVVMZada RVVMHrTric" style="display: none;">
-        <h2>Redukce váhy - Velká/malá partie</h2>
-    </div>
-    <div class="SRVMNohy SRVMRamBic SRVMZada SRVMHrTric" style="display: none;">
-        <h2>Silový rozvoj - Velká/malá partie</h2>
-    </div>
-    <div class="BSHKR1 BSHKR2 BSHKR3" style="display: none;">
-        <h2>Budování svalové hmoty - Kruhový trénink</h2>
-        <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
-    </div>
-    <div class="RVKR1 RVKR2 RVKR3" style="display: none;">
-        <h2>Redukce váhy - Kruhový trénink</h2>
-        <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
-    </div>
-    <div class="SRKR1 SRKR2 SRKR3" style="display: none;">
-        <h2>Silový rozvoj - Kruhový trénink</h2>
-        <p>Každý kruhový ténink je na něco zaměřený, podle toho cvičit komplexni cviky. (Pokud je kruhový trénink zaměřený na nohy, tak se při dřepu snažit o co největší váhy. Pokud na hrudník tak u benchpressu a pokud na záda, tak u mrtvého tahu. Pokud má jet dřep a trénink je zaměřen na hrudník, tak na dřep volit menší váhy.)<br>(A jak poznat na co je trénink zaměřený? Podle toho na jakou partii je nejvíc cviků.)</p>
-    </div>
+    <p class="mb-3">Po odcvičení doporučuji alespoň lehce protáhnout cvičené svalové skupiny.</p>
+    <p class="text-center" id="nejdevidet" style="display: none;">Náhled byl vygenerován pomocí aplikace pro tvorbu tréninkových plánů. &copy; @DateTime.Now.Year - Jiří Mlčoušek</p>
 </div>
-
-<p>Nejprve se pořádně rozhýbat, zahřát a prokrvit každou svalovou skupinu na těle. (3-5 minut dohromady)<br>Chceme prohřát svalové partie, abychom snížili riziko poranění, zlepšili výkon a zlepšili propojení svalů s naší myslí.</p>
-<div class="button-container-cus">
-
-    <p>(Hodnoty odpočinku brát orientačně.)</p>
-    <form action="/Cvik/VolbaVah" method="get">
-        <button class="btn btn-outline-dark btn-sm" type="submit">Informace o volbě vah</button>
-    </form>
-</div>
-
-<div id="kontejner-cviku"></div>
-
-<div class="BSHKR11 BSHKR21 BSHKR31 RVKR11 RVKR21 RVKR31 SRKR11 SRKR21 SRKR31" style="display: none;">
-    <p>Po dokončení tréninku, cvičit alespoň 5-10 minut core (např plank nebo různé cviky na core)</p>
-</div>
-<p>Po odcvičení doporučuji alespoň lehce protáhnout cvičené svalové skupiny.</p>
 
 <button type="button" class="btn btn-dark float-right-custom mb-3" id="pridatCvikButton">Přidat cvik</button>
-<button type="button" class="btn btn-secondary mb-3" id="zpetNaPlanButton">Zpět na plán</button>
+<button type="button" class="btn btn-secondary mb-3 custom-mr" id="zpetNaPlanButton">Zpět na plán</button>
+<button type="button" class="btn btn-outline-dark mb-3" id="generovatButton">Generovat náhled tréninku</button>
 
 <!-- Modální okno 1 -->
 <div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -106,10 +114,52 @@
 
 
 <script>
+    function pohybMysi(event) {
+        var nejdevidet = document.getElementById('nejdevidet');
+        nejdevidet.style.display = 'none';
+        var elements = document.getElementsByClassName('skrytTrida');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'table-cell';
+        }
+    }
+    document.addEventListener('mousemove', pohybMysi);
+
+    var generovatButton = document.getElementById("generovatButton");
+
+    //ziskani data z url
+    var currentUrl = window.location.href;
+    var queryParams = new URLSearchParams(window.location.search);
+    var dateParam = queryParams.get('date');
+    var dateFromUrl = new Date(dateParam);
+    var dateString = dateFromUrl.toISOString();
+    var dateStringShort = dateString.substring(0, 10);
+
+    generovatButton.addEventListener("click", function () {
+
+        var element = document.getElementById('vsechno');
+        var nejdevidet = document.getElementById('nejdevidet');
+        nejdevidet.style.display = 'block';
+
+        var elements = document.getElementsByClassName('skrytTrida');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none'; 
+        }
+
+        var opt = {
+            margin: 0.965,
+            filename: '@ViewBag.typTreninkuZkratka' + ' ' + dateStringShort + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    });
+
+
     
     var element = document.querySelector('.@ViewBag.typTreninkuZkratka');
     var element1 = document.querySelector('.@ViewBag.typTreninkuZkratka' + 1);
-    console.log(element);
     if (element) {
 
         element.style.display = 'block';
@@ -127,16 +177,9 @@
 
     var cvikId;
 
-    //ziskani data z url
-    var currentUrl = window.location.href;
-    var queryParams = new URLSearchParams(window.location.search);
-    var dateParam = queryParams.get('date');
-    var dateFromUrl = new Date(dateParam);
-    var dateString = dateFromUrl.toISOString();
-    var dateStringShort = dateString.substring(0, 10);
 
 
-    if (dnesDatum <= dateStringShort) {      
+    if (dnesDatum >= dateStringShort) {      
         document.getElementById('uzivatelVahaFormular').style.display = 'none';
     }
 
@@ -289,7 +332,6 @@
                 return item.cvikId === cvik.cvikId && datumVPlanu === datumZDatabaze;
             });
 
-            console.log(cvikVDatabaziZaznamy);
 
             var setsCell = document.createElement("td");
             var restCell = document.createElement("td");
@@ -315,7 +357,6 @@
                         pocetOpakovaniString.splice(index, 0, zaznam.pocetOpakovani); 
                     }
                 });
-                console.log(pocetOpakovaniString);
                 var spojenyPocetOpakovaniString = pocetOpakovaniString.join(", ");
                 setsCell.textContent = maxCisloSerie;
                 repetitionsCell.textContent = spojenyPocetOpakovaniString;
@@ -333,6 +374,7 @@
             row.appendChild(restCell);
 
             var deleteAUpravitCell = document.createElement("td");
+            deleteAUpravitCell.classList.add("skrytTrida");
             var deleteButton = document.createElement("button");
             deleteButton.textContent = "Smazat cvik";
             deleteButton.classList.add("btn", "btn-outline-danger", "btn-sm", "custom-mr");

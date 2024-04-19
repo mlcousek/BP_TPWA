@@ -12,11 +12,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
 <script src="~/js/cs.js"></script>
+<div id="vsechno">
+    <h1>Tréninkový plán</h1>
 
-<h1>Tréninkový plán</h1>
-
-<button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark mb-3">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
+    <button id="vytvoritTP" onclick="vytvoritTP1()" class="btn btn-dark mb-3">VYTVOŘIT NOVÝ TRÉNINKOVÝ PLÁN</button>
+    <div id="calendar" class="mb-3"></div>
+    <p class="text-center" id="nejdevidet" style="display: none;">Náhled byl vygenerován pomocí aplikace pro tvorbu tréninkových plánů. &copy; @DateTime.Now.Year - Jiří Mlčoušek</p>
+</div>
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -57,13 +62,12 @@
     </div>
 </div>
 
-<div id="calendar"></div>
 
-<div id="generovaniTlacitka" style="text-align: center; display: none;">
-    <button type="button" class="btn btn-outline-dark" onclick="generovatTP()" style="margin: 20px;">Vygenerovat celý náhled tréninkového plánu</button>
+<div id="generovaniTlacitka" @* class="button-container-cus" *@ style="display: none;">
+    <button type="button" class="btn btn-outline-dark custom-mr" onclick="generovatTP()" style="margin: 20px;">Vygenerovat náhled tréninků v plánu</button>
     <button type="button" class="btn btn-outline-dark" onclick="generovatTPdny()" style="margin: 20px;">Vygenerovat pouze dny tréninků</button>
-    <button type="button" class="btn btn-outline-dark" onclick="generovatTPtreninky()" style="margin: 20px;">Vygenerovat pouze tréninky</button>
-    <button type="button" class="btn btn-outline-warning" onclick="viceTP()" style="margin: 20px;">...</button>
+ @*    <button type="button" class="btn btn-outline-dark" onclick="generovatTPtreninky()" style="margin: 20px;">Vygenerovat pouze tréninky</button> *@
+    <button type="button" class="btn btn-outline-warning float-right-custom" onclick="viceTP()" style="margin: 20px;">...</button>
 </div>
 
 @section scripts{
@@ -75,9 +79,26 @@
     function vytvoritTP1() {
             window.location.href = "/TP/Create";
     }
+    function pohybMysi(event) {
+        var nejdevidet = document.getElementById('nejdevidet');
+        nejdevidet.style.display = 'none';
+    }
+        document.addEventListener('mousemove', pohybMysi);
 
     function generovatTP() {
-        window.location.href = "/TP/NahledPlanu";
+        var element = document.getElementById('vsechno');
+        var nejdevidet = document.getElementById('nejdevidet');
+        nejdevidet.style.display = 'block';
+
+        var opt = {
+            margin: 0.965,
+            filename: 'treninkovy_plan.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+        };
+
+        html2pdf().set(opt).from(element).save();
     }
 
     function generovatTPdny() {

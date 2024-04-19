@@ -2,14 +2,13 @@ using BP_TPWA.Data;
 using BP_TPWA.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-var connectionString = "Server=bp_tpwa_db;Database=BP-TPWA-DB1;User Id=sa;Password=myStong_Password123#;Trust Server Certificate=True";
+var connectionString = "Server=bp_tpwa_db;Database=BP-TPWA-DB2;User Id=sa;Password=myStong_Password123#;Trust Server Certificate=True";
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -41,9 +40,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.UseRotativa();
-
 
 app.UseStatusCodePagesWithReExecute("/StatusCodeError/{0}");
 

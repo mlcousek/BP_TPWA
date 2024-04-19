@@ -12,10 +12,9 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
-using Rotativa.AspNetCore;
 using System.Threading.Tasks;
-using Rotativa;
 using Microsoft.AspNetCore.Authorization;
+
 
 
 namespace BP_TPWA.Controllers
@@ -661,11 +660,9 @@ namespace BP_TPWA.Controllers
                 TP = uzivatelIdZaznam,
             };
 
-            var viewName = "NahledPlanu";
-            var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName, model);
-            pdf.FileName = "Nahled planu.pdf";
+   
 
-            return pdf;
+            return View(model);
         }
 
         public async Task<IActionResult> NahledPlanuDny()
@@ -684,11 +681,7 @@ namespace BP_TPWA.Controllers
                 TP = uzivatelIdZaznam,
             };
 
-            var viewName = "NahledPlanuDny";
-            var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName, model);
-            pdf.FileName = "Nahled planu dny.pdf";
-
-            return pdf;
+            return View(model);
         }
 
         public async Task<IActionResult> NahledPlanuTreninky()
@@ -707,11 +700,7 @@ namespace BP_TPWA.Controllers
                 TP = uzivatelIdZaznam,
             };
 
-            var viewName = "NahledPlanuTreninky";
-            var pdf = new Rotativa.AspNetCore.ViewAsPdf(viewName, model);
-            pdf.FileName = "Nahled planu treninky.pdf";
-
-            return pdf;
+            return View(model);
         }
 
         private string GetPoradiCviku(string typTreninkuZkratka)

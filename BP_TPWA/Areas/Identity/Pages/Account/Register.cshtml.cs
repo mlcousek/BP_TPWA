@@ -22,6 +22,7 @@ using BP_TPWA.Models;
 using System.Globalization;
 using BP_TPWA.Controllers;
 
+
 namespace BP_TPWA.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
@@ -191,7 +192,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        await _emailSender.SendEmailAsync(Input.Email, "Potvrď svůj email",
                             $"Prosím potvrď si účet <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>kliknutím zde</a>.");
 
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -220,6 +221,36 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        //private async Task<bool> SendEmailAsync(string email, string confirmLink)
+        //{
+        //    try
+        //    {
+
+        //        MailMessage message = new MailMessage();
+        //        SmtpClient smtpClient = new SmtpClient();
+        //        message.From = new MailAddress("aplikaceProTvorbuTP@TPWA.cz");
+        //        message.To.Add(email);
+        //        message.Subject = "Potvrď email TPWA";
+        //        message.IsBodyHtml = true;
+        //        message.Body = confirmLink;
+
+        //        smtpClient.Port = 587;
+        //        smtpClient.Host = "smtp-relay.brevo.com";
+
+        //        smtpClient.EnableSsl = true;
+        //        smtpClient.UseDefaultCredentials = false;
+        //        smtpClient.Credentials = new NetworkCredential("USERNAME", "PASSWORD");
+        //        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        //        smtpClient.Send(message);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false
+        //    }
+
+        //}
 
         private Uzivatel CreateUser()
         {

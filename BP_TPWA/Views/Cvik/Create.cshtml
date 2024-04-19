@@ -62,7 +62,7 @@
             var partiecviku = document.getElementById("partiecviku").value;
             var popisek = document.getElementById("popisek").value;
 
-            if (vsechnyCviky.some(cvik => cvik.Název === nazevcviku.value)) {
+            if (vsechnyCviky.some(cvik => cvik.název === nazevcviku)) {
                 alert("Tento cvik už je vytvořen");
                 return false;
             }
