@@ -2743,18 +2743,20 @@ namespace BP_TPWA.Controllers
                         .ToListAsync();
                     denTreninkuSCvikem[0].Cviky.RemoveAll(c => c.CvikId == cvikCoJePotrebaUpravit[0].CvikId);
 
-                    var typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(TP[0], denTreninkuSCvikem[0].TypTreninku);
-                    int indexUpravy = cvikCoJePotrebaUpravit[0].TypyTreninku.IndexOf(typTreninkuZkratka);
+                    //var typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(TP[0], denTreninkuSCvikem[0].TypTreninku);
 
-                    if (indexUpravy != -1)
-                    {
-                        cvikCoJePotrebaUpravit[0].TypyTreninku.RemoveAt(indexUpravy);
-                        cvikCoJePotrebaUpravit[0].PočtyOpakování.RemoveAt(indexUpravy);
-                        cvikCoJePotrebaUpravit[0].PočtySérií.RemoveAt(indexUpravy);
-                        cvikCoJePotrebaUpravit[0].PauzyMeziSériemi.RemoveAt(indexUpravy);
+
+                    //int indexUpravy = cvikCoJePotrebaUpravit[0].TypyTreninku.IndexOf(typTreninkuZkratka);
+
+                    //if (indexUpravy != -1)
+                    //{
+                    //    cvikCoJePotrebaUpravit[0].TypyTreninku.RemoveAt(indexUpravy);
+                    //    cvikCoJePotrebaUpravit[0].PočtyOpakování.RemoveAt(indexUpravy);
+                    //    cvikCoJePotrebaUpravit[0].PočtySérií.RemoveAt(indexUpravy);
+                    //    cvikCoJePotrebaUpravit[0].PauzyMeziSériemi.RemoveAt(indexUpravy);
 
                         await _context.SaveChangesAsync();
-                    }
+                    //}
 
                     return RedirectToAction("Index", "TP");
                 }

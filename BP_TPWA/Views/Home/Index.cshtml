@@ -53,6 +53,52 @@ else
                     }
                 });
             }
+
+            var pomocneDatum = new Date(uzivatelData[0].pomocneDatum);
+            var dnesek = new Date();
+            console.log(pomocneDatum);
+            console.log(dnesek.getMonth());
+            console.log(pomocneDatum.getMonth());
+
+
+            var pomocneDatumString = pomocneDatum.toISOString();
+            var dnesekString = dnesek.toISOString();
+
+            console.log(pomocneDatumString);
+            console.log(dnesekString);
+
+            var rozdilRoku = dnesek.getFullYear() - pomocneDatum.getFullYear();
+            if (rozdilRoku > 0) {
+                if (dnesek.getMonth() >= pomocneDatum.getMonth()) {
+                    if (dnesek.getDate() >= pomocneDatum.getDate()) {
+
+                        var seriesDatacus = [];
+                        seriesDatacus.push({
+                            Datum: pomocneDatumString,
+                            cvikId: -1,
+                            CisloSerie: -1,
+                            PocetOpakovani: -1,
+                            CvicenaVaha: -1,
+                            Vaha: -1
+                        });
+
+                        $.ajax({
+                            url: '/Home/ZmenitVek',
+                            type: 'POST',
+                            data: seriesDatacus[0],
+
+                            success: function (response) {
+                                
+                            },
+                            error: function (xhr, status, error) {
+                            }
+                        });
+
+                    }
+                }
+            }
+
+
         </script>
     }
 }

@@ -15,6 +15,7 @@ namespace BP_TPWA.Models
         public int Úroveň { get; set; }
         public int Pohlaví { get; set; }
         public bool PridaneData { get; set; }
+        public DateTime PomocneDatum { get; set; }
         public int? TPId { get; set; }
         [NotMapped]
         public List<int>? TreninkovePlany { get; set; }

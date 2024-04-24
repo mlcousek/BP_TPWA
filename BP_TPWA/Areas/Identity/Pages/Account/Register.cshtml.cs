@@ -21,6 +21,12 @@ using Microsoft.Extensions.Logging;
 using BP_TPWA.Models;
 using System.Globalization;
 using BP_TPWA.Controllers;
+//using System.Net.Mail;
+using System.Net;
+using MimeKit;
+using MimeKit.Text;
+using MailKit.Security;
+using MailKit.Net.Smtp;
 
 
 namespace BP_TPWA.Areas.Identity.Pages.Account
@@ -170,6 +176,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
                         user.Úroveň = Input.Úroveň;
                         user.Pohlaví = Input.Pohlaví;
                         user.PridaneData = false;
+                        user.PomocneDatum = DateTime.Today;
                     }
 
                     await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -192,7 +199,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Potvrď svůj email",
+                        await SendEmailAsync(Input.Email, "Potvrď svůj email TPWA",
                             $"Prosím potvrď si účet <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>kliknutím zde</a>.");
 
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -222,35 +229,47 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             return Page();
         }
 
-        //private async Task<bool> SendEmailAsync(string email, string confirmLink)
-        //{
-        //    try
-        //    {
+        private async Task<bool> SendEmailAsync(string email, string subject, string confirmLink)
+        {
+            try
+            {
+                var emailS = new MimeMessage();
+                emailS.From.Add(MailboxAddress.Parse("traininplanWebapp@seznam.cz"));
+                emailS.To.Add(MailboxAddress.Parse(email));
+                emailS.Subject = subject;
+                emailS.Body = new TextPart(TextFormat.Html) { Text = confirmLink };
 
-        //        MailMessage message = new MailMessage();
-        //        SmtpClient smtpClient = new SmtpClient();
-        //        message.From = new MailAddress("aplikaceProTvorbuTP@TPWA.cz");
-        //        message.To.Add(email);
-        //        message.Subject = "Potvrď email TPWA";
-        //        message.IsBodyHtml = true;
-        //        message.Body = confirmLink;
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
+                    smtp.Authenticate("tom.douglas@ethereal.email", "kBbGB776mcZgmu2hwY");
+                    smtp.Send(emailS);
+                    smtp.Disconnect(true);
+                }
 
-        //        smtpClient.Port = 587;
-        //        smtpClient.Host = "smtp-relay.brevo.com";
+                //MailMessage message = new MailMessage();
+                //SmtpClient smtpClient = new SmtpClient();
+                //message.From = new MailAddress("traininplanwebapp@gmail.com");
+                //message.To.Add("kidik.mlcousek@gmail.com");
+                //message.Subject = subject;
+                //message.IsBodyHtml = true;
+                //message.Body = confirmLink;
 
-        //        smtpClient.EnableSsl = true;
-        //        smtpClient.UseDefaultCredentials = false;
-        //        smtpClient.Credentials = new NetworkCredential("USERNAME", "PASSWORD");
-        //        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //        smtpClient.Send(message);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false
-        //    }
+                //smtpClient.Port = 25;
+                //smtpClient.Host = "smtp-relay.gmail.com";
 
-        //}
+                //smtpClient.EnableSsl = true;
+                //smtpClient.UseDefaultCredentials = false;
+                //smtpClient.Credentials = new NetworkCredential("traininplanwebapp@gmail.com", "BPTP123*");
+                //smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //smtpClient.Send(message);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         private Uzivatel CreateUser()
         {

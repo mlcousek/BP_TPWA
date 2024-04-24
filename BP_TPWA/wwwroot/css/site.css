@@ -136,6 +136,10 @@ BTN
     margin-right: 1rem;
 }
 
+.custom-ml {
+    margin-left: 1rem;
+}
+
 .button-container-cus {
     display: flex;
     justify-content: space-between;

@@ -30,6 +30,32 @@ namespace BP_TPWA.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ZmenitVek(DataZFrontendu data)
+        {
+            if (data != null)
+            {
+                DateTime datum;
+                if (DateTime.TryParse(data.Datum, out datum))
+                {
+                    DateTime novyDatum = new DateTime(datum.Year, datum.Month, datum.Day, 0, 0, 0);
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var uzivatel = _context.Users
+                                   .Where(dt => dt.Id == userId)
+                                   .ToList();
+
+                    uzivatel[0].Vìk = uzivatel[0].Vìk + 1;
+                    uzivatel[0].PomocneDatum = novyDatum;
+
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+
+            return View(data);
+        }
+
         public IActionResult Privacy()
         {
             return View();
