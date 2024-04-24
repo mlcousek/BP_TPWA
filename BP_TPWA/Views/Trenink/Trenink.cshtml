@@ -310,7 +310,7 @@
 
                 var početOpakování = document.createElement("p");
                 početOpakování.textContent = "Počet opakování: " + cvik.počtyOpakování[index];
-                console.log(cvik.počtyOpakování);
+                // console.log(cvik.počtyOpakování);
                 modalContent.appendChild(početOpakování);
 
 
@@ -353,8 +353,7 @@
                     }
 
                     var index = zaznam.cisloSerie - 1;
-                    console.log(index);
-                    console.log(index >= pocetOpakovaniString.length);
+                   
                     if (index >= pocetOpakovaniString.length) {
                         for (var i = pocetOpakovaniString.length; i < index; i++) {
                         }
@@ -401,7 +400,7 @@
                         data: seriesDatac[0],
 
                         success: function (response) {
-                            console.log("top");
+                            // console.log("top");
                             $.ajax({
                                 url: '/Cvik/SmazatDataCvikuZDatabazeIDenTreninku',
                                 type: 'POST',
@@ -463,7 +462,7 @@ var seriesCount = 1;
 function changeSeriesCount() {
     var newSeriesCount = document.getElementById("series").value;
     seriesCount = parseInt(newSeriesCount);
-    console.log(seriesCount);
+    // console.log(seriesCount);
     if (seriesCount < 0) {
         alert("Zadejte prosím platný počet sérií (0 až 50).");
         seriesCount = 0;
@@ -476,7 +475,7 @@ function changeSeriesCount() {
 function changeSeriesCount1(cvik) {
     var newSeriesCount = document.getElementById("series").value;
     seriesCount = parseInt(newSeriesCount);
-    console.log(seriesCount);
+    // console.log(seriesCount);
     if (seriesCount < 0) {
         alert("Zadejte prosím platný počet sérií (0 až 50).");
         seriesCount = 0;

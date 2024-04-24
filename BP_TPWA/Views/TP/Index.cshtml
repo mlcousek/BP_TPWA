@@ -303,8 +303,7 @@
 
         function odeslatZpetnouVazbu() {
             var novaVaha = document.getElementById("vaha").value;
-            console.log(novaVaha);
-            console.log(staraVaha);
+           
             var dataVPohode = 1;
             if (novaVaha >= staraVaha) {
                 if (novaVaha - 11 > staraVaha) {
@@ -326,7 +325,6 @@
                             Váha: novaVaha.toString()
                 });
 
-                console.log(vahaData[0].Váha);
 
                 $.ajax({
                     url: '/TP/AktualizaceVahy',

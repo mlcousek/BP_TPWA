@@ -188,7 +188,7 @@
                 var cvikDataForExercise = groupedByExercise[cvikName];
 
                 if (pocetVypisaniBench === 0) {
-                    console.log(pocetVypisaniBench);
+                    //console.log(pocetVypisaniBench);
                     var isBenchpress = cvikDataForExercise.some(function (cvikData) {
                         if (cvikData.cvik.název === 'Benchpress') {
                             pocetVypisaniBench = 1;
@@ -385,7 +385,7 @@
 
                 if (!uniqueCviky.includes(nazevCviku)) {
                     uniqueCviky.push(nazevCviku); 
-                    console.log(uniqueCviky);
+                   // console.log(uniqueCviky);
 
                     var button = document.createElement('button');
                     button.id = tlacitkoText(kategorie);
