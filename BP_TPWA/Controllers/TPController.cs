@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 
@@ -295,14 +296,21 @@ namespace BP_TPWA.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var uzivatel = _context.Users.Where(t => t.Id == userId).ToList();
             var uzivatelIdZaznam = await _context.TP.SingleOrDefaultAsync(tp => tp.Id == uzivatel[0].TPId);
-            
-            if(uzivatelIdZaznam != null)
+
+            var jakCastoDny = 0;
+            foreach (var user in uzivatel)
+            {
+                jakCastoDny = user.JakCastoAktualizovatVahu;
+
+            }
+
+            if (uzivatelIdZaznam != null)
             {
                 DateTime tedka = DateTime.Now;
                 DateTime datumPoslednihoUlozeni = uzivatelIdZaznam.DatumPoslednihoUlozeniVahy;
                 TimeSpan rozdil = tedka - datumPoslednihoUlozeni;
 
-                if (rozdil.TotalDays >= 1)              /////NASTAVENI JAK CASTO BUDE KONTROLA VAHY, DAM CO DEN KVULI TESTOVANI
+                if (rozdil.TotalDays >= jakCastoDny)              /////NASTAVENI JAK CASTO BUDE KONTROLA VAHY, DAM CO DEN KVULI TESTOVANI
                 {
                     uzivatelIdZaznam.AktualniVaha = false;
                     await _context.SaveChangesAsync();
@@ -413,10 +421,11 @@ namespace BP_TPWA.Controllers
 
 
                                 var cviky = _context.Cvik
-                                            .Where(c => c.UzivatelId == userId)
-                                            .AsEnumerable()
-                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka))
-                                            .ToList();
+                                            .Where(c => c.UzivatelId == userId) 
+                                            .AsEnumerable() 
+                                            .Where(c => c.TypyTreninku != null) 
+                                            .Where(c => c.TypyTreninku.Contains(typTreninkuZkratka)) 
+                                            .ToList(); 
 
                                 List<Cvik> noveCviky = new List<Cvik>();
                                 for (int j = 0; j < cviky.Count; j++)

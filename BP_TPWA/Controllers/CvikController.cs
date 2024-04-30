@@ -2436,7 +2436,7 @@ namespace BP_TPWA.Controllers
                     cvik.cvikVytvorenUzivatelem = true;
                     _context.Add(cvik);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "TP");
+                    return RedirectToAction("Index", "Cvik");
                 }
                 else
                 {
@@ -2555,9 +2555,21 @@ namespace BP_TPWA.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var uzivatelId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var uzivatel = await _context.Users.FirstOrDefaultAsync(t => t.Id == uzivatelId);
             var zaznamyKSmazani = await _context.TreninkoveData
                         .Where(t => t.CvikId == id && t.UzivatelId == uzivatelId)
                         .ToListAsync();
+            var dnyVTreninkuObsahuji = await _context.DenTreninku 
+                                        .Where(t => t.TPId == uzivatel.TPId).ToListAsync();
+
+            var vyfiltrovaneZaznamy = dnyVTreninkuObsahuji.Where(zaznam =>
+                    zaznam.Cviky.Any(cvik => cvik.CvikId == id)
+                ).ToList();
+
+            foreach (var zaznam in vyfiltrovaneZaznamy)
+            {
+                zaznam.Cviky.RemoveAll(c => c.CvikId == id);
+            }
 
             if (zaznamyKSmazani.Any())
             {
@@ -2643,7 +2655,10 @@ namespace BP_TPWA.Controllers
             if (cvik != null)
             {
                 var idUzivatele = cvik.UzivatelId;
-                var treninkovyPlan = _context.TP.Where(dt => dt.UzivatelID == idUzivatele).ToList();
+                var uzivatel = _context.Users.FirstOrDefault(x => x.Id == idUzivatele);
+                var treninkovyPlan = _context.TP.Where(dt => dt.UzivatelID == idUzivatele).Where(dt => dt.Id == uzivatel.TPId).ToList();
+
+
                 var idTP = treninkovyPlan[0].Id;
 
                 

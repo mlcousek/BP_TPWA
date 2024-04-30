@@ -41,7 +41,7 @@
 
 @section Scripts {
 
-    <script>
+@*     <script>
         function validovatFormular() {
             var vsechnyCviky = @Html.Raw(Json.Serialize(ViewBag.vsechnyCviky));
             var nazevcviku = document.getElementById("nazevcviku").value;
@@ -67,6 +67,38 @@
                 alert("Zadejte platný popisek s který má maximálně 5000 znaků.");
                 return false;
             }
+
+            return true;
+        }
+    </script> *@
+
+    <script>
+        function validovatFormular() {
+            var vsechnyCviky = @Html.Raw(Json.Serialize(ViewBag.vsechnyCviky));
+            var nazevcviku = document.getElementById("nazevcviku").value;
+            var partiecviku = document.getElementById("partiecviku").value;
+            var popisek = document.getElementById("popisek").value;
+
+            if (vsechnyCviky.some(cvik => cvik.název === nazevcviku)) {
+                alert("Tento cvik už je vytvořen");
+                return false;
+            }
+
+            if (nazevcviku.length < 1 || nazevcviku.length > 200) {
+                alert("Zadejte platný název cviku");
+                return false;
+            }
+
+            if (partiecviku.length < 1 || partiecviku.length > 100) {
+                alert("Zadejte platný název partie cviku");
+                return false;
+            }
+
+            if (popisek.length < 1 || popisek.length > 5000) {
+                alert("Zadejte platný popisek s který má maximálně 5000 znaků.");
+                return false;
+            }
+
 
             return true;
         }

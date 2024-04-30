@@ -1,0 +1,120 @@
+﻿@page
+@model ZmenaVahyModel
+@{
+    ViewData["Title"] = "Změna váhy";
+    ViewData["ActivePage"] = ManageNavPages.ZmenaVahy;
+    var uzivatel = ViewData["Uzivatel"];
+
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<p id="modalContent">Zadejte aktuální váhu (kg) (př.: 82,3)</p>
+<div id="serieFormular" class="form-group mb-3">
+    <input type="number" class="form-control" id="vaha">
+</div>
+<button type="button" class="btn btn-outline-success" id="feedbackButton" onclick="odeslatZpetnouVazbu()">Změnit aktuální váhu</button>
+
+<hr />
+
+<h3>Změna frekvence aktualizování váhy</h3>
+
+<div id="jakcastoaktualizacevahy" class="form-group mb-3">
+    <select class="form-control" id="frekvence_aktualizace">
+        <option value="1" selected>Každý den</option>
+        <option value="3">Každé 3 dny</option>
+        <option value="5">Každých 5 dní</option>
+        <option value="7">Každý týden</option>
+        <option value="14">Každé dva týdny</option>
+    </select>
+</div>
+
+<button type="button" class="btn btn-outline-success" id="feedbackButton" onclick="odeslatData()">Změna frekvence aktualizování váhy</button>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Převod dat na JSON
+        var uzivatelData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(uzivatel));
+
+        var staraVaha = uzivatelData[0].Váha;
+        var inputVaha = document.getElementById('vaha');
+        inputVaha.value = staraVaha;
+
+        function odeslatZpetnouVazbu() {
+            var novaVaha = document.getElementById("vaha").value;
+
+            var dataVPohode = 1;
+            if (novaVaha >= staraVaha) {
+                if (novaVaha - 11 > staraVaha) {
+                    dataVPohode = 0;
+                }
+            } else {
+                if (novaVaha + 11 < staraVaha) {
+                    dataVPohode = 0;
+                }
+            }
+            if (dataVPohode === 0) {
+                alert("Zadejte prosím pravdivé údaje.");
+            }
+
+            if (dataVPohode === 1) {
+
+                var vahaData = [];
+                vahaData.push({
+                    Váha: novaVaha.toString()
+                });
+
+
+                $.ajax({
+                    url: '/TP/AktualizaceVahy',
+                    type: 'POST',
+                    data: vahaData[0],
+
+                    success: function (response) {
+                        
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        }
+
+        var staraHodnota = uzivatelData[0].JakCastoAktualizovatVahu;
+        var inputHodnota = document.getElementById('frekvence_aktualizace');
+        inputHodnota.value = staraHodnota;
+
+        function odeslatData() {
+
+            var selectElement = document.getElementById("frekvence_aktualizace");
+            var selectedValue = selectElement.value;
+
+            var seriesDatacus = [];
+            seriesDatacus.push({
+                Datum: -1,
+                cvikId: selectedValue,
+                CisloSerie: -1,
+                PocetOpakovani: -1,
+                CvicenaVaha: -1,
+                Vaha: -1
+            });
+
+            $.ajax({
+                url: '/Home/ZmenitJakCastoSeAktualizujeVaha',
+                type: 'POST',
+                data: seriesDatacus[0],
+
+                success: function (response) {
+                    
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        }
+
+
+
+    </script>
+
+}

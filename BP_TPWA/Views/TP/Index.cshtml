@@ -124,6 +124,8 @@
     var tpInfo = @Html.Raw(Json.Serialize(ViewBag.TP));
 
 
+
+
     function smazatTP() {
         window.location.href = "/TP/Delete1?id=" + uzivatelData[0].tpId;
         $('#myModal1').modal('hide');
@@ -131,6 +133,11 @@
 
     var element = document.getElementById('generovaniTlacitka');
     var vytvoritTP = document.getElementById('vytvoritTP');
+    var dnes = new Date();
+
+
+
+
     if (uzivatelData[0].tpId !== null) {
         var nejpozdejsiDatum = null;
 
@@ -144,7 +151,6 @@
         element.style.display = 'block';
         vytvoritTP.style.display = 'none';
 
-        var dnes = new Date();
 
         if (dnes >= nejpozdejsiDatum) {     
             vytvoritTP.style.display = 'block';
@@ -178,7 +184,7 @@
 
                 var closeBtn = modal.querySelector(".btn-close");
                 closeBtn.onclick = function () {
-                    $('#myModal').modal('hide')
+                    $('#myModal').modal('hide');
                 }
 
                 window.onclick = function (event) {
@@ -310,7 +316,7 @@
                     dataVPohode = 0;
                 }
             } else {
-                if (novaVaha + 11 > staraVaha) {
+                if (novaVaha + 11 < staraVaha) {
                     dataVPohode = 0;
                 }
             }
