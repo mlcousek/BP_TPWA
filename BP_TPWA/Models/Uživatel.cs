@@ -7,13 +7,13 @@ namespace BP_TPWA.Models
 {
     public class Uzivatel : IdentityUser
     {
-        public string Jméno { get; set; }
-        public string Příjmení { get; set; }
-        public int Věk { get; set; }
-        public int Výška { get; set; }
-        public double Váha { get; set; }
-        public int Úroveň { get; set; }
-        public int Pohlaví { get; set; }
+        public string Jmeno { get; set; }
+        public string Prijmeni { get; set; }
+        public int Vek { get; set; }
+        public int Vyska { get; set; }
+        public double Vaha { get; set; }
+        public int Uroven { get; set; }
+        public int Pohlavi { get; set; }
         public int JakCastoAktualizovatVahu { get; set; }
         public bool PridaneData { get; set; }
         public DateTime PomocneDatum { get; set; }

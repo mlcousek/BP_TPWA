@@ -1,8 +1,17 @@
 using BP_TPWA.Data;
 using BP_TPWA.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Diagnostics;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.Encodings.Web;
+using System.Text;
+using System.Net.Http;
+using Microsoft.EntityFrameworkCore;
+using static BP_TPWA.Controllers.TPController;
+
 
 namespace BP_TPWA.Controllers
 {
@@ -10,22 +19,28 @@ namespace BP_TPWA.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Uzivatel> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<Uzivatel> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var uzivatel =  _context.Users
+            var uzivatel = _context.Users
                                .Where(dt => dt.Id == userId)
                                .ToList();
+            var testovaciData = PridaneTestovaciDataGlobalni.PridaneTestovaciDataDoAplikace;
+
+
 
             // var tpInfo = _context.TP.ToList();
             ViewBag.Uzivatel = uzivatel;
+            ViewBag.TestovaciData = testovaciData;
 
             return View();
         }
@@ -45,7 +60,7 @@ namespace BP_TPWA.Controllers
 
                     foreach (var user in uzivatel)
                     {
-                        user.Vìk = user.Vìk + 1;
+                        user.Vek = user.Vek + 1;
                         user.PomocneDatum = novyDatum;
                     }
 
@@ -73,7 +88,7 @@ namespace BP_TPWA.Controllers
                 foreach (var user in uzivatel)
                 {
                     user.JakCastoAktualizovatVahu = data.CvikId;
-                   
+
                 }
 
                 await _context.SaveChangesAsync();
@@ -101,12 +116,46 @@ namespace BP_TPWA.Controllers
         [Route("/StatusCodeError/{statusCode}")]
         public IActionResult Errors(int statusCode)
         {
-            if(statusCode == 404) 
+            if (statusCode == 404)
             {
                 ViewBag.ErrorMessage = "404 Strátka nebyla nalezena";
             }
 
             return View();
         }
-    }
+
+        //kod dolu slouzi pouze pro vytvoreni testovacich dat !!! kopiruju kod z TP Controller, protoze nechci menit tam ty tridy na static
+        public async Task<IActionResult> PridatTestovaciData1()
+        {
+            var user = new Uzivatel
+            {
+                Jmeno = "Test",
+                Prijmeni = "Test",
+                Vaha = 75.5,
+                Vyska = 170,
+                Vek = 25,
+                Uroven = 2,
+                Pohlavi = 1,
+                PridaneData = false,
+                PomocneDatum = DateTime.Today,
+                UserName = "test@test.cz",
+                Email = "test@test.cz",
+                JakCastoAktualizovatVahu = 1,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, "Test123");
+
+            await _context.SaveChangesAsync();
+            if (result.Succeeded)
+            {
+                PridaneTestovaciDataGlobalni.PridaneTestovaciDataDoAplikace = 1;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return BadRequest("Chyba pøi vytváøení testovacího uživatele.");
+            }
+        }
+    }  
 }

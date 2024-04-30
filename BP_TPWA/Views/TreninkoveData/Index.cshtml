@@ -175,7 +175,7 @@
             // Seskupení dat podle cviku
             var groupedByExercise = {};
             dataKategorie.forEach(function (cvikData) {
-                var cvikName = cvikData.cvik.název;
+                var cvikName = cvikData.cvik.nazev;
                 if (!groupedByExercise[cvikName]) {
                     groupedByExercise[cvikName] = [];
                 }
@@ -233,25 +233,46 @@
                 var datumMaximalniVahy = dates[indexMaxVaha];
                 datumMaximalniVahy = datumMaximalniVahy.slice(0, 10);
 
+                var dateParts = datumMaximalniVahy.split("-");
+                // Nové pořadí: den, měsíc, rok
+                var year = dateParts[0];
+                var month = dateParts[1];
+                var day = dateParts[2];
+                var formattedDate = `${parseInt(day)}. ${parseInt(month)}. ${year}`;
+
                 var nejvetsiVahaZaTrenink = Math.max(...sumaVah);
                 var indexMaxVahaZaTrenink = sumaVah.indexOf(nejvetsiVahaZaTrenink);
                 var vahaUzivatelePriMaxVazeZaTrenink = vahyUzivatele[indexMaxVahaZaTrenink];
                 var datumMaxVahyZaTrenink = dates[indexMaxVaha];
                 datumMaxVahyZaTrenink = datumMaxVahyZaTrenink.slice(0, 10);
 
+
+                var dateParts1 = datumMaxVahyZaTrenink.split("-");
+                // Nové pořadí: den, měsíc, rok
+                var year1 = dateParts1[0];
+                var month1 = dateParts1[1];
+                var day1 = dateParts1[2];
+                var formattedDate1 = `${parseInt(day1)}. ${parseInt(month1)}. ${year1}`;
+
                 var prumernaVaha = (prumVahy.reduce((acc, val) => acc + val, 0) / prumVahy.length).toFixed(2);
                 var sumaVsechVah = sumaVah.reduce((acc, val) => acc + val, 0);
 
                 // Vytvoření HTML obsahu informačního kontejneru s přidanými daty
                 infoContainer.innerHTML = `
-                        <p>Nejvyšší cvičená váha: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</p>
-                        <p>Celková nejvyšší nazvedaná váha za trénink: ${nejvetsiVahaZaTrenink}kg (Tělesná váha: ${vahaUzivatelePriMaxVazeZaTrenink}kg, Datum: ${datumMaxVahyZaTrenink})</p>
+                            <p>Nejvyšší cvičená váha: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${formattedDate})</p>
+                            <p>Celková nejvyšší nazvedaná váha za trénink: ${nejvetsiVahaZaTrenink}kg (Tělesná váha: ${vahaUzivatelePriMaxVazeZaTrenink}kg, Datum: ${formattedDate1})</p>
                         <p>Průměrná váha ze všech tréninků: ${prumernaVaha}kg</p>
                         <p>Celková nazvedaná váha na tento cvik: ${sumaVsechVah}kg</p>
                     `;
 
                 for (var i = 0; i < dates.length; i++) {
                     dates[i] = dates[i].slice(0, 10);
+                    var dateParts2 = dates[i].split("-");
+                    // Nové pořadí: den, měsíc, rok
+                    var year2 = dateParts2[0];
+                    var month2 = dateParts2[1];
+                    var day2 = dateParts2[2];
+                    dates[i] = `${parseInt(day)}. ${parseInt(month)}. ${year}`;
                 }
 
                 // Vytvoření grafu pro každý cvik
@@ -406,7 +427,7 @@
         Object.keys(grafy).forEach(function (kategorie) {
             var uniqueCviky = [];
             Object.keys(grafy[kategorie]).forEach(function (cvik) {
-                var nazevCviku = grafy[kategorie][cvik].cvik.název;
+                var nazevCviku = grafy[kategorie][cvik].cvik.nazev;
                 var idCviku = grafy[kategorie][cvik].cvikId;
 
                 if (!uniqueCviky.includes(nazevCviku)) {

@@ -22,6 +22,4 @@ namespace BP_TPWA.Models
             return cultureInfo.DateTimeFormat.GetDayName(dayOfWeek);
         }
     }
-
-
 }

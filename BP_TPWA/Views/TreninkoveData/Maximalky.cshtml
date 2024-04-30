@@ -177,7 +177,7 @@
             // Seskupení dat podle cviku
             var groupedByExercise = {};
             dataKategorie.forEach(function (cvikData) {
-                var cvikName = cvikData.cvik.název;
+                var cvikName = cvikData.cvik.nazev;
                 if (!groupedByExercise[cvikName]) {
                     groupedByExercise[cvikName] = [];
                 }
@@ -190,28 +190,28 @@
                 if (pocetVypisaniBench === 0) {
                     //console.log(pocetVypisaniBench);
                     var isBenchpress = cvikDataForExercise.some(function (cvikData) {
-                        if (cvikData.cvik.název === 'Benchpress') {
+                        if (cvikData.cvik.nazev === 'Benchpress') {
                             pocetVypisaniBench = 1;
                         }
-                        return cvikData.cvik.název === 'Benchpress'; 
+                        return cvikData.cvik.nazev === 'Benchpress'; 
                     });
                 }
 
                 if (pocetVypisaniMrtvola === 0){
                     var isDeadlift = cvikDataForExercise.some(function (cvikData) {
-                        if (cvikData.cvik.název === 'Mrtvý tah') {
+                        if (cvikData.cvik.nazev === 'Mrtvý tah') {
                             pocetVypisaniMrtvola = 1;
                         }
-                        return cvikData.cvik.název === 'Mrtvý tah'; 
+                        return cvikData.cvik.nazev === 'Mrtvý tah'; 
                     });
                 }
 
                 if (pocetVypisaniDrep === 0) {
                     var isSquat = cvikDataForExercise.some(function (cvikData) {
-                        if (cvikData.cvik.název === 'Dřepy') {
+                        if (cvikData.cvik.nazev === 'Dřepy') {
                             pocetVypisaniDrep = 1;
                         }
-                        return cvikData.cvik.název === 'Dřepy';
+                        return cvikData.cvik.nazev === 'Dřepy';
                     });
                 }
 
@@ -265,14 +265,21 @@
                 var datumMaximalniVahy = dates[indexMaxVaha];
                 datumMaximalniVahy = datumMaximalniVahy.slice(0, 10);
 
+                const dateParts = datumMaximalniVahy.split("-");
+                // Nové pořadí: den, měsíc, rok
+                const year = dateParts[0];  
+                const month = dateParts[1]; 
+                const day = dateParts[2];   
+                const formattedDate = `${parseInt(day)}. ${parseInt(month)}. ${year}`;
+
                 // Vytvoření HTML obsahu informačního kontejneru s přidanými daty
                 infoContainer.innerHTML = `
-                    <p>${cvikName}: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</p>
+                    <p>${cvikName}: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${formattedDate})</p>
                 `;
 
                 if (isBenchpress || isDeadlift || isSquat) {
                     maximalkyContainer.innerHTML = `
-                        <h3>${cvikName}: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${datumMaximalniVahy})</h3>
+                        <h3>${cvikName}: ${maximalniVaha}kg (Tělesná váha: ${vahaUzivatelePriMaxVaze}kg, Datum: ${formattedDate})</h3>
                     `;
                 }
 
@@ -380,7 +387,7 @@
         Object.keys(grafy).forEach(function (kategorie) {
             var uniqueCviky = [];
             Object.keys(grafy[kategorie]).forEach(function (cvik) {
-                var nazevCviku = grafy[kategorie][cvik].cvik.název;
+                var nazevCviku = grafy[kategorie][cvik].cvik.nazev;
                 var idCviku = grafy[kategorie][cvik].cvikId;
 
                 if (!uniqueCviky.includes(nazevCviku)) {

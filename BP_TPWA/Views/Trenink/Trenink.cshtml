@@ -179,15 +179,17 @@
 
 
 
-    if (dnes.getFullYear() <= dateFromUrl.getFullYear()) {
-        if (dnes.getMonth() <= dateFromUrl.getMonth()) {
-            if (dnes.getDate() <= dateFromUrl.getDate()) {
+    if (dnes.getFullYear() === dateFromUrl.getFullYear()) {
+        if (dnes.getMonth() === dateFromUrl.getMonth()) {
+            if (dnes.getDate() === dateFromUrl.getDate()) {
 
                 document.getElementById('uzivatelVahaFormular').style.display = 'none';
             }
         }
 
     }
+
+
 
     var pridatCvikButton = document.getElementById("pridatCvikButton");
 
@@ -271,7 +273,7 @@
             row.appendChild(idCell);
 
             var nameCell = document.createElement("td");
-            nameCell.textContent = cvik.název;
+            nameCell.textContent = cvik.nazev;
             nameCell.classList.add("clickable"); 
             nameCell.addEventListener("click", function () {
                      cvikId = cvik.cvikId;
@@ -300,7 +302,7 @@
 
             });
             nameCell.addEventListener("click", function () { 
-                document.getElementById("exampleModalLabel").textContent = cvik.název;
+                document.getElementById("exampleModalLabel").textContent = cvik.nazev;
                 var modalContent = document.getElementById("modalContent");
                 modalContent.innerHTML = ""; 
 
@@ -528,149 +530,149 @@ function renderSeriesFields() {
     }
 }
 
-function renderSeriesFields1(cvik) {
-    var seriesFieldsContainer = document.getElementById("seriesFields");
-    seriesFieldsContainer.innerHTML = ""; 
+    function renderSeriesFields1(cvik) {
+        var seriesFieldsContainer = document.getElementById("seriesFields");
+        seriesFieldsContainer.innerHTML = ""; 
 
-    for (var i = 0; i < seriesCount; i++) {
-        var seriesNumber = i + 1;
-        var seriesField = document.createElement("div");
-        seriesField.classList.add("form-group");
+        for (var i = 0; i < seriesCount; i++) {
+            var seriesNumber = i + 1;
+            var seriesField = document.createElement("div");
+            seriesField.classList.add("form-group");
 
-        var repetitionsLabel = document.createElement("label");
-        repetitionsLabel.setAttribute("for", "repetitions_" + seriesNumber);
-        repetitionsLabel.textContent = "Počet opakování v sérii " + seriesNumber + ":";
-        repetitionsLabel.classList.add("my-2");
+            var repetitionsLabel = document.createElement("label");
+            repetitionsLabel.setAttribute("for", "repetitions_" + seriesNumber);
+            repetitionsLabel.textContent = "Počet opakování v sérii " + seriesNumber + ":";
+            repetitionsLabel.classList.add("my-2");
 
-        var repetitionsInput = document.createElement("input");
-        repetitionsInput.setAttribute("type", "number");
-        repetitionsInput.setAttribute("class", "form-control");
-        repetitionsInput.setAttribute("id", "repetitions_" + seriesNumber);
-        repetitionsInput.setAttribute("min", 0);
-        repetitionsInput.setAttribute("max", 50);
+            var repetitionsInput = document.createElement("input");
+            repetitionsInput.setAttribute("type", "number");
+            repetitionsInput.setAttribute("class", "form-control");
+            repetitionsInput.setAttribute("id", "repetitions_" + seriesNumber);
+            repetitionsInput.setAttribute("min", 0);
+            repetitionsInput.setAttribute("max", 50);
 
-        var index = cvik.typyTreninku.indexOf(typTreninkuZkratka);
-        var poleHodnot = cvik.počtyOpakování[index].split(",");
-        var prednastavenaHodnota = parseInt(poleHodnot[i].trim());
-        repetitionsInput.value = prednastavenaHodnota;
+            var index = cvik.typyTreninku.indexOf(typTreninkuZkratka);
+            var poleHodnot = cvik.počtyOpakování[index].split(",");
+            var prednastavenaHodnota = parseInt(poleHodnot[i].trim());
+            repetitionsInput.value = prednastavenaHodnota;
 
-        var weightLabel = document.createElement("label");
-        weightLabel.setAttribute("for", "weight_" + seriesNumber);
-        weightLabel.textContent = "Váha v sérii " + seriesNumber + " (kg):";
-        weightLabel.classList.add("my-2");
+            var weightLabel = document.createElement("label");
+            weightLabel.setAttribute("for", "weight_" + seriesNumber);
+            weightLabel.textContent = "Váha v sérii " + seriesNumber + " (kg):";
+            weightLabel.classList.add("my-2");
 
-        var weightInput = document.createElement("input");
-        weightInput.setAttribute("type", "number");
-        weightInput.setAttribute("class", "form-control");
-        weightInput.setAttribute("id", "weight_" + seriesNumber);
-        weightInput.setAttribute("min", 0);
-        weightInput.setAttribute("max", 600);
+            var weightInput = document.createElement("input");
+            weightInput.setAttribute("type", "number");
+            weightInput.setAttribute("class", "form-control");
+            weightInput.setAttribute("id", "weight_" + seriesNumber);
+            weightInput.setAttribute("min", 0);
+            weightInput.setAttribute("max", 600);
 
-        seriesField.appendChild(repetitionsLabel);
-        seriesField.appendChild(repetitionsInput);
-        seriesField.appendChild(weightLabel);
-        seriesField.appendChild(weightInput);
+            seriesField.appendChild(repetitionsLabel);
+            seriesField.appendChild(repetitionsInput);
+            seriesField.appendChild(weightLabel);
+            seriesField.appendChild(weightInput);
 
-        seriesFieldsContainer.appendChild(seriesField);
-    }
-}
-
-function submitFeedback() {
-
-    var seriesData = [];
-    for (var i = 0; i < seriesCount; i++) {
-        var seriesNumber = i + 1;
-        var repetitions = document.getElementById("repetitions_" + seriesNumber).value;
-        var weight = document.getElementById("weight_" + seriesNumber).value;
-
-        if (uzivatelVaha.value === "") {
-            seriesData.push({
-                Datum: dateString,
-                cvikId: cvikId,
-                CisloSerie: seriesNumber,
-                PocetOpakovani: repetitions,
-                CvicenaVaha: weight
-            });
-        } else {
-            seriesData.push({
-                Datum: dateString,
-                cvikId: cvikId,
-                CisloSerie: seriesNumber,
-                PocetOpakovani: repetitions,
-                CvicenaVaha: weight,
-                Vaha: uzivatelVaha.value
-            });
+            seriesFieldsContainer.appendChild(seriesField);
         }
     }
 
-    var dataVPohode = 1;
+    function submitFeedback() {
 
-    for (var i = 0; i < seriesData.length; i++) {
-        if (seriesData[i].PocetOpakovani > 100 || seriesData[i].PocetOpakovani < 0) {
-            dataVPohode = 0;
-            alert("Zadejte prosím pravdivé údaje.");
-        } else if (seriesData[i].CvicenaVaha > 500 || seriesData[i].CvicenaVaha < 0) {
-            dataVPohode = 0;
-            alert("Zadejte prosím pravdivé údaje.");
-        }
-    }
+        var seriesData = [];
+        for (var i = 0; i < seriesCount; i++) {
+            var seriesNumber = i + 1;
+            var repetitions = document.getElementById("repetitions_" + seriesNumber).value;
+            var weight = document.getElementById("weight_" + seriesNumber).value;
 
-    if (dataVPohode == 1) {
-
-            var cvikVDatabazi1 = datacviku.find(function (item) {
-            var datumVPlanu1 = dateString.slice(0, 10);
-            var datumZDatabaze1 = item.datum.slice(0, 10);
-            return item.cvikId === cvikId && datumVPlanu1 === datumZDatabaze1;
-        });
-
-        if (cvikVDatabazi1) {
-                $.ajax({
-                    url: '/TreninkoveData/DeleteFromDatabase',
-                    type: 'POST',
-                    data: seriesData[0],
-
-                    success: function (response) {
-                            for (var i = 0; i < seriesData.length; i++) {
-                                $.ajax({
-                                    url: '/TreninkoveData/SaveToDatabase',
-                                    type: 'POST',
-                                    data: seriesData[i],
-
-                                    success: function (response) {
-                                        location.reload(true);
-                                    },
-                                    error: function (xhr, status, error) {
-                                        console.log("chyba");
-                                    }
-                                });
-                            }
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("chyba");
-                    }
+            if (uzivatelVaha.value === "") {
+                seriesData.push({
+                    Datum: dateString,
+                    cvikId: cvikId,
+                    CisloSerie: seriesNumber,
+                    PocetOpakovani: repetitions,
+                    CvicenaVaha: weight
                 });
-
-        } else {
-
-            for (var i = 0; i < seriesData.length; i++) {
-                $.ajax({
-                    url: '/TreninkoveData/SaveToDatabase',
-                    type: 'POST',
-                    data: seriesData[i],
-
-                    success: function (response) {
-                                location.reload(true);
-                    },
-                    error: function (xhr, status, error) {
-                    }
+            } else {
+                seriesData.push({
+                    Datum: dateString,
+                    cvikId: cvikId,
+                    CisloSerie: seriesNumber,
+                    PocetOpakovani: repetitions,
+                    CvicenaVaha: weight,
+                    Vaha: uzivatelVaha.value
                 });
             }
+        }
 
-            changeSeriesCount();
-            $('#myModal').modal('hide');
+        var dataVPohode = 1;
+
+        for (var i = 0; i < seriesData.length; i++) {
+            if (seriesData[i].PocetOpakovani > 100 || seriesData[i].PocetOpakovani < 0) {
+                dataVPohode = 0;
+                alert("Zadejte prosím pravdivé údaje.");
+            } else if (seriesData[i].CvicenaVaha > 500 || seriesData[i].CvicenaVaha < 0) {
+                dataVPohode = 0;
+                alert("Zadejte prosím pravdivé údaje.");
+            }
+        }
+
+        if (dataVPohode == 1) {
+
+                var cvikVDatabazi1 = datacviku.find(function (item) {
+                var datumVPlanu1 = dateString.slice(0, 10);
+                var datumZDatabaze1 = item.datum.slice(0, 10);
+                return item.cvikId === cvikId && datumVPlanu1 === datumZDatabaze1;
+            });
+
+            if (cvikVDatabazi1) {
+                    $.ajax({
+                        url: '/TreninkoveData/DeleteFromDatabase',
+                        type: 'POST',
+                        data: seriesData[0],
+
+                        success: function (response) {
+                                for (var i = 0; i < seriesData.length; i++) {
+                                    $.ajax({
+                                        url: '/TreninkoveData/SaveToDatabase',
+                                        type: 'POST',
+                                        data: seriesData[i],
+
+                                        success: function (response) {
+                                            location.reload(true);
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.log("chyba");
+                                        }
+                                    });
+                                }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("chyba");
+                        }
+                    });
+
+            } else {
+
+                for (var i = 0; i < seriesData.length; i++) {
+                    $.ajax({
+                        url: '/TreninkoveData/SaveToDatabase',
+                        type: 'POST',
+                        data: seriesData[i],
+
+                        success: function (response) {
+                                    location.reload(true);
+                        },
+                        error: function (xhr, status, error) {
+                        }
+                    });
+                }
+
+                changeSeriesCount();
+                $('#myModal').modal('hide');
+            }
         }
     }
-}
 
     function zmenitPoradiCviku() {
         var tlacitkoId = event.target.id;
@@ -714,24 +716,39 @@ function submitFeedback() {
         myModal.show();
     }
 
-        // FUNGUJE JEN TESTUJU TAK TO ZAKOMENTUJU
-        // if (dnes.getFullYear() <= dateFromUrl.getFullYear()) {
-        //     if (dnes.getMonth() <= dateFromUrl.getMonth()) {
-        //         if (dnes.getDate() < dateFromUrl.getDate()) {
+    // FUNGUJE JEN TESTUJU TAK TO ZAKOMENTUJU
 
-                    
+    if (dnes.getFullYear() < dateFromUrl.getFullYear()) {
 
-        //             document.getElementById("feedbackButton").style.display = "none"; 
-        //             document.getElementById("seriesFields").style.display = "none"; 
+        document.getElementById("feedbackButton").style.display = "none";
+        document.getElementById("seriesFields").style.display = "none";
 
-        //             var seriesForm = document.getElementById("serieFormular");
-        //             seriesForm.style.display = "none";
-        //         }
-        //     }
+        var seriesForm = document.getElementById("serieFormular");
+        seriesForm.style.display = "none";
+        document.getElementById('uzivatelVahaFormular').style.display = 'none';
 
-        // }
-        // KONEC CASTI CO FUNGUJE A TESTUJU JI
 
-        renderSeriesFields();
+    } else if (dnes.getFullYear() === dateFromUrl.getFullYear()) {
+        if (dnes.getMonth() < dateFromUrl.getMonth()) {
+            document.getElementById("feedbackButton").style.display = "none";
+            document.getElementById("seriesFields").style.display = "none";
+
+            var seriesForm = document.getElementById("serieFormular");
+            seriesForm.style.display = "none";
+            document.getElementById('uzivatelVahaFormular').style.display = 'none';
+        } else if (dnes.getMonth() === dateFromUrl.getMonth()) {
+            if (dnes.getDate() < dateFromUrl.getDate()) {
+                document.getElementById("feedbackButton").style.display = "none";
+                document.getElementById("seriesFields").style.display = "none";
+
+                var seriesForm = document.getElementById("serieFormular");
+                seriesForm.style.display = "none";
+                document.getElementById('uzivatelVahaFormular').style.display = 'none';
+            }
+        }
+    }
+    // KONEC CASTI CO FUNGUJE A TESTUJU JI
+
+    renderSeriesFields();
 </script> 
 

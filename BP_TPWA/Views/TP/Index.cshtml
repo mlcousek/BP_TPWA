@@ -166,13 +166,13 @@
             }
         }
 
-        var staraVaha = uzivatelData[0].váha;
+        var staraVaha = uzivatelData[0].vaha;
         var inputVaha = document.getElementById('vaha');
         inputVaha.value = staraVaha;
 
         // Nastavení min a max hodnoty váhy s odchylkou -10 a +10
         inputVaha.min = staraVaha - 10;
-        inputVaha.max = staraVaha.váha + 10;
+        inputVaha.max = staraVaha.vaha + 10;
 
          if (tpInfo[0].aktualniVaha === false) {
                 var modal = document.getElementById("myModal");
@@ -274,6 +274,7 @@
                 color: barva,
                 className: moment(treninkoveData[i].datumTreninku).format("YYYY-MM-DD")
             };
+           // console.log(eventy);
         }
     
         $(document).ready(function () {
@@ -309,14 +310,15 @@
 
         function odeslatZpetnouVazbu() {
             var novaVaha = document.getElementById("vaha").value;
+                var novaVahaCislo = parseInt(novaVaha, 10);
            
             var dataVPohode = 1;
-            if (novaVaha >= staraVaha) {
-                if (novaVaha - 11 > staraVaha) {
+            if (novaVahaCislo >= staraVaha) {
+                if (novaVahaCislo - 11 > staraVaha) {
                     dataVPohode = 0;
                 }
             } else {
-                if (novaVaha + 11 < staraVaha) {
+                if (novaVahaCislo + 11 < staraVaha) {
                     dataVPohode = 0;
                 }
             }
@@ -328,7 +330,7 @@
 
                 var vahaData = [];
                 vahaData.push({
-                            Váha: novaVaha.toString()
+                        Vaha: novaVahaCislo.toString()
                 });
 
 

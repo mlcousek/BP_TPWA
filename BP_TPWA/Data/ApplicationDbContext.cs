@@ -39,7 +39,7 @@ namespace BP_TPWA.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Cvik>()
-                .HasIndex(c => new { c.Název, c.UzivatelId })
+                .HasIndex(c => new { c.Nazev, c.UzivatelId })
                 .IsUnique();
 
             modelBuilder.Entity<TP>()

@@ -27,10 +27,50 @@ using MimeKit;
 using MimeKit.Text;
 using MailKit.Security;
 using MailKit.Net.Smtp;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace BP_TPWA.Areas.Identity.Pages.Account
 {
+    public class WeightRangeAttribute : ValidationAttribute
+    {
+        private readonly double _min;
+        private readonly double _max;
+
+        public WeightRangeAttribute(double min, double max)
+        {
+            _min = min;
+            _max = max;
+        }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value == null)
+            {
+                return new ValidationResult("Hodnota je povinná.");
+            }
+
+            double number;
+
+            if (double.TryParse(value.ToString(), NumberStyles.Number, CultureInfo.InvariantCulture, out number))
+            {
+                if (number >= _min && number <= _max)
+                {
+                    return ValidationResult.Success;
+                }
+                else
+                {
+                    return new ValidationResult($"Zadejte platnou váhu.");
+                }
+            }
+            else
+            {
+                return new ValidationResult("Prosím, zadejte platné číslo.");
+            }
+        }
+    }
+
+
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Uzivatel> _signInManager;
@@ -86,8 +126,8 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [StringLength(100, ErrorMessage = "{0} musí být alespoň {2} znaků dlouhé a maximálně {1} znaků dlouhé.", MinimumLength = 5)]
-            [Required (ErrorMessage = "Toto pole je povinné.")]
-            [EmailAddress (ErrorMessage = "Zadejte prosím platnou emailovou adresu.")]
+            [Required(ErrorMessage = "Toto pole je povinné.")]
+            [EmailAddress(ErrorMessage = "Zadejte prosím platnou emailovou adresu.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -127,6 +167,7 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
             [Display(Name = "Výška")]
             public int Výška { get; set; }
             [RegularExpression(@"^\d+([.]\d+)?$", ErrorMessage = "Zadejte platnou váhu.")]
+            [WeightRange(30, 300)]
             [StringLength(5, ErrorMessage = "Zadejte platnou váhu.")]
             [Required(ErrorMessage = "Toto pole je povinné.")]
             [Display(Name = "Váha")]
@@ -168,13 +209,13 @@ namespace BP_TPWA.Areas.Identity.Pages.Account
                     var user = CreateUser();
                     if(user != null)
                     {
-                        user.Jméno = Input.Jméno;
-                        user.Příjmení = Input.Příjmení;
-                        user.Váha = number;
-                        user.Výška = Input.Výška;
-                        user.Věk = Input.Věk;
-                        user.Úroveň = Input.Úroveň;
-                        user.Pohlaví = Input.Pohlaví;
+                        user.Jmeno = Input.Jméno;
+                        user.Prijmeni = Input.Příjmení;
+                        user.Vaha = number;
+                        user.Vyska = Input.Výška;
+                        user.Vek = Input.Věk;
+                        user.Uroven = Input.Úroveň;
+                        user.Pohlavi = Input.Pohlaví;
                         user.PridaneData = false;
                         user.PomocneDatum = DateTime.Today;
                     }

@@ -41,7 +41,7 @@ namespace BP_TPWA.Controllers
 
                 // Nohy
 
-                var cvik1 = new Cvik { Název = "Dřepy s vlastní vahou", PopisCviku = "Zahřátí + aktivace", Partie = "Nohy", UzivatelId = userId };
+                var cvik1 = new Cvik { Nazev = "Dřepy s vlastní vahou", PopisCviku = "Zahřátí + aktivace", Partie = "Nohy", UzivatelId = userId };
                 if (cvik1.TypyTreninku == null)
                 {
                     cvik1.TypyTreninku = new List<string>();
@@ -56,7 +56,7 @@ namespace BP_TPWA.Controllers
                 cvik1.PočtySérií.Add(3);
                 cvik1.PočtyOpakování.Add("10, 10, 10");
                 cvik1.PauzyMeziSériemi.Add(30);
-                var cvik2 = new Cvik { Název = "Dřepy", PopisCviku = "Silový cvik dřep", Partie = "Nohy", UzivatelId = userId };
+                var cvik2 = new Cvik { Nazev = "Dřepy", PopisCviku = "Silový cvik dřep", Partie = "Nohy", UzivatelId = userId };
                 if (cvik2.TypyTreninku == null)
                 {
                     cvik2.TypyTreninku = new List<string>();
@@ -71,7 +71,7 @@ namespace BP_TPWA.Controllers
                 cvik2.PočtySérií.Add(5);
                 cvik2.PočtyOpakování.Add("12, 10, 5, 2, 1");
                 cvik2.PauzyMeziSériemi.Add(80);
-                var cvik3 = new Cvik { Název = "Legpress", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
+                var cvik3 = new Cvik { Nazev = "Legpress", PopisCviku = "Popis legpress", Partie = "Nohy", UzivatelId = userId };
                 if (cvik3.TypyTreninku == null)
                 {
                     cvik3.TypyTreninku = new List<string>();
@@ -87,7 +87,7 @@ namespace BP_TPWA.Controllers
                 cvik3.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik3.PauzyMeziSériemi.Add(60);
 
-                var cvik4 = new Cvik { Název = "Zákopy", PopisCviku = "Popis zákopy", Partie = "Nohy", UzivatelId = userId };
+                var cvik4 = new Cvik { Nazev = "Zákopy", PopisCviku = "Popis zákopy", Partie = "Nohy", UzivatelId = userId };
                 if (cvik4.TypyTreninku == null)
                 {
                     cvik4.TypyTreninku = new List<string>();
@@ -103,7 +103,7 @@ namespace BP_TPWA.Controllers
                 cvik4.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik4.PauzyMeziSériemi.Add(60);
 
-                var cvik5 = new Cvik { Název = "Předkopy", PopisCviku = "Popis předkopy", Partie = "Nohy", UzivatelId = userId };
+                var cvik5 = new Cvik { Nazev = "Předkopy", PopisCviku = "Popis předkopy", Partie = "Nohy", UzivatelId = userId };
                 if (cvik5.TypyTreninku == null)
                 {
                     cvik5.TypyTreninku = new List<string>();
@@ -118,7 +118,7 @@ namespace BP_TPWA.Controllers
                 cvik5.PočtySérií.Add(4);
                 cvik5.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik5.PauzyMeziSériemi.Add(60);
-                var cvik6 = new Cvik { Název = "Bulharský dřep", PopisCviku = "Popis bulhart", Partie = "Nohy", UzivatelId = userId };
+                var cvik6 = new Cvik { Nazev = "Bulharský dřep", PopisCviku = "Popis bulhart", Partie = "Nohy", UzivatelId = userId };
                 if (cvik6.TypyTreninku == null)
                 {
                     cvik6.TypyTreninku = new List<string>();
@@ -133,7 +133,7 @@ namespace BP_TPWA.Controllers
                 cvik6.PočtySérií.Add(4);
                 cvik6.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik6.PauzyMeziSériemi.Add(60);
-                var cvik7 = new Cvik { Název = "Rumunský mrtvý tah", PopisCviku = "Popis rumuny", Partie = "Nohy", UzivatelId = userId };
+                var cvik7 = new Cvik { Nazev = "Rumunský mrtvý tah", PopisCviku = "Popis rumuny", Partie = "Nohy", UzivatelId = userId };
                 if (cvik7.TypyTreninku == null)
                 {
                     cvik7.TypyTreninku = new List<string>();
@@ -148,7 +148,7 @@ namespace BP_TPWA.Controllers
                 cvik7.PočtySérií.Add(4);
                 cvik7.PočtyOpakování.Add("10, 10, 12, 12");
                 cvik7.PauzyMeziSériemi.Add(60);
-                var cvik8 = new Cvik { Název = "Hiptrusty", PopisCviku = "Popis hiptrusty", Partie = "Nohy", UzivatelId = userId };
+                var cvik8 = new Cvik { Nazev = "Hiptrusty", PopisCviku = "Popis hiptrusty", Partie = "Nohy", UzivatelId = userId };
                 if (cvik8.TypyTreninku == null)
                 {
                     cvik8.TypyTreninku = new List<string>();
@@ -163,7 +163,7 @@ namespace BP_TPWA.Controllers
                 cvik8.PočtySérií.Add(4);
                 cvik8.PočtyOpakování.Add("10, 10, 10, 10");
                 cvik8.PauzyMeziSériemi.Add(60);
-                var cvik9 = new Cvik { Název = "Lýtka ve stoje", PopisCviku = "Popis lýtka", Partie = "Nohy", UzivatelId = userId };
+                var cvik9 = new Cvik { Nazev = "Lýtka ve stoje", PopisCviku = "Popis lýtka", Partie = "Nohy", UzivatelId = userId };
                 if (cvik9.TypyTreninku == null)
                 {
                     cvik9.TypyTreninku = new List<string>();
@@ -181,7 +181,7 @@ namespace BP_TPWA.Controllers
 
                 //Ramena + biceps
 
-                var cvik11 = new Cvik { Název = "Tlaky na ramena - rozcvička", PopisCviku = "Zahřátí + aktivace (velmi malá nebo žádná váha)", Partie = "Ramena", UzivatelId = userId };
+                var cvik11 = new Cvik { Nazev = "Tlaky na ramena - rozcvička", PopisCviku = "Zahřátí + aktivace (velmi malá nebo žádná váha)", Partie = "Ramena", UzivatelId = userId };
                 if (cvik11.TypyTreninku == null)
                 {
                     cvik11.TypyTreninku = new List<string>();
@@ -193,7 +193,7 @@ namespace BP_TPWA.Controllers
                 cvik11.PočtySérií.Add(2);
                 cvik11.PočtyOpakování.Add("10, 10");
                 cvik11.PauzyMeziSériemi.Add(30);
-                var cvik12 = new Cvik { Název = "Tlaky na ramena s jednoručnou činkou", PopisCviku = "Tlaky na ramena", Partie = "Ramena", UzivatelId = userId };
+                var cvik12 = new Cvik { Nazev = "Tlaky na ramena s jednoručnou činkou", PopisCviku = "Tlaky na ramena", Partie = "Ramena", UzivatelId = userId };
                 if (cvik12.TypyTreninku == null)
                 {
                     cvik12.TypyTreninku = new List<string>();
@@ -205,7 +205,7 @@ namespace BP_TPWA.Controllers
                 cvik12.PočtySérií.Add(5);
                 cvik12.PočtyOpakování.Add("12, 12, 10, 8, 5");
                 cvik12.PauzyMeziSériemi.Add(60);
-                var cvik13 = new Cvik { Název = "Upažování s jednoručnou činkou", PopisCviku = "Upažování s jednoručkama na ramena", Partie = "Ramena", UzivatelId = userId };
+                var cvik13 = new Cvik { Nazev = "Upažování s jednoručnou činkou", PopisCviku = "Upažování s jednoručkama na ramena", Partie = "Ramena", UzivatelId = userId };
                 if (cvik13.TypyTreninku == null)
                 {
                     cvik13.TypyTreninku = new List<string>();
@@ -217,7 +217,7 @@ namespace BP_TPWA.Controllers
                 cvik13.PočtySérií.Add(4);
                 cvik13.PočtyOpakování.Add("12, 12, 10, 10");
                 cvik13.PauzyMeziSériemi.Add(60);
-                var cvik14 = new Cvik { Název = "Stroj na zadky ramen", PopisCviku = "Stroj na zadky ramen", Partie = "Ramena", UzivatelId = userId };
+                var cvik14 = new Cvik { Nazev = "Stroj na zadky ramen", PopisCviku = "Stroj na zadky ramen", Partie = "Ramena", UzivatelId = userId };
                 if (cvik14.TypyTreninku == null)
                 {
                     cvik14.TypyTreninku = new List<string>();
@@ -229,7 +229,7 @@ namespace BP_TPWA.Controllers
                 cvik14.PočtySérií.Add(4);
                 cvik14.PočtyOpakování.Add("10, 10, 10, 10");
                 cvik14.PauzyMeziSériemi.Add(60);
-                var cvik15 = new Cvik { Název = "Upažování na kladce", PopisCviku = "Upažování na kladce zespodu", Partie = "Ramena", UzivatelId = userId };
+                var cvik15 = new Cvik { Nazev = "Upažování na kladce", PopisCviku = "Upažování na kladce zespodu", Partie = "Ramena", UzivatelId = userId };
                 if (cvik15.TypyTreninku == null)
                 {
                     cvik15.TypyTreninku = new List<string>();
@@ -241,7 +241,7 @@ namespace BP_TPWA.Controllers
                 cvik15.PočtySérií.Add(3);
                 cvik15.PočtyOpakování.Add("10, 10, 10");
                 cvik15.PauzyMeziSériemi.Add(50);
-                var cvik16 = new Cvik { Název = "Tlaky na stroji", PopisCviku = "Tlaky na stroji, dodělání ramen", Partie = "Ramena", UzivatelId = userId };
+                var cvik16 = new Cvik { Nazev = "Tlaky na stroji", PopisCviku = "Tlaky na stroji, dodělání ramen", Partie = "Ramena", UzivatelId = userId };
                 if (cvik16.TypyTreninku == null)
                 {
                     cvik16.TypyTreninku = new List<string>();
@@ -253,7 +253,7 @@ namespace BP_TPWA.Controllers
                 cvik16.PočtySérií.Add(4);
                 cvik16.PočtyOpakování.Add("10, 10, 8, 6");
                 cvik16.PauzyMeziSériemi.Add(60);
-                var cvik17 = new Cvik { Název = "Bicepsové přítahy jednoruček", PopisCviku = "Přítahy jednoruček", Partie = "Biceps", UzivatelId = userId };
+                var cvik17 = new Cvik { Nazev = "Bicepsové přítahy jednoruček", PopisCviku = "Přítahy jednoruček", Partie = "Biceps", UzivatelId = userId };
                 if (cvik17.TypyTreninku == null)
                 {
                     cvik17.TypyTreninku = new List<string>();
@@ -265,7 +265,7 @@ namespace BP_TPWA.Controllers
                 cvik17.PočtySérií.Add(4);
                 cvik17.PočtyOpakování.Add("10, 10, 10, 8");
                 cvik17.PauzyMeziSériemi.Add(60);
-                var cvik18 = new Cvik { Název = "Bicepsové přítahy obouručky", PopisCviku = "Přítahy obouručky", Partie = "Biceps", UzivatelId = userId };
+                var cvik18 = new Cvik { Nazev = "Bicepsové přítahy obouručky", PopisCviku = "Přítahy obouručky", Partie = "Biceps", UzivatelId = userId };
                 if (cvik18.TypyTreninku == null)
                 {
                     cvik18.TypyTreninku = new List<string>();
@@ -277,7 +277,7 @@ namespace BP_TPWA.Controllers
                 cvik18.PočtySérií.Add(3);
                 cvik18.PočtyOpakování.Add("10, 10, 8");
                 cvik18.PauzyMeziSériemi.Add(60);
-                var cvik19 = new Cvik { Název = "Bicepsové přítahy na stroji", PopisCviku = "Přítahy na stroji", Partie = "Biceps", UzivatelId = userId };
+                var cvik19 = new Cvik { Nazev = "Bicepsové přítahy na stroji", PopisCviku = "Přítahy na stroji", Partie = "Biceps", UzivatelId = userId };
                 if (cvik19.TypyTreninku == null)
                 {
                     cvik19.TypyTreninku = new List<string>();
@@ -292,7 +292,7 @@ namespace BP_TPWA.Controllers
 
                 ////Hrudník + triceps
 
-                var cvik20 = new Cvik { Název = "Kliky", PopisCviku = "Klasické kliky - záhřátí aktivace", Partie = "Hrudník", UzivatelId = userId };
+                var cvik20 = new Cvik { Nazev = "Kliky", PopisCviku = "Klasické kliky - záhřátí aktivace", Partie = "Hrudník", UzivatelId = userId };
                 if (cvik20.TypyTreninku == null)
                 {
                     cvik20.TypyTreninku = new List<string>();
@@ -304,7 +304,7 @@ namespace BP_TPWA.Controllers
                 cvik20.PočtySérií.Add(3);
                 cvik20.PočtyOpakování.Add("10, 10, 10");
                 cvik20.PauzyMeziSériemi.Add(40);
-                var cvik21 = new Cvik { Název = "Benchpress", PopisCviku = "Komplexni cvik benchpress", Partie = "Hrudník", UzivatelId = userId };
+                var cvik21 = new Cvik { Nazev = "Benchpress", PopisCviku = "Komplexni cvik benchpress", Partie = "Hrudník", UzivatelId = userId };
                 if (cvik21.TypyTreninku == null)
                 {
                     cvik21.TypyTreninku = new List<string>();
@@ -316,7 +316,7 @@ namespace BP_TPWA.Controllers
                 cvik21.PočtySérií.Add(5);
                 cvik21.PočtyOpakování.Add("15, 10, 5, 2, 1");
                 cvik21.PauzyMeziSériemi.Add(60);
-                var cvik22 = new Cvik { Název = "Tlaky na hrudník na nakloněné lavici", PopisCviku = "Tlaky na lavici na hrudník", Partie = "Hrudník", UzivatelId = userId };
+                var cvik22 = new Cvik { Nazev = "Tlaky na hrudník na nakloněné lavici", PopisCviku = "Tlaky na lavici na hrudník", Partie = "Hrudník", UzivatelId = userId };
                 if (cvik22.TypyTreninku == null)
                 {
                     cvik22.TypyTreninku = new List<string>();
@@ -328,7 +328,7 @@ namespace BP_TPWA.Controllers
                 cvik22.PočtySérií.Add(4);
                 cvik22.PočtyOpakování.Add("12, 12, 10, 8");
                 cvik22.PauzyMeziSériemi.Add(60);
-                var cvik23 = new Cvik { Název = "Pec deck", PopisCviku = "Tlaky na stoji", Partie = "Hrudník", UzivatelId = userId };
+                var cvik23 = new Cvik { Nazev = "Pec deck", PopisCviku = "Tlaky na stoji", Partie = "Hrudník", UzivatelId = userId };
                 if (cvik23.TypyTreninku == null)
                 {
                     cvik23.TypyTreninku = new List<string>();
@@ -340,7 +340,7 @@ namespace BP_TPWA.Controllers
                 cvik23.PočtySérií.Add(4);
                 cvik23.PočtyOpakování.Add("12, 12, 10, 10");
                 cvik23.PauzyMeziSériemi.Add(60);
-                var cvik24 = new Cvik { Název = "Stahování kladek na hrudník", PopisCviku = "Stahování kladek v předklonu na hrudník", Partie = "Hrudník", UzivatelId = userId };
+                var cvik24 = new Cvik { Nazev = "Stahování kladek na hrudník", PopisCviku = "Stahování kladek v předklonu na hrudník", Partie = "Hrudník", UzivatelId = userId };
                 if (cvik24.TypyTreninku == null)
                 {
                     cvik24.TypyTreninku = new List<string>();
@@ -352,7 +352,7 @@ namespace BP_TPWA.Controllers
                 cvik24.PočtySérií.Add(3);
                 cvik24.PočtyOpakování.Add("12, 10, 8");
                 cvik24.PauzyMeziSériemi.Add(60);
-                var cvik25 = new Cvik { Název = "Dipy na bradle", PopisCviku = "Dipy na bradle s vlastní váhou nebo se závažim", Partie = "Trieps", UzivatelId = userId };
+                var cvik25 = new Cvik { Nazev = "Dipy na bradle", PopisCviku = "Dipy na bradle s vlastní váhou nebo se závažim", Partie = "Trieps", UzivatelId = userId };
                 if (cvik25.TypyTreninku == null)
                 {
                     cvik25.TypyTreninku = new List<string>();
@@ -364,7 +364,7 @@ namespace BP_TPWA.Controllers
                 cvik25.PočtySérií.Add(3);
                 cvik25.PočtyOpakování.Add("10, 10, 10");
                 cvik25.PauzyMeziSériemi.Add(60);
-                var cvik26 = new Cvik { Název = "Tricepsové stahování kladky", PopisCviku = "Stahování kladky na triceps", Partie = "Trieps", UzivatelId = userId };
+                var cvik26 = new Cvik { Nazev = "Tricepsové stahování kladky", PopisCviku = "Stahování kladky na triceps", Partie = "Trieps", UzivatelId = userId };
                 if (cvik26.TypyTreninku == null)
                 {
                     cvik26.TypyTreninku = new List<string>();
@@ -376,7 +376,7 @@ namespace BP_TPWA.Controllers
                 cvik26.PočtySérií.Add(4);
                 cvik26.PočtyOpakování.Add("12, 10, 10, 8");
                 cvik26.PauzyMeziSériemi.Add(60);
-                var cvik27 = new Cvik { Název = "Tricepsové stahování kladky za hlavu", PopisCviku = "Stahování kladky na triceps za hlavu", Partie = "Trieps", UzivatelId = userId };
+                var cvik27 = new Cvik { Nazev = "Tricepsové stahování kladky za hlavu", PopisCviku = "Stahování kladky na triceps za hlavu", Partie = "Trieps", UzivatelId = userId };
                 if (cvik27.TypyTreninku == null)
                 {
                     cvik27.TypyTreninku = new List<string>();
@@ -391,7 +391,7 @@ namespace BP_TPWA.Controllers
 
                 ////Záda
 
-                var cvik28 = new Cvik { Název = "Mrtvý tah bez závaží", PopisCviku = "Mrtvý tah bez závaží (zatínat svaly) - záhřátí aktivace", Partie = "Záda", UzivatelId = userId };
+                var cvik28 = new Cvik { Nazev = "Mrtvý tah bez závaží", PopisCviku = "Mrtvý tah bez závaží (zatínat svaly) - záhřátí aktivace", Partie = "Záda", UzivatelId = userId };
                 if (cvik28.TypyTreninku == null)
                 {
                     cvik28.TypyTreninku = new List<string>();
@@ -406,7 +406,7 @@ namespace BP_TPWA.Controllers
                 // cvik29
                 var cvik29 = new Cvik
                 {
-                    Název = "Mrtvý tah",
+                    Nazev = "Mrtvý tah",
                     PopisCviku = "Mrtvý tah - komplexní cvik",
                     Partie = "Záda",
                     UzivatelId = userId
@@ -426,7 +426,7 @@ namespace BP_TPWA.Controllers
                 // cvik30
                 var cvik30 = new Cvik
                 {
-                    Název = "Shyby nadhmatem",
+                    Nazev = "Shyby nadhmatem",
                     PopisCviku = "Shyby",
                     Partie = "Záda",
                     UzivatelId = userId
@@ -446,7 +446,7 @@ namespace BP_TPWA.Controllers
                 // cvik31
                 var cvik31 = new Cvik
                 {
-                    Název = "Stahování tyče na stroji před hlavu - vertikálně",
+                    Nazev = "Stahování tyče na stroji před hlavu - vertikálně",
                     PopisCviku = "Stahování na stoji",
                     Partie = "Záda",
                     UzivatelId = userId
@@ -466,7 +466,7 @@ namespace BP_TPWA.Controllers
                 // cvik32
                 var cvik32 = new Cvik
                 {
-                    Název = "Přitahování tyče na stroji - horizontálně",
+                    Nazev = "Přitahování tyče na stroji - horizontálně",
                     PopisCviku = "Stahování na stoji",
                     Partie = "Záda",
                     UzivatelId = userId
@@ -486,7 +486,7 @@ namespace BP_TPWA.Controllers
                 // cvik33
                 var cvik33 = new Cvik
                 {
-                    Název = "Přitahování na stroji",
+                    Nazev = "Přitahování na stroji",
                     PopisCviku = "Přitahování na stoji",
                     Partie = "Záda",
                     UzivatelId = userId
@@ -506,7 +506,7 @@ namespace BP_TPWA.Controllers
                 // cvik34
                 var cvik34 = new Cvik
                 {
-                    Název = "Přitahování tyče ve stoje",
+                    Nazev = "Přitahování tyče ve stoje",
                     PopisCviku = "Přitahování ve stoje",
                     Partie = "Záda",
                     UzivatelId = userId
@@ -528,7 +528,7 @@ namespace BP_TPWA.Controllers
                 // cvik36
                 var cvik36 = new Cvik
                 {
-                    Název = "Sklapovačky",
+                    Nazev = "Sklapovačky",
                     PopisCviku = "Sklapovačky",
                     Partie = "Břicho",
                     UzivatelId = userId
@@ -548,7 +548,7 @@ namespace BP_TPWA.Controllers
                 // cvik37
                 var cvik37 = new Cvik
                 {
-                    Název = "Přitahování noh na bradlech",
+                    Nazev = "Přitahování noh na bradlech",
                     PopisCviku = "Přitahování noh na bradlech",
                     Partie = "Břicho",
                     UzivatelId = userId
@@ -2290,7 +2290,7 @@ namespace BP_TPWA.Controllers
                 ////// PRIDAT CVIKY
                 ///
 
-                var cvik38 = new Cvik { Název = "Mrtvý tah sumo", PopisCviku = "Mrtvý tah  - sumo", Partie = "Záda", UzivatelId = userId };
+                var cvik38 = new Cvik { Nazev = "Mrtvý tah sumo", PopisCviku = "Mrtvý tah  - sumo", Partie = "Záda", UzivatelId = userId };
                 if (cvik38.TypyTreninku == null)
                 {
                     cvik38.TypyTreninku = new List<string>();
@@ -2298,7 +2298,7 @@ namespace BP_TPWA.Controllers
                     cvik38.PočtyOpakování = new List<string>();
                     cvik38.PauzyMeziSériemi = new List<int>();
                 }
-                var cvik39 = new Cvik { Název = "Mrtvý tah hexabar osa", PopisCviku = "Mrtvý tah  - hexabar osa", Partie = "Záda", UzivatelId = userId };
+                var cvik39 = new Cvik { Nazev = "Mrtvý tah hexabar osa", PopisCviku = "Mrtvý tah  - hexabar osa", Partie = "Záda", UzivatelId = userId };
                 if (cvik39.TypyTreninku == null)
                 {
                     cvik39.TypyTreninku = new List<string>();
@@ -2306,7 +2306,7 @@ namespace BP_TPWA.Controllers
                     cvik39.PočtyOpakování = new List<string>();
                     cvik39.PauzyMeziSériemi = new List<int>();
                 }
-                var cvik40 = new Cvik { Název = "Shyby podhmatem", PopisCviku = "Shyby podhmatem popis", Partie = "Záda", UzivatelId = userId };
+                var cvik40 = new Cvik { Nazev = "Shyby podhmatem", PopisCviku = "Shyby podhmatem popis", Partie = "Záda", UzivatelId = userId };
                 if (cvik40.TypyTreninku == null)
                 {
                     cvik40.TypyTreninku = new List<string>();
@@ -2314,7 +2314,7 @@ namespace BP_TPWA.Controllers
                     cvik40.PočtyOpakování = new List<string>();
                     cvik40.PauzyMeziSériemi = new List<int>();
                 }
-                var cvik41 = new Cvik { Název = "Overheadpress", PopisCviku = "Tlaky nad hlavu s obouručnou činkou", Partie = "Ramena", UzivatelId = userId };
+                var cvik41 = new Cvik { Nazev = "Overheadpress", PopisCviku = "Tlaky nad hlavu s obouručnou činkou", Partie = "Ramena", UzivatelId = userId };
                 if (cvik41.TypyTreninku == null)
                 {
                     cvik41.TypyTreninku = new List<string>();
@@ -2322,7 +2322,7 @@ namespace BP_TPWA.Controllers
                     cvik41.PočtyOpakování = new List<string>();
                     cvik41.PauzyMeziSériemi = new List<int>();
                 }
-                var cvik42 = new Cvik { Název = "Přítahy obouručky k bradě", PopisCviku = "Přítahy obouručky k bradě", Partie = "Ramena", UzivatelId = userId };
+                var cvik42 = new Cvik { Nazev = "Přítahy obouručky k bradě", PopisCviku = "Přítahy obouručky k bradě", Partie = "Ramena", UzivatelId = userId };
                 if (cvik42.TypyTreninku == null)
                 {
                     cvik42.TypyTreninku = new List<string>();
@@ -2511,7 +2511,7 @@ namespace BP_TPWA.Controllers
             {
                 var indexCviku = treninkoveDnyKdeJeCvik[i].Cviky.FindIndex(c => c.CvikId == id);
                 var cvikCoMenim = treninkoveDnyKdeJeCvik[i].Cviky[indexCviku];
-                cvikCoMenim.Název = cvik.Název;
+                cvikCoMenim.Nazev = cvik.Nazev;
                 cvikCoMenim.PopisCviku = cvik.PopisCviku;
                 cvikCoMenim.Partie = cvik.Partie;
                 await _context.SaveChangesAsync();
@@ -2520,7 +2520,7 @@ namespace BP_TPWA.Controllers
             if (cvikNaUpravu[0] != null)
             {
 
-                cvikNaUpravu[0].Název = cvik.Název;
+                cvikNaUpravu[0].Nazev = cvik.Nazev;
                 cvikNaUpravu[0].Partie = cvik.Partie;
                 cvikNaUpravu[0].PopisCviku = cvik.PopisCviku;
                 await _context.SaveChangesAsync();

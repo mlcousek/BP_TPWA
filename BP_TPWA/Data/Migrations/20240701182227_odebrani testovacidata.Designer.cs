@@ -4,6 +4,7 @@ using BP_TPWA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BP_TPWA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240701182227_odebrani testovacidata")]
+    partial class odebranitestovacidata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace BP_TPWA.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CvikId"));
 
-                    b.Property<string>("Nazev")
+                    b.Property<string>("Název")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -68,7 +71,7 @@ namespace BP_TPWA.Data.Migrations
 
                     b.HasIndex("UzivatelId");
 
-                    b.HasIndex("Nazev", "UzivatelId")
+                    b.HasIndex("Název", "UzivatelId")
                         .IsUnique();
 
                     b.ToTable("Cvik");
@@ -232,7 +235,7 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<int>("JakCastoAktualizovatVahu")
                         .HasColumnType("int");
 
-                    b.Property<string>("Jmeno")
+                    b.Property<string>("Jméno")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -259,7 +262,7 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Pohlavi")
+                    b.Property<int>("Pohlaví")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PomocneDatum")
@@ -268,7 +271,7 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<bool>("PridaneData")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Prijmeni")
+                    b.Property<string>("Příjmení")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -285,20 +288,20 @@ namespace BP_TPWA.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Uroven")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<double>("Vaha")
-                        .HasColumnType("float");
-
                     b.Property<int>("Vek")
                         .HasColumnType("int");
 
-                    b.Property<int>("Vyska")
+                    b.Property<double>("Váha")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Výška")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Úroveň")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

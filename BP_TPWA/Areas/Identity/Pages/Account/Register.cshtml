@@ -99,7 +99,7 @@
                           data-bs-toggle="tooltip"
                           data-bs-placement="right"
                           data-bs-html="true"
-                          title="Začátečník - nerozumí tréninkovým plánům a jejich struktuře.<br> Pokročilý - má nějaké ponětí a zkušenosti s tréninkovými plány.">?</span>
+                          title="Začátečník - nerozumí tréninkovým plánům a jejich struktuře.<br> Pokročilý - má nějaké zkušenosti s tréninkovými plány.">?</span>
                     </label>
                     <select asp-for="Input.Úroveň" class="form-control" autocomplete="cíl" aria-required="true">
                         <option value="1">Začátečník</option>
@@ -123,6 +123,52 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
+        window.addEventListener("mousemove", onMouseMove);
+
+        var errorElement = document.querySelector('.validation-summary-errors');
+        if (errorElement) {
+            var liElements = errorElement.querySelectorAll('li');
+
+            liElements.forEach(function (li) {
+                if (li.textContent.trim() === "Passwords must have at least one digit ('0'-'9').") {
+                    li.textContent = "Heslo musí obsahovat alespoň jednu číslici.";
+                }
+                if (li.textContent.trim() === "Passwords must have at least one lowercase ('a'-'z').") {
+                    li.textContent = "Heslo musí obsahovat alespoň jedno malé písmeno.";
+                }
+            });
+        }
+
+
+        function onMouseMove(event) {
+                var innerSpan1 = document.querySelector('#Input_V_k-error');
+                if (innerSpan1) {
+                    var newSpan = document.createElement("span");
+                    newSpan.id = "Input_V_k-error";
+                    newSpan.textContent = "Prosím zadejte opravdový věk.";
+
+                    var parent = innerSpan1.parentNode;
+                    if (parent) {
+                        parent.replaceChild(newSpan, innerSpan1);
+                    }
+                }
+                var innerSpan = document.querySelector('#Input_V__ka-error');
+                if (innerSpan) {
+                    var newSpan1 = document.createElement("span");
+                    newSpan1.id = "Input_V__ka-error";
+                    newSpan1.textContent = "Prosím zadejte opravdovou výšku.";
+
+                    var parent = innerSpan.parentNode;
+                    if (parent) {
+                        parent.replaceChild(newSpan1, innerSpan);
+                    }
+                }
+        }
+    </script>
+
+
+
+    <script>
         function pridejData() {
             window.location.href = "/Cvik/PridejData";
         }
@@ -133,5 +179,7 @@
                 return new bootstrap.Tooltip(tooltipTriggerEl);
             });
         });
+
     </script>
+
 }

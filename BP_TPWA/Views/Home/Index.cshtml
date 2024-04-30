@@ -64,9 +64,6 @@ else
     @section scripts{
         <script>
             var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
-            // console.log(uzivatelData[0].váha);
-            // console.log(uzivatelData[0].tpId);
-            // console.log(uzivatelData[0]);
             if (uzivatelData[0].pridaneData === false) {
                 $.ajax({
                     url: '/Cvik/PridejData',
@@ -80,12 +77,25 @@ else
                 });
             }
 
-            var pomocneDatum = new Date(uzivatelData[0].pomocneDatum);
-            var dnesek = new Date();
-            // console.log(pomocneDatum);
-            // console.log(dnesek.getMonth());
-            // console.log(pomocneDatum.getMonth());
+            var testovaciData = @Html.Raw(Json.Serialize(ViewBag.TestovaciData));
+            if (uzivatelData[0].email === "test@test.cz") {
+                if (testovaciData === 1) 
+                {
+                    $.ajax({
+                        url: '/TP/PridatTestovaciData',
+                        type: 'GET',
+                        success: function (response) {
 
+                        },
+                        error: function (xhr, status, error) {
+
+                        }
+                    });
+                }
+            }
+
+            var dnesek = new Date();
+            var pomocneDatum = new Date(uzivatelData[0].pomocneDatum);
 
             var pomocneDatumString = pomocneDatum.toISOString();
             var dnesekString = dnesek.toISOString();
@@ -162,6 +172,28 @@ else
                 });
             }
 
+            
+
         </script>
     }
+}
+else
+{
+    @section scripts {
+        <script>
+            var testovaciData = @Html.Raw(Json.Serialize(ViewBag.TestovaciData));
+            if (testovaciData === 0) {
+                $.ajax({
+                    url: '/Home/PridatTestovaciData1',
+                    type: 'GET',
+                    success: function (response) {
+
+                    },
+                    error: function (xhr, status, error) {
+
+                    }
+                });
+            }
+        </script>
+    } 
 }

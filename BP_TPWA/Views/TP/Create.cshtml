@@ -11,7 +11,7 @@
 
 @{
     var currentUser = await UserManager.GetUserAsync(User);
-    var uroven = currentUser?.Úroveň;
+    var uroven = currentUser?.Uroven;
 }
 
 <h1 class="text-center">Vytvořit tréninkový plán</h1>
@@ -37,7 +37,7 @@
             {
                 <div class="form-group mb-4">
                     <label asp-for="Délka" class="control-label">Délka plánu</label>
-                    <select asp-for="Délka" class="form-control">
+                    <select asp-for="Délka" class="form-control" id="delkaplanu">
                         <option value="1">1 měsíc</option>
                         <option value="3">3 měsíce</option>
                         <option value="6">6 měsíců</option>
@@ -47,7 +47,7 @@
             }
             <div class="form-group mb-4">
                 <label asp-for="DruhTP" class="control-label">Cíl plánu</label>
-                <select asp-for="DruhTP" class="form-control">
+                <select asp-for="DruhTP" class="form-control" id="druhtp">
                     <option value="RV">Redukce váhy</option>
                     <option value="BSH">Budování svalové hmoty</option>
                     <option value="SR">Silový rozvoj</option>
@@ -67,7 +67,7 @@
                 
                 <div class="form-group mb-4">
                     <label asp-for="StylTP" class="control-label">Styl plánu</label>
-                    <select asp-for="StylTP" class="form-control">
+                    <select asp-for="StylTP" class="form-control" id="styltp">
                         <option value="VM">Velká + malá partie</option>
                         <option value="PPL">Push Pull Legs</option>
                         <option value="KR">Kruhový trénink</option>
@@ -77,7 +77,7 @@
             }
             <div class="form-group mb-4">
                 <label asp-for="PocetTreninkuZaTyden" class="control-label">Počet tréninků za týden</label>
-                <select asp-for="PocetTreninkuZaTyden" class="form-control">
+                <select asp-for="PocetTreninkuZaTyden" class="form-control" id="pocett">
                     <option value="3">3 tréninky</option>
                     <option value="4">4 tréninky</option>
                     <option value="5">5 tréninků</option>
@@ -115,6 +115,46 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+@*     <script>
+            var testovaciData = @Html.Raw(Json.Serialize(ViewBag.TestovaciData));
+        if (testovaciData === 1) {
+
+            window.onload = function () {
+
+                //console.log(@ViewBag.AutoSubmit);
+                // Zkontrolujte, zda máme signál k automatickému odeslání
+
+                var autoSubmit = @Html.Raw(Json.Serialize(ViewBag.AutoSubmit));// ? true : false;
+                console.log(autoSubmit);
+                if (autoSubmit === "ano") {
+                    console.log(autoSubmit);
+                    // Vyplňte hodnoty podle potřeby
+                    var form = document.querySelector("form");
+                    console.log(form);
+
+                    // Pokud máte předdefinované hodnoty, můžete je zde předvyplnit
+                    document.getElementById("delkaplanu").value = 3;
+                    document.getElementById("druhtp").value = "BSH";
+                    document.getElementById("styltp").value = "VM";
+                    document.getElementById("styltp").value = "VM";
+                    document.getElementById("pocett").value = 4;
+
+                    var checkboxy = document.querySelectorAll('input[type="checkbox"]');
+
+                    
+                        checkboxy[0].checked = true;
+                        checkboxy[2].checked = true;
+                        checkboxy[4].checked = true;
+                        checkboxy[5].checked = true;
+                    
+
+                    // Automaticky odeslat formulář
+                    form.submit();
+                }
+            };
+        }
+    </script> *@
 
     <script>
         function zpetNaVytvorit(){

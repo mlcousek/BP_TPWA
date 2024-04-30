@@ -108,7 +108,7 @@ namespace BP_TPWA.Controllers
                 if (data.Vaha == null)
                 {
                     var uzivatelIdZaznam = await _context.Users.SingleOrDefaultAsync(tp => tp.Id == userId);
-                    kUlozeni.VahaUzivatele = uzivatelIdZaznam.Váha;
+                    kUlozeni.VahaUzivatele = uzivatelIdZaznam.Vaha;
                 }
 
                 _context.Add(kUlozeni);

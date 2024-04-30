@@ -27,7 +27,7 @@
                 @foreach (var trenink in Model.Treninky)
                 {
                     <tr>
-                        <td>@trenink.DatumTreninku.ToShortDateString() @trenink.DatumTreninku.ToString("dddd", new System.Globalization.CultureInfo("cs-CZ"))</td>
+                        <td>@trenink.DatumTreninku.ToString("dd. MM. yyyy") @trenink.DatumTreninku.ToString("dddd", new System.Globalization.CultureInfo("cs-CZ"))</td>
                         <td>@trenink.TypTreninku</td>
                     </tr>
                 }
@@ -50,7 +50,11 @@
 
     html2pdf().set(opt).from(element).save();
 
-    window.location.href = "/TP/Index";
+
+    setTimeout(function () {
+        window.location.href = "/TP/Index";
+    }, 2000);
+   // window.location.href = "/TP/Index";
 </script>
 
 

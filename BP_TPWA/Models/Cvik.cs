@@ -11,7 +11,8 @@ namespace BP_TPWA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CvikId { get; set; }
-        public string Název { get; set; }
+        [Required(ErrorMessage = "Toto pole je povinné.")]
+        public string Nazev { get; set; }
         [NotMapped]
         public List<string>? PočtyOpakování { get; set; }
 
@@ -52,6 +53,7 @@ namespace BP_TPWA.Models
             }
         }
 
+        [Required(ErrorMessage = "Toto pole je povinné.")]
         public string Partie {  get; set; }
 
         public string? PopisCviku { get; set; }
