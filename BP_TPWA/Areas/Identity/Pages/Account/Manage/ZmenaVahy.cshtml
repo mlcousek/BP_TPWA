@@ -38,7 +38,7 @@
         // Převod dat na JSON
         var uzivatelData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(uzivatel));
 
-        var staraVaha = uzivatelData[0].Váha;
+        var staraVaha = uzivatelData[0].Vaha;
 
         var inputVaha = document.getElementById('vaha');
         inputVaha.value = staraVaha;
@@ -53,8 +53,6 @@
                     dataVPohode = 0;
                 }
             } else if (novaVahaCislo < staraVaha) {
-                console.log("nova mensi");
-                console.log(novaVahaCislo + 11);
                 if (novaVahaCislo + 11 < staraVaha) {
                     dataVPohode = 0;
                 }
@@ -67,9 +65,8 @@
 
                 var vahaData = [];
                 vahaData.push({
-                    Váha: novaVahaCislo.toString()
+                    Váha: novaVaha.toString()
                 });
-
 
                 $.ajax({
                     url: '/TP/AktualizaceVahy',

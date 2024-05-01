@@ -2404,7 +2404,7 @@ namespace BP_TPWA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CvikId,Název,PočtyOpakování,PočtySérií,PauzyMeziSériemi,Partie,PopisCviku")] Cvik cvik, string? datum = null)
+        public async Task<IActionResult> Create([Bind("CvikId,Nazev,PočtyOpakování,PočtySérií,PauzyMeziSériemi,Partie,PopisCviku")] Cvik cvik, string? datum = null)
         {
             if (ModelState.ContainsKey("UzivatelId"))
             {
@@ -2484,6 +2484,7 @@ namespace BP_TPWA.Controllers
             ViewBag.vsechnyCviky = vsechnyCviky;
 
             var cvik = await _context.Cvik.FindAsync(id);
+            ViewBag.cvikNaEdit = cvik;
             if (cvik == null)
             {
                 return NotFound();
@@ -2496,7 +2497,7 @@ namespace BP_TPWA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CvikId,Název,PopisCviku,Partie")] Cvik cvik)
+        public async Task<IActionResult> Edit(int id, [Bind("CvikId,Nazev,PopisCviku,Partie")] Cvik cvik)
         {
             if (id != cvik.CvikId)
             {
@@ -2678,13 +2679,30 @@ namespace BP_TPWA.Controllers
                     cvik.TypyTreninku = new List<string>();
                 }
 
-                cvik.TypyTreninku.Add(TypTreninkuKratke);
-                cvik.PočtySérií.Add(pocetSerií);
-                cvik.PočtyOpakování.Add(opakování);
-                cvik.PauzyMeziSériemi.Add(pauza);
+                if (!cvik.TypyTreninku.Any(t => t == TypTreninkuKratke))
+                {
+                    // Pokud neexistuje, přidejte ho
+                    cvik.TypyTreninku.Add(TypTreninkuKratke);
+                    cvik.PočtySérií.Add(pocetSerií);
+                    cvik.PočtyOpakování.Add(opakování);
+                    cvik.PauzyMeziSériemi.Add(pauza);
+                }
+
 
                 DenTrenikuSTPaDnem.Cviky.Add(cvik);
 
+                _context.SaveChanges();
+
+                int index = cvik.TypyTreninku.IndexOf(TypTreninkuKratke);
+
+                cvik.PočtySérií[index] = pocetSerií;
+                cvik.PočtyOpakování[index] = opakování;
+                cvik.PauzyMeziSériemi[index] = pauza;
+
+                int index1 = DenTrenikuSTPaDnem.Cviky.FindIndex(c => c.CvikId == cvik.CvikId);
+                DenTrenikuSTPaDnem.Cviky[index1].PočtySérií[index] = pocetSerií;
+                DenTrenikuSTPaDnem.Cviky[index1].PočtyOpakování[index] = opakování;
+                DenTrenikuSTPaDnem.Cviky[index1].PauzyMeziSériemi[index] = pauza;
                 _context.SaveChanges();
 
                 return RedirectToAction("Index", "TP");
@@ -2703,8 +2721,9 @@ namespace BP_TPWA.Controllers
             if (cvik != null)
             {
                 var idUzivatele = cvik.UzivatelId;
-                var treninkovyPlan = _context.TP.Where(dt => dt.UzivatelID == idUzivatele).ToList();
-                var idTP = treninkovyPlan[0].Id;
+                var uzivatel = _context.Users.FirstOrDefault(t => t.Id == idUzivatele);
+                var treninkovyPlan = _context.TP.Where(dt => dt.Id == uzivatel.TPId).ToList();
+                var idTP = uzivatel.TPId;
 
                 datum = datum.Replace(".", "-");
 
@@ -2758,6 +2777,8 @@ namespace BP_TPWA.Controllers
                         .ToListAsync();
                     denTreninkuSCvikem[0].Cviky.RemoveAll(c => c.CvikId == cvikCoJePotrebaUpravit[0].CvikId);
 
+
+
                     //var typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(TP[0], denTreninkuSCvikem[0].TypTreninku);
 
 
@@ -2770,18 +2791,42 @@ namespace BP_TPWA.Controllers
                     //    cvikCoJePotrebaUpravit[0].PočtySérií.RemoveAt(indexUpravy);
                     //    cvikCoJePotrebaUpravit[0].PauzyMeziSériemi.RemoveAt(indexUpravy);
 
-                        await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
+                    var denTreninkuSCvikem1 = await _context.DenTreninku
+                       .Where(t => t.DatumTreninku == novyDatum)
+                       .Where(t => t.TPId == uzivatel[0].TPId)
+                       .ToListAsync();
+
+                    var vsechnyDnyTreninku = await _context.DenTreninku
+                       .Where(t => t.TPId == uzivatel[0].TPId)
+                       .ToListAsync();
+
+                    bool existujeCvik = denTreninkuSCvikem1[0].Cviky.Any();
+                    if(existujeCvik == false)
+                    {
+                        //vsechnyDnyTreninku.Remove(denTreninkuSCvikem1[0]);
+
+                        // Odstraňte den i z kontextu, aby byl odstraněn z databáze
+                        _context.DenTreninku.Remove(denTreninkuSCvikem1[0]);
+
+                        // Uložte změny do databáze
+                        _context.SaveChanges();
+
+                        return Json(new { wasDeleted = true });
+
+                    }
+
                     //}
 
-                    return RedirectToAction("Index", "TP");
+                    return Json(new { wasDeleted = false });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "TP");
+                    return Json(new { wasDeleted = false });
                 }
             }
 
-            return View(data);
+            return Json(new { wasDeleted = false });
         }
 
         [HttpPost]

@@ -356,13 +356,16 @@
 
                     var index = zaznam.cisloSerie - 1;
                    
-                    if (index >= pocetOpakovaniString.length) {
-                        for (var i = pocetOpakovaniString.length; i < index; i++) {
-                        }
-                        pocetOpakovaniString.push(zaznam.pocetOpakovani); 
-                    } else {
-                        pocetOpakovaniString.splice(index, 0, zaznam.pocetOpakovani); 
-                    }
+                    pocetOpakovaniString[index] = zaznam.pocetOpakovani;
+                    //console.log(pocetOpakovaniString);
+
+                    // if (index >= pocetOpakovaniString.length) {
+                    //     for (var i = pocetOpakovaniString.length; i < index; i++) {
+                    //     }
+                    //     pocetOpakovaniString.push(zaznam.pocetOpakovani); 
+                    // } else {
+                    //     pocetOpakovaniString.splice(index, 0, zaznam.pocetOpakovani); 
+                    // }
                 });
                 var spojenyPocetOpakovaniString = pocetOpakovaniString.join(", ");
                 setsCell.textContent = maxCisloSerie;
@@ -409,7 +412,18 @@
                                 data: seriesDatac[0],
 
                                 success: function (response) {
-                                    location.reload();
+                                    if (response.wasDeleted) {
+                                        // Přesměrujte na stránku, která indikuje, že zdroj byl smazán
+                                        window.location.href = "/TP";
+                                    } else {
+                                        // Proveďte jiné akce, pokud zdroj stále existuje
+                                        location.reload();
+                                    }
+                                    // if(cviky === null)
+                                    // {
+                                    //     window.location.href = "/TP";
+                                    // }
+                                    // location.reload();
                                 },
                                 error: function (xhr, status, error) {
                                     console.log("chyba pri mazani dat cviku");

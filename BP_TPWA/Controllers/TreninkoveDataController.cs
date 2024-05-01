@@ -80,6 +80,9 @@ namespace BP_TPWA.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 kUlozeni.UzivatelId = userId;
 
+                var uzivatel = _context.Users.FirstOrDefault(u => u.Id == userId);
+
+                kUlozeni.TpId = (int)uzivatel.TPId;
 
                 if (data.Vaha != null)
                 {

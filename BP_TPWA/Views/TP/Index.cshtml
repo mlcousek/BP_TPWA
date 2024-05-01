@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    var TPP = ViewBag.TPP;
+    // if(TPP != null)
+    // {
+        
+    //     var StylTPP = TPP.StylTP;
+    // }
 }
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -62,11 +69,71 @@
     </div>
 </div>
 
+@if (TPP != null)
+{
+    var StylTPP = TPP.StylTP;
+
+    <div class="modal fade" id="myModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Vytvořit trénink</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/TP/PridatTrenink" onsubmit="return validovatFormular()">
+                        <div class="form-group mb-3">
+                            <label for="typTreninku">Typ tréninku</label>
+                            <select id="typTreninku" name="typTreninku" class="form-control" required>
+                                <option value="" disabled selected>Vyberte typ tréninku</option>
+
+                                @if (StylTPP == "VM")
+                                {
+                                    <option value="Nohy">Nohy</option>
+                                    <option value="Ramena + biceps">Ramena + biceps</option>
+                                    <option value="Záda">Záda</option>
+                                    <option value="Hrudník + triceps">Hrudník + triceps</option>
+                                }
+                                else if (StylTPP == "PPL")
+                                {
+                                    <option value="Push">Push</option>
+                                    <option value="Pull">Pull</option>
+                                    <option value="Legs">Legs</option>
+                                }
+                                else if (StylTPP == "KR")
+                                {
+                                    <option value="Kruhový trénink 1">Kruhový trénink 1</option>
+                                    <option value="Kruhový trénink 2">Kruhový trénink 2</option>
+                                    <option value="Kruhový trénink 3">Kruhový trénink 3</option>
+                                } 
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="datumTreninku">Datum tréninku</label>
+                            <input type="date" id="datumTreninku" name="datumTreninku" class="form-control" required />
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-primary">Přidat trénink</button>
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavřít</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
 
 <div id="generovaniTlacitka" @* class="button-container-cus" *@ style="display: none;">
     <button type="button" class="btn btn-outline-dark custom-mr" onclick="generovatTP()" style="margin: 20px;">Vygenerovat náhled tréninků v plánu</button>
     <button type="button" class="btn btn-outline-dark" onclick="generovatTPdny()" style="margin: 20px;">Vygenerovat pouze dny tréninků</button>
  @*    <button type="button" class="btn btn-outline-dark" onclick="generovatTPtreninky()" style="margin: 20px;">Vygenerovat pouze tréninky</button> *@
+    <button type="button" class="btn btn-outline-dark float-right-custom" onclick="pridatTrenink()" style="margin: 20px;">Přidat trénink</button>
     <button type="button" class="btn btn-outline-warning float-right-custom" onclick="viceTP()" style="margin: 20px;">...</button>
 </div>
 
@@ -76,6 +143,26 @@
 
 
  <script>
+
+    function stripTime(dateString) {
+        return dateString.split("T")[0]; 
+    }
+
+    function validovatFormular() {
+        var treninkoveDny = @Html.Raw(Json.Serialize(ViewBag.treninkoveDny));
+        var denTreninku = document.getElementById("datumTreninku").value;
+
+        // console.log(denTreninku);
+        // console.log(stripTime(treninkoveDny[0].datumTreninku));
+
+        if (treninkoveDny.some(trenink => stripTime(trenink.datumTreninku) === denTreninku)) {
+            alert("V tento den už je trénink vytvořen.");
+            return false;
+        }
+
+        return true;
+    }
+
     function vytvoritTP1() {
             window.location.href = "/TP/Create";
     }
@@ -116,6 +203,15 @@
             });
             myModal1.show();
      }
+
+    function pridatTrenink() {
+        var modal5 = document.getElementById("myModal5");
+        modal5.style.display = "block";
+        var myModal5 = new bootstrap.Modal(document.getElementById('myModal5'), {
+            keyboard: false
+        });
+        myModal5.show();
+    }
 
     var uzivatelData = @Html.Raw(Json.Serialize(ViewBag.Uzivatel));
     var datacviku = @Html.Raw(Json.Serialize(ViewBag.Datacviku));
@@ -244,15 +340,29 @@
             var idCvikuVPlanu = []; 
             var dobre = 1;
             datacviku.forEach(function (zaznam) {
-                if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) {
-                    if (!idCvikuVPlanu.includes(zaznam.cvikId)) {
-                        idCvikuVPlanu.push(zaznam.cvikId);
+
+                // if (uzivatelData[0].tpId === treninkoveData[i].tPId) {
+                //potrebuju aktualni tPId od uzivatele, ktery ma stejnt id jako zaznam.uzivatelId
+                    if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) { //musim si ulozit v treninkoe dataten tp id a pak porovnavat to
+                         // console.log(zaznam.tpId);
+                         // console.log(treninkoveData[i].tpId);
+                         // console.log(treninkoveData[i]);
+                        if (zaznam.tpId === treninkoveData[i].tpId) {
+                            
+                            if (!idCvikuVPlanu.includes(zaznam.cvikId)) {
+                                idCvikuVPlanu.push(zaznam.cvikId);
+                            }
+                        }
                     }
-                }
+                
             });
             var cvikIdecka = treninkoveData[i].cviky.map(cvik => cvik.cvikId);
             cvikIdecka = cvikIdecka.sort((a, b) => a - b);
             idCvikuVPlanu = idCvikuVPlanu.sort((a, b) => a - b);
+
+            // console.log(cvikIdecka);
+            // console.log(idCvikuVPlanu);
+
 
             if (idCvikuVPlanu.length === cvikIdecka.length) {
                 for (let i = 0; i < idCvikuVPlanu.length; i++) {
@@ -330,7 +440,7 @@
 
                 var vahaData = [];
                 vahaData.push({
-                        Vaha: novaVahaCislo.toString()
+                        Váha: novaVaha.toString()
                 });
 
 

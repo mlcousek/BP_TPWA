@@ -80,7 +80,7 @@
             var popisek = document.getElementById("popisek").value;
             var pauza = parseInt(document.getElementById("pauza1").value);
 
-            if (vsechnyCviky.some(cvik => cvik.název === nazevcviku)) {
+            if (vsechnyCviky.some(cvik => cvik.nazev === nazevcviku)) {
                 alert("Tento cvik už je vytvořen");
                 return false;
             }

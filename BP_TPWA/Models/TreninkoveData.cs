@@ -16,6 +16,7 @@ namespace BP_TPWA.Models
         public int CisloSerie { get; set; }
         public int PocetOpakovani { get; set; }
         public int CvicenaVaha { get; set; }
+        public int TpId { get; set; }
 
        [ForeignKey("CvikId")]
         public virtual Cvik Cvik { get; set; }

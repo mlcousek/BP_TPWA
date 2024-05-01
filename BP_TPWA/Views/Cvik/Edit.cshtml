@@ -48,7 +48,7 @@
             var partiecviku = document.getElementById("partiecviku").value;
             var popisek = document.getElementById("popisek").value;
 
-            if (vsechnyCviky.some(cvik => cvik.Název === nazevcviku.value)) {
+            if (vsechnyCviky.some(cvik => cvik.Nazev === nazevcviku.value)) {
                 alert("Tento cvik už je vytvořen");
                 return false;
             }
@@ -75,14 +75,29 @@
     <script>
         function validovatFormular() {
             var vsechnyCviky = @Html.Raw(Json.Serialize(ViewBag.vsechnyCviky));
+            var cvikNaEdit = @Html.Raw(Json.Serialize(ViewBag.cvikNaEdit));
+
             var nazevcviku = document.getElementById("nazevcviku").value;
             var partiecviku = document.getElementById("partiecviku").value;
             var popisek = document.getElementById("popisek").value;
 
-            if (vsechnyCviky.some(cvik => cvik.název === nazevcviku)) {
-                alert("Tento cvik už je vytvořen");
-                return false;
+            var cvikSeStejnymNazvem = vsechnyCviky.filter(cvik => cvik.nazev === nazevcviku);
+            //console.log(cvikSeStejnymNazvem);
+            if (cvikSeStejnymNazvem) {
+                if (cvikSeStejnymNazvem.length === 1) {
+                    if (cvikSeStejnymNazvem[0].cvikId === cvikNaEdit.cvikId) {
+
+                    } else {
+                        alert("Tento cvik už je vytvořen");
+                        return false;
+                    }
+                } 
             }
+
+            // if (vsechnyCviky.some(cvik => cvik.nazev === nazevcviku)) {
+            //     alert("Tento cvik už je vytvořen");
+            //     return false;
+            // }
 
             if (nazevcviku.length < 1 || nazevcviku.length > 200) {
                 alert("Zadejte platný název cviku");
