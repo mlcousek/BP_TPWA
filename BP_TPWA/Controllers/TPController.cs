@@ -82,7 +82,17 @@ namespace BP_TPWA.Controllers
 
                 List<DateTime> dataTréninků = new List<DateTime>();
 
-                DateTime startovacíDatum = DateTime.Now.Date.AddDays(-28);
+                DateTime startovacíDatum;
+                DateTime tedka = DateTime.Now.Date;
+                if(tedka.DayOfWeek == DayOfWeek.Monday)
+                {
+                    startovacíDatum = DateTime.Now.Date.AddDays(-21);
+                }
+                else
+                {
+                    startovacíDatum = DateTime.Now.Date.AddDays(-28);
+                }
+
                 DayOfWeek dnes = startovacíDatum.DayOfWeek;
                 int dnyDoPondeli = (7 + (int)DayOfWeek.Monday - (int)dnes) % 7;
                 startovacíDatum = startovacíDatum.AddDays(dnyDoPondeli);
