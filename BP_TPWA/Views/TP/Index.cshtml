@@ -341,12 +341,9 @@
             var dobre = 1;
             datacviku.forEach(function (zaznam) {
 
-                // if (uzivatelData[0].tpId === treninkoveData[i].tPId) {
-                //potrebuju aktualni tPId od uzivatele, ktery ma stejnt id jako zaznam.uzivatelId
-                    if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) { //musim si ulozit v treninkoe dataten tp id a pak porovnavat to
-                         // console.log(zaznam.tpId);
-                         // console.log(treninkoveData[i].tpId);
-                         // console.log(treninkoveData[i]);
+
+                    if (zaznam.datum.toString().substring(0, 10) === treninkoveData[i].datumTreninku.toString().substring(0, 10)) {
+
                         if (zaznam.tpId === treninkoveData[i].tpId) {
                             
                             if (!idCvikuVPlanu.includes(zaznam.cvikId)) {
@@ -360,8 +357,6 @@
             cvikIdecka = cvikIdecka.sort((a, b) => a - b);
             idCvikuVPlanu = idCvikuVPlanu.sort((a, b) => a - b);
 
-            // console.log(cvikIdecka);
-            // console.log(idCvikuVPlanu);
 
 
             if (idCvikuVPlanu.length === cvikIdecka.length) {

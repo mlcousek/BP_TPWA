@@ -2777,20 +2777,6 @@ namespace BP_TPWA.Controllers
                         .ToListAsync();
                     denTreninkuSCvikem[0].Cviky.RemoveAll(c => c.CvikId == cvikCoJePotrebaUpravit[0].CvikId);
 
-
-
-                    //var typTreninkuZkratka = TypTreninkuHelper.GetTypTreninkuZkratka(TP[0], denTreninkuSCvikem[0].TypTreninku);
-
-
-                    //int indexUpravy = cvikCoJePotrebaUpravit[0].TypyTreninku.IndexOf(typTreninkuZkratka);
-
-                    //if (indexUpravy != -1)
-                    //{
-                    //    cvikCoJePotrebaUpravit[0].TypyTreninku.RemoveAt(indexUpravy);
-                    //    cvikCoJePotrebaUpravit[0].PočtyOpakování.RemoveAt(indexUpravy);
-                    //    cvikCoJePotrebaUpravit[0].PočtySérií.RemoveAt(indexUpravy);
-                    //    cvikCoJePotrebaUpravit[0].PauzyMeziSériemi.RemoveAt(indexUpravy);
-
                     await _context.SaveChangesAsync();
                     var denTreninkuSCvikem1 = await _context.DenTreninku
                        .Where(t => t.DatumTreninku == novyDatum)
@@ -2804,9 +2790,6 @@ namespace BP_TPWA.Controllers
                     bool existujeCvik = denTreninkuSCvikem1[0].Cviky.Any();
                     if(existujeCvik == false)
                     {
-                        //vsechnyDnyTreninku.Remove(denTreninkuSCvikem1[0]);
-
-                        // Odstraňte den i z kontextu, aby byl odstraněn z databáze
                         _context.DenTreninku.Remove(denTreninkuSCvikem1[0]);
 
                         // Uložte změny do databáze

@@ -116,46 +116,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-@*     <script>
-            var testovaciData = @Html.Raw(Json.Serialize(ViewBag.TestovaciData));
-        if (testovaciData === 1) {
-
-            window.onload = function () {
-
-                //console.log(@ViewBag.AutoSubmit);
-                // Zkontrolujte, zda máme signál k automatickému odeslání
-
-                var autoSubmit = @Html.Raw(Json.Serialize(ViewBag.AutoSubmit));// ? true : false;
-                console.log(autoSubmit);
-                if (autoSubmit === "ano") {
-                    console.log(autoSubmit);
-                    // Vyplňte hodnoty podle potřeby
-                    var form = document.querySelector("form");
-                    console.log(form);
-
-                    // Pokud máte předdefinované hodnoty, můžete je zde předvyplnit
-                    document.getElementById("delkaplanu").value = 3;
-                    document.getElementById("druhtp").value = "BSH";
-                    document.getElementById("styltp").value = "VM";
-                    document.getElementById("styltp").value = "VM";
-                    document.getElementById("pocett").value = 4;
-
-                    var checkboxy = document.querySelectorAll('input[type="checkbox"]');
-
-                    
-                        checkboxy[0].checked = true;
-                        checkboxy[2].checked = true;
-                        checkboxy[4].checked = true;
-                        checkboxy[5].checked = true;
-                    
-
-                    // Automaticky odeslat formulář
-                    form.submit();
-                }
-            };
-        }
-    </script> *@
-
     <script>
         function zpetNaVytvorit(){
             window.location.href = "/TP/Index";

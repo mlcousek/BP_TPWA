@@ -573,10 +573,6 @@ namespace BP_TPWA.Controllers
                 ViewBag.treninkoveDny = treninkoveDny;
             }
 
-            //var dnes1 = DateTime.Now;
-            //var denDnes1 = dnes1.DayOfWeek;
-            //var denDnes2 = (int)denDnes1;
-            //ViewBag.DenDnes = denDnes2;
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -888,11 +884,6 @@ namespace BP_TPWA.Controllers
                     }
                 }
             }
-
-            //var dnes1 = DateTime.Now;
-            ////var denDnes1 = dnes1.DayOfWeek;
-            //var denDnes2 = (int)denDnes1;
-            //ViewBag.DenDnes = denDnes2;
 
 
             var dnes = DateTime.Now;

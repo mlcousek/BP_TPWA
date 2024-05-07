@@ -312,7 +312,6 @@
 
                 var početOpakování = document.createElement("p");
                 početOpakování.textContent = "Počet opakování: " + cvik.počtyOpakování[index];
-                // console.log(cvik.počtyOpakování);
                 modalContent.appendChild(početOpakování);
 
 
@@ -405,7 +404,6 @@
                         data: seriesDatac[0],
 
                         success: function (response) {
-                            // console.log("top");
                             $.ajax({
                                 url: '/Cvik/SmazatDataCvikuZDatabazeIDenTreninku',
                                 type: 'POST',
@@ -413,17 +411,13 @@
 
                                 success: function (response) {
                                     if (response.wasDeleted) {
-                                        // Přesměrujte na stránku, která indikuje, že zdroj byl smazán
+                                        
                                         window.location.href = "/TP";
                                     } else {
-                                        // Proveďte jiné akce, pokud zdroj stále existuje
+                                        
                                         location.reload();
                                     }
-                                    // if(cviky === null)
-                                    // {
-                                    //     window.location.href = "/TP";
-                                    // }
-                                    // location.reload();
+
                                 },
                                 error: function (xhr, status, error) {
                                     console.log("chyba pri mazani dat cviku");
@@ -478,7 +472,6 @@ var seriesCount = 1;
 function changeSeriesCount() {
     var newSeriesCount = document.getElementById("series").value;
     seriesCount = parseInt(newSeriesCount);
-    // console.log(seriesCount);
     if (seriesCount < 0) {
         alert("Zadejte prosím platný počet sérií (0 až 50).");
         seriesCount = 0;
@@ -491,7 +484,6 @@ function changeSeriesCount() {
 function changeSeriesCount1(cvik) {
     var newSeriesCount = document.getElementById("series").value;
     seriesCount = parseInt(newSeriesCount);
-    // console.log(seriesCount);
     if (seriesCount < 0) {
         alert("Zadejte prosím platný počet sérií (0 až 50).");
         seriesCount = 0;
